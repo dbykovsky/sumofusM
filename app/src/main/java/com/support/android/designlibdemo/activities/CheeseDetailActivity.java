@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.support.android.designlibdemo;
+package com.support.android.designlibdemo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +26,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.support.android.designlibdemo.Cheeses;
+import com.support.android.designlibdemo.R;
 
 import java.util.Random;
 
@@ -48,6 +50,7 @@ public class CheeseDetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(cheeseName);
+
 
         loadBackdrop();
     }

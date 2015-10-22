@@ -26,4 +26,45 @@
   <string name="checkin">Checkin</string>
   <string name="menu_settings">Settings</string>
 
+
+  //ALBERTO
+
+  <string name="hello_world">Hello world!</string>
+  <string name="action_settings">Settings</string>
+  <color name="red">#FF0000</color>
+  <color name="orange">#FFA500</color>
+  <color name="white">#FFFFFF</color>
+  <string name="player_error">Error initializing YouTube player</string>
+  <string name="seek_to">Jump To</string>
+  <string name="seek_to_hint">Seconds</string>
+  <string name="title_activity_campaign_detail">CampaignDetailActivity</string>
+  <string name="title_activity_add_new_campaign">AddNewCampaignActivity</string>
+  <string name="title_activity_sign_petition">SignPetitionActivity</string>
+  <string name="parse_app_id">LCPA3eHqb1CyiP2pmZGdDXw6I54pZKNCoxTGAsTt</string>
+  <string name="parse_client_key">hweFBlma45UrDKmcRNSlcdG7Fidp6lST0Siu8tcx</string>
+
+  <string name="take_action">Take Action</string>
+  <string name="create_campaign">Create Campaign</string>
+
+
+  <string name="campaign_label">Campaign title</string>
+  <string name="campaign_description">Description</string>
+  <string name="campaign_title">Title</string>
+  <string name="campaign_overview">Overview</string>
+  <string name="campaign_sign_message">Suggested support message</string>
+  <string name="campaign_goal">Supporters goal</string>
+  <string name="campaign_url">Your campaign website</string>
+
+  <string-array name="category_array">
+    <item>Support individual</item>
+    <item>Corruption awareness</item>
+    <item>Share good news</item>
+    <item>Promote common good</item>
+  </string-array>
+
+  <string name="save_button_text">Save</string>
+  <string name="cancel_button_text">Cancel</string>
+  <string name="title_activity_user_profile">UserProfile</string>
+
+
 </resources>
