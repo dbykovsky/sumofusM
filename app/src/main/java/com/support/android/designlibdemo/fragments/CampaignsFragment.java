@@ -23,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +31,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseCrashReporting;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.activities.CheeseDetailActivity;
+import com.support.android.designlibdemo.adapters.CampaignRecyclerViewAdapter;
 import com.support.android.designlibdemo.models.Campaign;
+import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
 
 import java.util.ArrayList;
@@ -48,6 +60,8 @@ public class CampaignsFragment extends Fragment {
 
     private List<Campaign> campaigns;
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +72,6 @@ public class CampaignsFragment extends Fragment {
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
-
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaigns()));
     }
@@ -68,11 +81,12 @@ public class CampaignsFragment extends Fragment {
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
+        //ParseFile parseFile = null;
         for (int i = 0; i <= 10; i++) {
             if(i==4){
-                camp = new Campaign(oneMOreImage, shortDescriptoin, longDescriptoin);
+                camp = new Campaign(oneMOreImage, shortDescriptoin, longDescriptoin, "blah");
             }else {
-                camp = new Campaign(imageUrl, shortDescriptoin, longDescriptoin);
+                camp = new Campaign(imageUrl, shortDescriptoin, longDescriptoin, "bla");
             }
 
             campaigns.add(camp);
@@ -83,86 +97,21 @@ public class CampaignsFragment extends Fragment {
 
 
 
-
-// move this to a separate class
-    public static class CampaignRecyclerViewAdapter
-            extends RecyclerView.Adapter<CampaignRecyclerViewAdapter.ViewHolder> {
-
-        private List<Campaign> mCampaigns;
-
-        public CampaignRecyclerViewAdapter(List<Campaign> campaigns) {
-            mCampaigns = campaigns;
-        }
-
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-
-            public  TextView tvShortCampaignDescription;
-            public  ImageView ivCampaign;
-
-
-            public ViewHolder(View view) {
-                super(view);
-                //tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
-                tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
-                ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
-            }
-
-        }
-
-        public Campaign getValueAt(int position) {
-            return mCampaigns.get(position);
-        }
-
-        public CampaignRecyclerViewAdapter(Context context, List<Campaign> items) {
-            mCampaigns = items;
-        }
-
-
-    @Override
-    public CampaignRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.list_item, parent, false);
-
-        // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-
-        return viewHolder;
-    }
-
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            final Campaign camp =  mCampaigns.get(position);
-
-            holder.tvShortCampaignDescription.setText(camp.getShortDescription());
-
-            Picasso.with(holder.ivCampaign.getContext()).
-                    load("http://pngimg.com/upload/rose_PNG652.png").resize(200, 100).
-                    into(holder.ivCampaign);
-
-            Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).
-                    resize(DeviceDimensionsHelper.getDisplayWidth(holder.ivCampaign.getContext()), 0).into(holder.ivCampaign);
-
-
-            holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(holder.ivCampaign.getContext(), CheeseDetailActivity.class);
-                   // i.putExtra("camp", camp);
-                    holder.ivCampaign.getContext().startActivity(i);
-
+/*    public List<Campaign> populateCampaignsParse() {
+        ParseQuery<CampaignParse> query = ParseQuery.getQuery(CampaignParse.class);
+        query.findInBackground(new FindCallback<CampaignParse>() {
+            @Override
+            public void done(List<CampaignParse> list, ParseException e) {
+                for (CampaignParse c : list) {
+                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    campaigns.add(camp);
+                    Log.d("DEBUG:", c.getDescription());
                 }
-            });
+                //adapterCampaigns.addAll();
+            }
+        });
 
+        return campaigns;
+    }*/
 
-        }
-
-        @Override
-        public int getItemCount() {
-            return mCampaigns.size();
-        }
-    }
 }

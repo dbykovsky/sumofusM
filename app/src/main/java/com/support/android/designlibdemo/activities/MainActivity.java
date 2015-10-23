@@ -34,8 +34,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseCrashReporting;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.fragments.VideosFragment;
+import com.support.android.designlibdemo.models.CampaignParse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        //setupParse();
     }
 
     @Override
@@ -102,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new CampaignsFragment(), "Category 1");
-        adapter.addFragment(new CampaignsFragment(), "Category 2");
+        adapter.addFragment(new CampaignsFragment(), "Campaigns");
+        adapter.addFragment(new VideosFragment(), "Watch");
         adapter.addFragment(new CampaignsFragment(), "Category 3");
         viewPager.setAdapter(adapter);
     }
@@ -148,4 +157,28 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitles.get(position);
         }
     }
+
+    public void setupParse() {
+        // Initializing Crash Reporting.
+        ParseCrashReporting.enable(this);
+
+        // Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        // Initialization code
+        //ParseObject.registerSubclass(Supporter.class);
+        ParseObject.registerSubclass(CampaignParse.class);
+        Parse.initialize(this);
+        ParseUser.enableAutomaticUser();
+
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+        //  Public read access.
+        // defaultACL.setPublicReadAccess(true);
+        //ParseACL.setDefaultACL(defaultACL, true);
+        // ParseAnalytics.trackAppOpenedInBackground(getIntent());
+    }
+
+
+
 }
