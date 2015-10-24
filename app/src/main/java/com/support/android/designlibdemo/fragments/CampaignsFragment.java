@@ -70,10 +70,11 @@ public class CampaignsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        if (ParseCrashReporting.isCrashReportingEnabled()) {
-            populateCampaignsParse();
-        }
+        populateCampaignsParse();
 
+/*        if (ParseCrashReporting.isCrashReportingEnabled()) {
+            populateCampaignsParse();
+        }*/
 
     }
 
