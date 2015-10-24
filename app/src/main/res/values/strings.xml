@@ -85,5 +85,9 @@
   <string name="progress_login">Logging you in&#8230;</string>
   <string name="progress_signup">Signing you up&#8230;</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="image_url">Campaign image URL (jpg or png)</string>
+
 
 </resources>

@@ -70,11 +70,9 @@ public class CampaignsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        populateCampaignsParse();
-
-/*        if (ParseCrashReporting.isCrashReportingEnabled()) {
+        if (ParseCrashReporting.isCrashReportingEnabled()) {
             populateCampaignsParse();
-        }*/
+        }
 
     }
 
@@ -82,6 +80,7 @@ public class CampaignsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        populateCampaignsParse();
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_campaigns_list, container, false);
         setupRecyclerView(rv);
@@ -96,7 +95,7 @@ public class CampaignsFragment extends Fragment {
     }
 
 
-   /* //This is a helper method when backend is not working
+    //This is a helper method when backend is not working
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
@@ -112,7 +111,6 @@ public class CampaignsFragment extends Fragment {
         }
         return campaigns;
     }
-*/
 
 
 
@@ -125,35 +123,14 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
-                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
+                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
                 adapter.notifyDataSetChanged();
-
             }
         });
 
         return campaigns;
     }
-
-
-    private void setupParse() {
-        // Initializing Crash Reporting.
-        ParseCrashReporting.enable(getContext());
-
-        // Local Datastore.
-        Parse.enableLocalDatastore(getContext());
-
-        // Initialization code
-        //ParseObject.registerSubclass(Supporter.class);
-        ParseObject.registerSubclass(CampaignParse.class);
-        Parse.initialize(getContext());
-        ParseUser.enableAutomaticUser();
-
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-    }
-
 }
