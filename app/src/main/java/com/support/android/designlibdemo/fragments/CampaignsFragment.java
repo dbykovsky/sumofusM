@@ -62,7 +62,6 @@ public class CampaignsFragment extends Fragment {
     String longDescriptoin = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.";
 
     private List<Campaign> campaigns;
-
     private CampaignRecyclerViewAdapter adapter;
 
     @Override
@@ -70,10 +69,6 @@ public class CampaignsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        if (!ParseCrashReporting.isCrashReportingEnabled()) {
-
-            //setupParse();
-        }
         populateCampaignsParse();
 
 
@@ -83,7 +78,6 @@ public class CampaignsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        populateCampaignsParse();
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_campaigns_list, container, false);
         setupRecyclerView(rv);
@@ -92,12 +86,14 @@ public class CampaignsFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-      //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
-        recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), campaigns));
+
+        adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
+        recyclerView.setAdapter(adapter);
     }
 
 
     //This is a helper method when backend is not working
+/*
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
@@ -113,6 +109,7 @@ public class CampaignsFragment extends Fragment {
         }
         return campaigns;
     }
+*/
 
 
 
@@ -125,16 +122,13 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
-                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
+                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
+                adapter.notifyDataSetChanged();
 
-                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
-                // adapterCampaigns.notifyDataSetChanged();  // Crashes
-
-                // adapterCampaigns.addAll();  // We need this
             }
         });
 
