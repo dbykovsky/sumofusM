@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //if we don't have this statement it will crash the APP
         if (!ParseCrashReporting.isCrashReportingEnabled()) {
 
-            setupParse();
+           // setupParse();
 
         }
 
