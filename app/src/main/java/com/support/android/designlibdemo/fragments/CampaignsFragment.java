@@ -71,7 +71,7 @@ public class CampaignsFragment extends Fragment {
 
         if (!ParseCrashReporting.isCrashReportingEnabled()) {
 
-            setupParse();
+            //setupParse();
         }
         populateCampaignsParse();
 
