@@ -62,6 +62,7 @@ public class CampaignsFragment extends Fragment {
     String longDescriptoin = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.";
 
     private List<Campaign> campaigns;
+
     private CampaignRecyclerViewAdapter adapter;
 
     @Override
@@ -69,7 +70,9 @@ public class CampaignsFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        populateCampaignsParse();
+        if (ParseCrashReporting.isCrashReportingEnabled()) {
+            populateCampaignsParse();
+        }
 
 
     }
@@ -86,7 +89,7 @@ public class CampaignsFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-
+      //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
         adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
         recyclerView.setAdapter(adapter);
     }
@@ -133,6 +136,24 @@ public class CampaignsFragment extends Fragment {
         });
 
         return campaigns;
+    }
+
+
+    private void setupParse() {
+        // Initializing Crash Reporting.
+        ParseCrashReporting.enable(getContext());
+
+        // Local Datastore.
+        Parse.enableLocalDatastore(getContext());
+
+        // Initialization code
+        //ParseObject.registerSubclass(Supporter.class);
+        ParseObject.registerSubclass(CampaignParse.class);
+        Parse.initialize(getContext());
+        ParseUser.enableAutomaticUser();
+
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
     }
 
 }

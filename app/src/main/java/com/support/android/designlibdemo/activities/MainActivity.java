@@ -16,6 +16,7 @@
 
 package com.support.android.designlibdemo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -57,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //if we don't have this statement it will crash the APP
-        if (!ParseCrashReporting.isCrashReportingEnabled()) {
-
-           // setupParse();
-
-        }
 
 
 
@@ -130,13 +124,52 @@ public class MainActivity extends AppCompatActivity {
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the planet to show based on
+        // position
+        Fragment fragment = null;
+
+        Class fragmentClass;
+        switch (menuItem.getItemId()) {
+            case R.id.Profile:
+                //fragmentClass = UserProfileFragment.class;
+                Intent profileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
+                startActivity(profileActivity);
+                break;
+       /*     case R.id.family_guy:
+                fragmentClass = FamilyGuyFragment.class;
+                break;
+            case R.id.simpsons:
+                fragmentClass = SimpsonsFragment.class;
+                break;*/
+            default:
+                fragmentClass = MainActivity.class;
+        }
+
+        try {
+            //fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+       // fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+        // Highlight the selected item, update the title, and close the drawer
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawerLayout.closeDrawers();
+
     }
 
     static class Adapter extends FragmentPagerAdapter {
@@ -168,24 +201,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupParse() {
-        // Initializing Crash Reporting.
-        ParseCrashReporting.enable(this);
-
-        // Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        // Initialization code
-        //ParseObject.registerSubclass(Supporter.class);
-        ParseObject.registerSubclass(CampaignParse.class);
-        Parse.initialize(this);
-        ParseUser.enableAutomaticUser();
-
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-        //  Public read access.
-        // defaultACL.setPublicReadAccess(true);
-        //ParseACL.setDefaultACL(defaultACL, true);
-        // ParseAnalytics.trackAppOpenedInBackground(getIntent());
-    }
 }
