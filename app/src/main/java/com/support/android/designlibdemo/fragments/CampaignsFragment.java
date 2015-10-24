@@ -62,6 +62,7 @@ public class CampaignsFragment extends Fragment {
     String longDescriptoin = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.";
 
     private List<Campaign> campaigns;
+<<<<<<< HEAD
     private CampaignRecyclerViewAdapter adapter;
 
     @Override
@@ -77,6 +78,8 @@ public class CampaignsFragment extends Fragment {
 
 
     }
+=======
+>>>>>>> f04f2f170a60b1085a1724aa87656b240f0263c1
 
     @Nullable
     @Override
@@ -91,8 +94,7 @@ public class CampaignsFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
       //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
-        adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), campaigns));
     }
 
 
@@ -129,29 +131,15 @@ public class CampaignsFragment extends Fragment {
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
-                adapter.notifyDataSetChanged();
+
+                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
+                // adapterCampaigns.notifyDataSetChanged();  // Crashes
+
+               // adapterCampaigns.addAll();  // We need this
             }
         });
 
         return campaigns;
-    }
-
-
-    private void setupParse() {
-        // Initializing Crash Reporting.
-        ParseCrashReporting.enable(getContext());
-
-        // Local Datastore.
-        Parse.enableLocalDatastore(getContext());
-
-        // Initialization code
-        ParseObject.registerSubclass(CampaignParse.class);
-        Parse.initialize(getContext());
-        ParseUser.enableAutomaticUser();
-
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-
     }
 
 }
