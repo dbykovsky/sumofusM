@@ -69,18 +69,13 @@ public class CampaignsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        if (ParseCrashReporting.isCrashReportingEnabled()) {
-            populateCampaignsParse();
-        }
-
+        populateCampaignsParse();
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        populateCampaignsParse();
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_campaigns_list, container, false);
         setupRecyclerView(rv);
@@ -95,7 +90,7 @@ public class CampaignsFragment extends Fragment {
     }
 
 
-    //This is a helper method when backend is not working
+/*    //This is a helper method when backend is not working
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
@@ -110,8 +105,7 @@ public class CampaignsFragment extends Fragment {
             campaigns.add(camp);
         }
         return campaigns;
-    }
-
+    }*/
 
 
 
@@ -123,9 +117,9 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
+                    Campaign camp = new Campaign(c.getTitle(),c.getSignMessage(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
                     campaigns.add(camp);
-                    Log.d("DEBUG:", c.getDescription());
+                    Log.d("DEBUG:", c.getOverview());
                 }
                 adapter.notifyDataSetChanged();
             }

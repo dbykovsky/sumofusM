@@ -29,14 +29,13 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        ivUserProfile = (ImageView) findViewById(R.id.ivProfilePic);
+        ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
         userName = (TextView) findViewById(R.id.tv_user_name);
         userEmail = (TextView) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (TextView) findViewById(R.id.tv_userPhone);
 
 
         //making user profile photo oval
-   /*    ivUserProfile.setImageResource(0);
         Transformation transformation = new RoundedTransformationBuilder()
                 .borderColor(this.getResources().getColor(R.color.grey_200))
                 .borderWidthDp(3)
@@ -49,7 +48,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 .load(userProfilePhotoUrl).resize(400, 400)
                 .transform(transformation)
                 .into(ivUserProfile);
-*/
     }
 
     @Override
