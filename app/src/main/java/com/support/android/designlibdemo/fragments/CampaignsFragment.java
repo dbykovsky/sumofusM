@@ -62,6 +62,21 @@ public class CampaignsFragment extends Fragment {
     String longDescriptoin = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.";
 
     private List<Campaign> campaigns;
+    private CampaignRecyclerViewAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        if (!ParseCrashReporting.isCrashReportingEnabled()) {
+
+            setupParse();
+        }
+        populateCampaignsParse();
+
+
+    }
 
     @Nullable
     @Override
@@ -76,7 +91,8 @@ public class CampaignsFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
       //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
-        recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), campaigns));
+        adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -113,15 +129,29 @@ public class CampaignsFragment extends Fragment {
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
-
-                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
-                // adapterCampaigns.notifyDataSetChanged();  // Crashes
-
-               // adapterCampaigns.addAll();  // We need this
+                adapter.notifyDataSetChanged();
             }
         });
 
         return campaigns;
+    }
+
+
+    private void setupParse() {
+        // Initializing Crash Reporting.
+        ParseCrashReporting.enable(getContext());
+
+        // Local Datastore.
+        Parse.enableLocalDatastore(getContext());
+
+        // Initialization code
+        ParseObject.registerSubclass(CampaignParse.class);
+        Parse.initialize(getContext());
+        ParseUser.enableAutomaticUser();
+
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+
     }
 
 }

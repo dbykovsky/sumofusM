@@ -58,14 +58,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //if we don't have this statement it will crash the APP
-        if (!ParseCrashReporting.isCrashReportingEnabled()) {
-
-            setupParse();
-
-        }
-
-
 
     setContentView(R.layout.activity_main);
 
