@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_title"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/campaign_title" />
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_overview"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/campaign_overview"
+        />
+
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_description"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/campaign_description"
+        android:textIsSelectable="true" />
+
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_sign_message"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_sign_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/campaign_sign_message"
+        />
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_goal"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/campaign_goal"
+        android:numeric="integer" />
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/campaign_url"
+        android:textSize="10sp" /-->
+
+    <EditText
+        android:id="@+id/campaign_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/campaign_url"
+        />
+
+    <EditText
+        android:id="@+id/image_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/image_url"
+        android:textIsSelectable="true"
+        android:editable="true" />
+
+    <Spinner
+        android:id="@+id/categories_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_button_text"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button_text"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:id="@+id/photo_button"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_camera"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

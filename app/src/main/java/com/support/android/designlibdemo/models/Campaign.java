@@ -28,6 +28,10 @@ public class Campaign implements Serializable{
 
     }
 
+    public Campaign() {
+        setupDefaultValues();
+    }
+
 
     public String getLongDescription() {
         return longDescription;
@@ -80,7 +84,9 @@ public class Campaign implements Serializable{
         this.imageMain = imageMain;
     }
 
-
+    private void setupDefaultValues() {
+        // Add hardcoded campaigns
+    }
 
     private String campText2 = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.\n" +
             "\n" +

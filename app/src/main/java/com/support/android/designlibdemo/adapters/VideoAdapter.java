@@ -70,7 +70,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
             @Override
             public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-                Toast.makeText(mContext,"Initialization is fucked", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,"Problems during initialization", Toast.LENGTH_LONG).show();
             }
         });
 
