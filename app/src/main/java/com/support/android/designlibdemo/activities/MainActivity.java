@@ -58,12 +58,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //if we don't have this statement it will crash the APP
-        if (!ParseCrashReporting.isCrashReportingEnabled()) {
-
-            setupParse();
-
-        }
 
 
 
@@ -168,24 +162,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupParse() {
-        // Initializing Crash Reporting.
-        ParseCrashReporting.enable(this);
 
-        // Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        // Initialization code
-        //ParseObject.registerSubclass(Supporter.class);
-        ParseObject.registerSubclass(CampaignParse.class);
-        Parse.initialize(this);
-        ParseUser.enableAutomaticUser();
-
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-        //  Public read access.
-        // defaultACL.setPublicReadAccess(true);
-        //ParseACL.setDefaultACL(defaultACL, true);
-        // ParseAnalytics.trackAppOpenedInBackground(getIntent());
-    }
 }
