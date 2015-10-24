@@ -95,8 +95,7 @@ public class CampaignsFragment extends Fragment {
     }
 
 
-    //This is a helper method when backend is not working
-/*
+   /* //This is a helper method when backend is not working
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
