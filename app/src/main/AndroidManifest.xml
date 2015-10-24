@@ -14,18 +14,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-
-
-
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.support.android.designlibdemo">
-
+    package="com.support.android.designlibdemo" >
 
     <!-- Permission to vibrate - recommended, allows vibration feedback on scan -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,19 +28,23 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Camera features - recommended -->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
 
     <!-- android:name=".ParseApplication.ParseApp" -->
     <application
+        android:name=".ParseApplication.ParseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.DesignDemo"
-        android:name=".ParseApplication.ParseApp">
-
+        android:theme="@style/Theme.DesignDemo" >
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
@@ -55,9 +52,10 @@
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_client_key" />
 
-        <activity android:name=".activities.DispatchActivity">
+        <activity android:name=".activities.DispatchActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -66,10 +64,11 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
         </activity>
-
-        <activity android:name=".activities.CheeseDetailActivity"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+        <activity
+            android:name=".activities.CheeseDetailActivity"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
         <!-- Login Activities -->
@@ -78,6 +77,13 @@
         <activity android:name=".activities.SignUpActivity" >
         </activity>
 
+        <!-- User Activities -->
+        <activity
+            android:name=".activities.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
+            android:theme="@style/AppTheme2"
+            >
+        </activity>
     </application>
 
 </manifest>
