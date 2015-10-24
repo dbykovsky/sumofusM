@@ -62,6 +62,24 @@ public class CampaignsFragment extends Fragment {
     String longDescriptoin = "Standard Chartered, a massive international bank, is about to bankroll a Malaysian palm oil producer responsible for horrific slave-labour conditions and widespread environmental destruction.";
 
     private List<Campaign> campaigns;
+<<<<<<< HEAD
+    private CampaignRecyclerViewAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        if (!ParseCrashReporting.isCrashReportingEnabled()) {
+
+            //setupParse();
+        }
+        populateCampaignsParse();
+
+
+    }
+=======
+>>>>>>> f04f2f170a60b1085a1724aa87656b240f0263c1
 
     @Nullable
     @Override
