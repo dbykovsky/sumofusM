@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +50,7 @@ import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +63,10 @@ public class CampaignsFragment extends Fragment {
 
     private List<Campaign> campaigns;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        populateCampaignsParse();
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_campaigns_list, container, false);
         setupRecyclerView(rv);
@@ -73,7 +75,8 @@ public class CampaignsFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaigns()));
+      //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
+        recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), campaigns));
     }
 
 
@@ -97,21 +100,28 @@ public class CampaignsFragment extends Fragment {
 
 
 
-/*    public List<Campaign> populateCampaignsParse() {
+    public List<Campaign> populateCampaignsParse() {
+        campaigns = new ArrayList<>();
+
         ParseQuery<CampaignParse> query = ParseQuery.getQuery(CampaignParse.class);
         query.findInBackground(new FindCallback<CampaignParse>() {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
-                //adapterCampaigns.addAll();
+
+                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
+                // adapterCampaigns.notifyDataSetChanged();  // Crashes
+
+               // adapterCampaigns.addAll();  // We need this
             }
         });
 
         return campaigns;
-    }*/
+    }
 
 }

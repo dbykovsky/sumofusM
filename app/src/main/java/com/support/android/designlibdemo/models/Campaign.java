@@ -22,8 +22,9 @@ public class Campaign implements Serializable{
         shortDescription=sDescription;
         longDescription=lDescription;
        // longDescription=campText;
-        objectId=objId;
+      //  objectId=objId;
         //imageUrl = getImageMainUrl(mainUrl);
+        objectId = objId;
 
     }
 
