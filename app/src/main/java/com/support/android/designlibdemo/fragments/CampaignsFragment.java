@@ -81,6 +81,7 @@ public class CampaignsFragment extends Fragment {
 
 
     //This is a helper method when backend is not working
+/*
     public List<Campaign> populateCampaigns() {
         campaigns = new ArrayList<>();
         Campaign camp;
@@ -96,6 +97,7 @@ public class CampaignsFragment extends Fragment {
         }
         return campaigns;
     }
+*/
 
 
 
@@ -108,16 +110,12 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
-                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
+                    Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
 
-                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
-                // adapterCampaigns.notifyDataSetChanged();  // Crashes
-
-               // adapterCampaigns.addAll();  // We need this
             }
         });
 
