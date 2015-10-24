@@ -57,7 +57,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        //if we don't have this statement it will crash the APP
+        if (!ParseCrashReporting.isCrashReportingEnabled()) {
+
+            setupParse();
+
+        }
+
+
+
+    setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -158,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setupParse() {
+    private void setupParse() {
         // Initializing Crash Reporting.
         ParseCrashReporting.enable(this);
 
@@ -178,7 +188,4 @@ public class MainActivity extends AppCompatActivity {
         //ParseACL.setDefaultACL(defaultACL, true);
         // ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
-
-
-
 }
