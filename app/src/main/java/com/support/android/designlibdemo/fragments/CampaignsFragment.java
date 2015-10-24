@@ -123,38 +123,14 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    //Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
                     Campaign camp = new Campaign(c.getCampaignUrl(), c.getOverview(), c.getDescription(), c.getObjectId());
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getDescription());
                 }
                 adapter.notifyDataSetChanged();
-                // TODO: WE NEED TO NOTIFY ABOUT THE CHANGE
-                // adapterCampaigns.notifyDataSetChanged();  // Crashes
-
-                // adapterCampaigns.addAll();  // We need this
             }
         });
 
         return campaigns;
     }
-
-
-    private void setupParse() {
-        // Initializing Crash Reporting.
-        ParseCrashReporting.enable(getContext());
-
-        // Local Datastore.
-        Parse.enableLocalDatastore(getContext());
-
-        // Initialization code
-        //ParseObject.registerSubclass(Supporter.class);
-        ParseObject.registerSubclass(CampaignParse.class);
-        Parse.initialize(getContext());
-        ParseUser.enableAutomaticUser();
-
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-    }
-
 }
