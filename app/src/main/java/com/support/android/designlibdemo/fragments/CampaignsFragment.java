@@ -16,8 +16,6 @@
 
 package com.support.android.designlibdemo.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,30 +25,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
-import com.support.android.designlibdemo.activities.CheeseDetailActivity;
 import com.support.android.designlibdemo.adapters.CampaignRecyclerViewAdapter;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
-import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +50,6 @@ public class CampaignsFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         populateCampaignsParse();
     }
@@ -84,7 +66,6 @@ public class CampaignsFragment extends Fragment {
 
     private void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-      //  recyclerView.setAdapter(new CampaignRecyclerViewAdapter(getActivity(), populateCampaignsParse()));
         adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
         recyclerView.setAdapter(adapter);
     }
@@ -117,7 +98,7 @@ public class CampaignsFragment extends Fragment {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
                 for (CampaignParse c : list) {
-                    Campaign camp = new Campaign(c.getTitle(),c.getSignMessage(), c.getOverview(), c.getDescription(), c.getObjectId(), c.getmainImageMain());
+                    Campaign camp = new Campaign(c);
                     campaigns.add(camp);
                     Log.d("DEBUG:", c.getOverview());
                 }

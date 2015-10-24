@@ -17,6 +17,7 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,7 +41,7 @@
             app:expandedTitleMarginEnd="64dp">
 
             <ImageView
-                android:id="@+id/backdrop"
+                android:id="@+id/ivCampaighnImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -80,15 +81,23 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tvCampaignGoal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Info"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+
+                    <com.support.android.designlibdemo.utils.CustomProgress
+                        android:id="@+id/pbGoal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:layout_height="25dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+                        android:layout_alignParentLeft="true"
+                        />
 
                 </LinearLayout>
 
@@ -109,13 +118,16 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Friends"
+                        android:text="Compaign details:"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
+                        android:id="@+id/tvCampaignDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:text="test text details"
+                        android:autoLink="web"
+                        />
 
                 </LinearLayout>
 
@@ -133,20 +145,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Related"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+                    <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/cheese_ipsum" />
+                        android:text="TAKE AN ACTION"
+                        android:textColor="@color/white"
+                        android:id="@+id/btTakeActionDetail"
+                        android:background="@color/orange"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+
+                        />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
+
+
+
+
 
         </LinearLayout>
 
@@ -157,7 +176,7 @@
         android:layout_width="wrap_content"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_discuss"
+        android:src="@mipmap/ic_share_white"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"/>
 

@@ -65,7 +65,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activities.CheeseDetailActivity"
+            android:name=".activities.CampaignDetailActivity"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

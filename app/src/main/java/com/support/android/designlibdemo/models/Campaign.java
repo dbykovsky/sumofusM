@@ -15,22 +15,22 @@ public class Campaign implements Serializable{
     private ParseFile imageMain;
     private String imageMainUrl;
     private String objectId;
-
-
-
+    private int goal;
+    private int goalCount;
     private String message;
-
-
     private String title;
 
-    public Campaign(String sTitle, String sMessage, String sShortDescription, String sLongDescription, String sObjId, ParseFile fMainUrl){
 
-        title = sTitle;
-        message = sMessage;
-        shortDescription=sShortDescription;
-        longDescription=sLongDescription;
-        imageUrl = getImageMainUrl(fMainUrl);
-        objectId = sObjId;
+    public Campaign(CampaignParse parseObject){
+
+        title = parseObject.getTitle();
+        message = parseObject.getSignMessage();
+        shortDescription=parseObject.getOverview();
+        longDescription=parseObject.getDescription();
+        objectId = parseObject.getObjectId();
+        imageUrl = getImageMainUrl(parseObject.getmainImageMain());
+        goal = parseObject.getGoal();
+        goalCount = parseObject.getCurrentSignatureCount();
 
     }
 
@@ -108,6 +108,22 @@ public class Campaign implements Serializable{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getGoalCount() {
+        return goalCount;
+    }
+
+    public void setGoalCount(int goalCount) {
+        this.goalCount = goalCount;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
     }
 
 }
