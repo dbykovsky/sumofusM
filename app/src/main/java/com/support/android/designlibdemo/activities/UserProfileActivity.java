@@ -3,6 +3,7 @@ package com.support.android.designlibdemo.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -48,6 +49,13 @@ public class UserProfileActivity extends AppCompatActivity {
                 .load(userProfilePhotoUrl).resize(400, 400)
                 .transform(transformation)
                 .into(ivUserProfile);
+
+        //Populate current UserName
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.i("SumOfUs USER info", currentUser.getUsername());
+        userName.setText(currentUser.getUsername());
+
+
     }
 
     @Override
