@@ -21,6 +21,15 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/action_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Some title"
+        app:showAsAction="always"
+        >
+
+    </item>
+
 
 
 </menu>
