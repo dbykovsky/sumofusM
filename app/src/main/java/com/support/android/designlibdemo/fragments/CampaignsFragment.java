@@ -60,6 +60,9 @@ public class CampaignsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_campaigns_list, container, false);
+
+
+
         setupRecyclerView(rv);
         return rv;
     }
@@ -69,6 +72,8 @@ public class CampaignsFragment extends Fragment {
         adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
         recyclerView.setAdapter(adapter);
     }
+
+
 
 
 /*    //This is a helper method when backend is not working

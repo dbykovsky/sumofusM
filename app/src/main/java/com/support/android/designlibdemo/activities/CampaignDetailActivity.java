@@ -17,6 +17,7 @@
 package com.support.android.designlibdemo.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -41,6 +44,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
@@ -62,6 +66,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
     ImageView ivCampaignImage;
     TextView tvGoal;
     CustomProgress customProgress;
+    FloatingActionButton floatingCamera;
 
     private Uri photoUri;
     private Bitmap photoBitmap;
@@ -104,6 +109,63 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
         //set goal text
         tvGoal.setText("Campaign goal: "+ String.valueOf(campaign.getGoal()));
+
+
+        //set floating action button
+        FloatingActionButton floatingCamera = (FloatingActionButton) findViewById(R.id.bt_camera);
+        final int[] selection = new int[1];
+
+        floatingCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getSupportFragmentManager();
+                final CameraDialog dialog = CameraDialog.newInstance("Add a new picture:");
+
+                dialog.setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                         selection[0] = which;
+                    }
+                });
+
+                dialog.setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(selection[0]==0){
+                            // create Intent to take a picture and return control to the calling application
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            photoUri = Uri.fromFile(getOutputMediaFile()); // create a file to save the image
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri); // set the image file name
+                            // Start the image capture intent to take photo
+                            startActivityForResult(intent, TAKE_PHOTO_CODE);
+                        }else {
+                            // Take the user to the gallery app
+                            Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
+
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
+
+                dialog.setCancelClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+
+                });
+
+            dialog.show(fm,"TAG_DIALOG");
+
+            }
+
+        });
     }
 
     private void loadBackdrop(final String imageUrl, final ImageView iView) {
@@ -161,23 +223,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.action_take_photo:
-            {
-                // create Intent to take a picture and return control to the calling application
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                photoUri = Uri.fromFile(getOutputMediaFile()); // create a file to save the image
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri); // set the image file name
-                // Start the image capture intent to take photo
-                startActivityForResult(intent, TAKE_PHOTO_CODE);
-            }
-            break;
-            case R.id.action_use_existing:
-            {
-                // Take the user to the gallery app
-                Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(photoGalleryIntent , PICK_PHOTO_CODE);
-            }
-            break;
 
             case R.id.action_share_Facebook:
             {
