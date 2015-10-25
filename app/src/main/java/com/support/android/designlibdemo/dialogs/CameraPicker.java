@@ -6,7 +6,7 @@ package com.support.android.designlibdemo.dialogs;
 public class CameraPicker {
 
     public static String[] optionsPicker = new String[]{
-            "From Camera",
+            "From camera",
             "Select existing",
     };
 }
