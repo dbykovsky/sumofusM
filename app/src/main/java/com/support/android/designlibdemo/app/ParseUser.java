@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParsePush;
 
 public class ParseUser extends Application {
 
@@ -24,5 +25,10 @@ public class ParseUser extends Application {
         // Optionally enable public read access.
         // defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
+        subscribeUserToChannel();
+    }
+
+    private void subscribeUserToChannel() {
+        ParsePush.subscribeInBackground("NewCampaigns");
     }
 }
