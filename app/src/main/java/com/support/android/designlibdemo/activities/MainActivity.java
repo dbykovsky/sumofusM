@@ -16,11 +16,12 @@
 
 package com.support.android.designlibdemo.activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,22 +32,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseCrashReporting;
-import com.parse.ParseObject;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.fragments.VideosFragment;
-import com.support.android.designlibdemo.models.CampaignParse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
-        ((TextView) nav_header.findViewById(R.id.tv_user_name)).setText(currentUser.getUsername());
+
+        ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername());
+
+
         navigationView.addHeaderView(nav_header);
 
         if (navigationView != null) {
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        //setupParse();
+
     }
 
     @Override

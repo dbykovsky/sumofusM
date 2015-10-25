@@ -35,6 +35,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,7 +79,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
     TextView tvGoal;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
-
+    Button btTakeanAction;
 
     private Uri photoUri;
     private Bitmap photoBitmap;
@@ -94,6 +95,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
+        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetail);
 
         //getting intent
         campaign = (Campaign) getIntent().getSerializableExtra("camp");
@@ -154,7 +156,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
                             // Start the image capture intent to take photo
                             startActivityForResult(intent, TAKE_PHOTO_CODE);
                         } else {
-                            // Take the user to the gallery app
+                            // Take the user to the gallery app to pick a photo
                             Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
 
@@ -178,7 +180,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }
 
         });
+
+        //set OnClickListener for signing the petiotion
+        btTakeanAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                startActivity(i);
+            }
+        });
     }
+
+
 
     private void loadBackdrop(final String imageUrl, final ImageView iView) {
         Picasso.with(this).load(imageUrl).into(iView);
@@ -320,8 +334,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
     }
 
 
-
-
     //this is to create picture filename
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -382,6 +394,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         }
         return percentage;
     }
+
 
 
     public List<String> getImagesUploadedByUserForCampaign(String campaignObjectId){
