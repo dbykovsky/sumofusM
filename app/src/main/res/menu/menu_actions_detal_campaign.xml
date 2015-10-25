@@ -7,16 +7,16 @@
         android:id="@+id/action_add_photo"
         android:icon="@android:drawable/ic_menu_camera"
         android:orderInCategory="200"
-        app:showAsAction="always"
-        android:title="Add Photo">
+        android:title="Add Photo"
+        app:showAsAction="always">
 
         <menu>
             <item
                 android:id="@+id/action_take_photo"
-                android:title="Take Photo"/>
+                android:title="Take Photo" />
             <item
                 android:id="@+id/action_use_existing"
-                android:title="Use Existing"/>
+                android:title="Use Existing" />
 
         </menu>
     </item>
@@ -25,11 +25,13 @@
         android:id="@+id/action_share"
         android:icon="@android:drawable/ic_menu_share"
         android:title="Some title"
-        app:showAsAction="always"
-        >
-
-    </item>
-
-
-
-</menu>
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_share_Facebook"
+                android:title="Share with Facebook" />
+            <item
+                android:id="@+id/action_share_other_Apps"
+                android:title="Share with other Apps" />
+        </menu>
+    </item></menu>
