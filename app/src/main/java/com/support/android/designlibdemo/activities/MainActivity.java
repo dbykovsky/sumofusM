@@ -31,9 +31,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -72,7 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        //Populate current UserName
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+        ((TextView) nav_header.findViewById(R.id.tv_user_name)).setText(currentUser.getUsername());
+        navigationView.addHeaderView(nav_header);
+
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
