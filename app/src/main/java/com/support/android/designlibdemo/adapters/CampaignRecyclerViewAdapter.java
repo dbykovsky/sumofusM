@@ -32,7 +32,6 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
         public ViewHolder(View view) {
             super(view);
-            //tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
         }
@@ -42,7 +41,6 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         mCampaigns = items;
         mContext = context;
     }
-
 
 
     @Override
@@ -59,8 +57,6 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
         return viewHolder;
     }
-
-
 
 
     @Override
