@@ -140,6 +140,14 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+
+
     </RelativeLayout>
+
+    <!--com.parse.ParseImageView
+        android:id="@+id/campaign_preview_image"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal" /-->
 
 </LinearLayout>

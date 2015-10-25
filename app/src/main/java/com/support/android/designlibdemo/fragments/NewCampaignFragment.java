@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParsePush;
@@ -40,7 +41,6 @@ public class NewCampaignFragment extends Fragment {
     private TextView campaignUrl;
     private TextView campaignImage;
     private Spinner campaignCategory;
-  //  private ParseImageView campaignImagePreview;
 
 
     @Override
@@ -101,7 +101,7 @@ public class NewCampaignFragment extends Fragment {
                 campaign.setCategory(campaignCategory.getSelectedItem().toString());
 
                 // Associate the campaign with the current user
-                //  campaign.setAuthor(ParseUser.getCurrentUser());
+                campaign.setAuthor();
 
                 // When the user clicks "Save," upload the campaign to Parse
                 // If the user added a photo, that data will be
@@ -139,6 +139,8 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
+       // campaignImagePreview = (ParseImageView) v.findViewById(R.id.campaign_preview_image);
+       // campaignImagePreview.setVisibility(View.INVISIBLE);
 
         return v;
     }
@@ -152,23 +154,26 @@ public class NewCampaignFragment extends Fragment {
         transaction.commit();
     }
 
-    /*
+
     @Override
     public void onResume() {
         super.onResume();
         ParseFile photoFile = ((NewCampaignActivity) getActivity())
-                .getCurrentCampaign().getPhotoFile();
+                .getCurrentCampaign().getmainImageMain();
         if (photoFile != null) {
-            mealPreview.setParseFile(photoFile);
-            mealPreview.loadInBackground(new GetDataCallback() {
+            // Allow user to preview photo before saving... Currently Preview Module stops compiling after a few successful builds.
+            
+           // campaignImagePreview.setParseFile(photoFile);
+          /*  campaignImagePreview.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] data, ParseException e) {
-                    mealPreview.setVisibility(View.VISIBLE);
+                    campaignImagePreview.setVisibility(View.VISIBLE);
                 }
             });
+            */
         }
     }
-*/
+
     private void sendPushNotification() {
         ParsePush push = new ParsePush();
         push.setChannel("NewCampaigns");
