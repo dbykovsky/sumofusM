@@ -81,8 +81,9 @@
         <activity
             android:name=".activities.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme2"
-            >
+            android:theme="@style/AppTheme2" >
+        </activity>
+        <activity android:name=".activities.NewCampaignActivity" >
         </activity>
     </application>
 
