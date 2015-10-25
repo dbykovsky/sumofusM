@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createNewCampaign();
             }
         });
 
@@ -199,6 +198,11 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
         }
+    }
+
+    private void createNewCampaign() {
+        Intent i = new Intent(this, NewCampaignActivity.class);
+        startActivityForResult(i, 0);
     }
 
 }

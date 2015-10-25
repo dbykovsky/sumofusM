@@ -1,110 +1,179 @@
 package com.support.android.designlibdemo.fragments;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.activities.NewCampaignActivity;
+import com.support.android.designlibdemo.models.CampaignParse;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NewCampaignFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NewCampaignFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class NewCampaignFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ImageButton photoButton;
+    private Button saveButton;
+    private Button cancelButton;
+    private TextView campaignTitle;
+    private TextView campaignDescription;
+    private TextView campaignOverview;
+    private TextView campaignMessage;
+    private TextView campaignGoal;
+    private TextView campaignUrl;
+    private TextView campaignImage;
+    private Spinner campaignCategory;
+  //  private ParseImageView campaignImagePreview;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewCampaignFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NewCampaignFragment newInstance(String param1, String param2) {
-        NewCampaignFragment fragment = new NewCampaignFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public NewCampaignFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_campaign, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View v;
+        v = inflater.inflate(R.layout.fragment_new_campaign, container, false);
+
+        campaignTitle = ((EditText) v.findViewById(R.id.campaign_title));
+        campaignOverview = ((EditText) v.findViewById(R.id.campaign_overview));
+        campaignDescription = ((EditText) v.findViewById(R.id.campaign_description));
+        campaignGoal = ((EditText) v.findViewById(R.id.campaign_goal));
+        campaignMessage = ((EditText) v.findViewById(R.id.campaign_sign_message));
+        campaignUrl = ((EditText) v.findViewById(R.id.campaign_url));
+        campaignImage = ((EditText) v.findViewById(R.id.image_url));
+
+        // The campaignCategory spinner lets people assign a general category for their campaign
+
+        campaignCategory = ((Spinner) v.findViewById(R.id.categories_spinner));
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
+                .createFromResource(getActivity(), R.array.category_array,
+                        android.R.layout.simple_spinner_dropdown_item);
+        campaignCategory.setAdapter(spinnerAdapter);
+
+        photoButton = ((ImageButton) v.findViewById(R.id.photo_button));
+        photoButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getActivity()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(campaignTitle.getWindowToken(), 0);
+                startCamera();
+
+            }
+        });
+
+        saveButton = ((Button) v.findViewById(R.id.save_button));
+        saveButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                CampaignParse campaign = ((NewCampaignActivity) getActivity()).getCurrentCampaign();
+
+                // Add data to the campaign object:
+                campaign.setTitle(campaignTitle.getText().toString());
+                campaign.setOverview(campaignOverview.getText().toString());
+                campaign.setDescription(campaignDescription.getText().toString());
+                campaign.setSignMessage(campaignMessage.getText().toString());
+                campaign.setGoal(Integer.parseInt(campaignGoal.getText().toString()));
+                campaign.setCampaignUrl(campaignUrl.getText().toString());
+                campaign.setImageUrl(campaignImage.getText().toString());
+                campaign.setCategory(campaignCategory.getSelectedItem().toString());
+
+                // Associate the campaign with the current user
+                //  campaign.setAuthor(ParseUser.getCurrentUser());
+
+                // When the user clicks "Save," upload the campaign to Parse
+                // If the user added a photo, that data will be
+                // added in the CameraFragment
+
+                // Save the campaign and return
+                campaign.saveInBackground(new SaveCallback() {
+
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            sendPushNotification();
+
+                            getActivity().setResult(Activity.RESULT_OK);
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(
+                                    getActivity().getApplicationContext(),
+                                    "Error saving: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        cancelButton = ((Button) v.findViewById(R.id.cancel_button));
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getActivity().setResult(Activity.RESULT_CANCELED);
+                getActivity().finish();
+            }
+        });
+
+
+        return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public void startCamera() {
+        Fragment cameraFragment = new CameraFragment();
+        FragmentTransaction transaction = getActivity().getFragmentManager()
+                .beginTransaction();
+        transaction.replace(R.id.fragmentContainer, cameraFragment);
+        transaction.addToBackStack("NewCampaignFragment");
+        transaction.commit();
+    }
+
+    /*
+    @Override
+    public void onResume() {
+        super.onResume();
+        ParseFile photoFile = ((NewCampaignActivity) getActivity())
+                .getCurrentCampaign().getPhotoFile();
+        if (photoFile != null) {
+            mealPreview.setParseFile(photoFile);
+            mealPreview.loadInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    mealPreview.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+*/
+    private void sendPushNotification() {
+        ParsePush push = new ParsePush();
+        push.setChannel("NewCampaigns");
+        push.setMessage("New campaign available!");
+        push.sendInBackground();
     }
 
 }
