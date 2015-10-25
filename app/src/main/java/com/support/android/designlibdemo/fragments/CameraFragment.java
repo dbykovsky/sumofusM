@@ -158,7 +158,7 @@ public class CameraFragment extends Fragment {
      * until we reach that Fragment.
      */
     private void addPhotoToCampaignAndReturn(ParseFile photoFile) {
-        ((NewCampaignActivity) getActivity()).getCurrentCampaign().setOneImage(
+        ((NewCampaignActivity) getActivity()).getCurrentCampaign().setImageMain(
                 photoFile);
         FragmentManager fm = getActivity().getFragmentManager();
         fm.popBackStack("NewCampaignFragment",

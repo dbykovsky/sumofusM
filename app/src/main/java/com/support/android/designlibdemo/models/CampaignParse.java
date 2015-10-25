@@ -7,6 +7,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
@@ -46,6 +47,15 @@ public class CampaignParse extends ParseObject {
 
     public void setDescription(String description) {
         put("description", description);
+    }
+
+    public String getAuthor() {
+        String author = getString("author");
+        return author;
+    }
+
+    public void setAuthor() {
+        put("author", ParseUser.getCurrentUser());
     }
 
 
