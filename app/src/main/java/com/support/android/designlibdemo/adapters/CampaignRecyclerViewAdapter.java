@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
-import com.support.android.designlibdemo.activities.CheeseDetailActivity;
+import com.support.android.designlibdemo.activities.CampaignDetailActivity;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
 
@@ -67,16 +67,16 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Campaign camp =  mCampaigns.get(position);
 
-        holder.tvShortCampaignDescription.setText(camp.getShortDescription());
+        holder.tvShortCampaignDescription.setText(camp.getTitle());
 
-        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).
+        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).placeholder(R.drawable.ic_no_image).
                 resize(DeviceDimensionsHelper.getDisplayWidth(holder.ivCampaign.getContext()), 0).into(holder.ivCampaign);
 
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(holder.ivCampaign.getContext(), CheeseDetailActivity.class);
-                // i.putExtra("camp", camp);
+                Intent i = new Intent(holder.ivCampaign.getContext(), CampaignDetailActivity.class);
+                i.putExtra("camp", camp);
                 holder.ivCampaign.getContext().startActivity(i);
 
             }
