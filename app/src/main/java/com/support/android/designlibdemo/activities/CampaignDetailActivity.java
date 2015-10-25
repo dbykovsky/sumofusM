@@ -178,12 +178,20 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 startActivityForResult(photoGalleryIntent , PICK_PHOTO_CODE);
             }
             break;
-            case  R.id.action_share:
+
+            case R.id.action_share_Facebook:
             {
-                //setupFacebookShareIntent();
+                setupFacebookShareIntent();
+                //Toast.makeText(getApplicationContext(), "sharing with Fcaebook", Toast.LENGTH_LONG).show();
+            }
+            break;
+
+            case R.id.action_share_other_Apps:
+            {
                 setupShareIntent();
             }
             break;
+
         }
         return super.onOptionsItemSelected(item);
     }
