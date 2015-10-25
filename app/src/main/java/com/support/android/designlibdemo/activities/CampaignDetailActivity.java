@@ -35,6 +35,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,18 +43,29 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.models.Campaign;
+
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CampaignDetailActivity extends AppCompatActivity {
@@ -67,10 +79,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
     TextView tvGoal;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
+    Button btTakeanAction;
 
     private Uri photoUri;
     private Bitmap photoBitmap;
-
+    private Campaign campaign;
 
 
     @Override
@@ -82,9 +95,10 @@ public class CampaignDetailActivity extends AppCompatActivity {
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
+        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetail);
 
         //getting intent
-        Campaign campaign = (Campaign) getIntent().getSerializableExtra("camp");
+        campaign = (Campaign) getIntent().getSerializableExtra("camp");
 
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -112,7 +126,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
 
         //set floating action button
-        FloatingActionButton floatingCamera = (FloatingActionButton) findViewById(R.id.bt_camera);
+        floatingCamera = (FloatingActionButton) findViewById(R.id.bt_camera);
         final int[] selection = new int[1];
 
         floatingCamera.setOnClickListener(new View.OnClickListener() {
@@ -134,15 +148,15 @@ public class CampaignDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if(selection[0]==0){
+                        if (selection[0] == 0) {
                             // create Intent to take a picture and return control to the calling application
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             photoUri = Uri.fromFile(getOutputMediaFile()); // create a file to save the image
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri); // set the image file name
                             // Start the image capture intent to take photo
                             startActivityForResult(intent, TAKE_PHOTO_CODE);
-                        }else {
-                            // Take the user to the gallery app
+                        } else {
+                            // Take the user to the gallery app to pick a photo
                             Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
 
@@ -166,7 +180,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }
 
         });
+
+        //set OnClickListener for signing the petiotion
+        btTakeanAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                startActivity(i);
+            }
+        });
     }
+
+
 
     private void loadBackdrop(final String imageUrl, final ImageView iView) {
         Picasso.with(this).load(imageUrl).into(iView);
@@ -182,14 +208,28 @@ public class CampaignDetailActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+
             if (requestCode == TAKE_PHOTO_CODE) {
-                //cropPhoto(photoUri);
 
                 photoBitmap = BitmapFactory.decodeFile(photoUri.getPath());
-                Bitmap resizedImage =  BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
                 ivCampaignImage.getAdjustViewBounds();
                 ivCampaignImage.setScaleType(ImageView.ScaleType.FIT_XY);
-                ivCampaignImage.setImageBitmap(resizedImage);
+                //********** Update parse with image
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile with an image
+                final ParseFile file = new ParseFile("posted_by_user_"+ ParseUser.getCurrentUser().getUsername()+".jpg", image);
+
+                //posting an image file with campaign id to Parse to Images object
+                ParseObject photoPost = new ParseObject("Images");
+                photoPost.put("imagePost", file);
+                photoPost.put("campaignId", campaign.getObjectId());
+                photoPost.saveInBackground();
 
             } else if (requestCode == PICK_PHOTO_CODE) {
 
@@ -203,16 +243,29 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 Bitmap resizedImage =  BitmapScaler.scaleToFitWidth(photoBitmap, 300);
                 ivCampaignImage.getAdjustViewBounds();
                 ivCampaignImage.setScaleType(ImageView.ScaleType.FIT_XY);
-                ivCampaignImage.setImageBitmap(resizedImage);
+                //********** Update parse with image
+                //ivCampaignImage.setImageBitmap(resizedImage);
 
-                //cropPhoto(photoUri);
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile with an image
+                final ParseFile file = new ParseFile("posted_by_user_"+ ParseUser.getCurrentUser().getUsername()+".jpg", image);
+
+                //posting an image file with campaign id to Parse to Images object
+                ParseObject photoPost = new ParseObject("Images");
+                photoPost.put("imagePost", file);
+                photoPost.put("campaignId", campaign.getObjectId());
+                photoPost.saveInBackground();
+
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
 
                 ivCampaignImage.getAdjustViewBounds();
                 ivCampaignImage.setScaleType(ImageView.ScaleType.FIT_XY);
                 ivCampaignImage.setImageBitmap(photoBitmap);
-
                 Toast.makeText(this, "I just took a picture", Toast.LENGTH_LONG).show();
 
             }
@@ -281,8 +334,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
     }
 
 
-
-
     //this is to create picture filename
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -340,8 +391,35 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }else{
                 percentage = (float)((c/g));
             }
-
         }
         return percentage;
     }
+
+
+
+    public List<String> getImagesUploadedByUserForCampaign(String campaignObjectId){
+        final List<String> imageUrls = new ArrayList<>();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Images");
+        // Restrict by campaignId
+        query.whereEqualTo("campaignId", campaignObjectId);
+        // Run the query to find all images associated with a specific Campaign
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+
+                    for (ParseObject photoPost : list) {
+                        imageUrls.add( photoPost.getParseFile("imagePost").getUrl());
+
+                    }
+                }else {
+                    Toast.makeText(CampaignDetailActivity.this, "Something wrong while trying to get list of image URL's", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        return imageUrls;
+    }
+
 }

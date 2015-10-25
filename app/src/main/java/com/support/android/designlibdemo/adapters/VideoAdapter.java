@@ -1,6 +1,7 @@
 package com.support.android.designlibdemo.adapters;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -19,6 +20,7 @@ import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.activities.MainActivity;
 import com.support.android.designlibdemo.utils.ConfigYouT;
 
 /**
@@ -100,7 +102,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity)mContext,
+            Intent intent = YouTubeStandalonePlayer.createVideoIntent((MainActivity) mContext,
                     ConfigYouT.YOUTUBE_API_KEY,
                     VideoID[getLayoutPosition()]);
             mContext.startActivity(intent);

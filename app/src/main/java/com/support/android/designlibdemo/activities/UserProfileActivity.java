@@ -31,7 +31,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
-        userName = (TextView) findViewById(R.id.tv_user_name);
+        userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (TextView) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (TextView) findViewById(R.id.tv_userPhone);
 
