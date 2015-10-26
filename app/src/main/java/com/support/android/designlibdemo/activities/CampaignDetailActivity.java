@@ -73,6 +73,9 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int TAKE_PHOTO_CODE = 1;
     private static final int PICK_PHOTO_CODE = 2;
     private static final int CROP_PHOTO_CODE = 3;
+    private static final String ITENT_TAG= "camp";
+
+
 
     TextView tvCampaignText;
     ImageView ivCampaignImage;
@@ -98,7 +101,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         btTakeanAction = (Button) findViewById(R.id.btTakeActionDetail);
 
         //getting intent
-        campaign = (Campaign) getIntent().getSerializableExtra("camp");
+        campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
 
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -185,8 +188,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
         btTakeanAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                i.putExtra(ITENT_TAG, campaign);
                 startActivity(i);
             }
         });

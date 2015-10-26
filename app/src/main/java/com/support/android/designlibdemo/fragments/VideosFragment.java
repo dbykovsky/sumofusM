@@ -10,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.support.android.designlibdemo.R;
-import com.support.android.designlibdemo.activities.MainActivity;
-import com.support.android.designlibdemo.adapters.CampaignRecyclerViewAdapter;
-import com.support.android.designlibdemo.adapters.VideoAdapter;
+import com.support.android.designlibdemo.adapters.VideoAdapterRecyclerView;
 import com.support.android.designlibdemo.models.Campaign;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +42,7 @@ public class VideosFragment extends Fragment {
         LinearLayoutManager lManager = new LinearLayoutManager(recyclerView.getContext());
         lManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lManager);
-        recyclerView.setAdapter(new VideoAdapter(getActivity(), getVideoIds()));
+        recyclerView.setAdapter(new VideoAdapterRecyclerView(getActivity(), getVideoIds()));
     }
 
 
