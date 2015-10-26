@@ -234,6 +234,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Credit card"
+            android:onClick="onScanPress"
             android:id="@+id/bt_addCreditCard"
             android:layout_below="@+id/ll_credit_card_row"
             android:layout_alignParentLeft="true"
