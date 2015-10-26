@@ -36,6 +36,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.parse.bolts:bolts-android:1.2.1'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile 'io.card:android-sdk:5.1.1'
     compile fileTree(dir: 'libs', include: 'ParseCrashReporting-*.jar')
     compile 'com.android.support:percent:23.0.1'
 }

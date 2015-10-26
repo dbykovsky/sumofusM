@@ -149,36 +149,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the planet to show based on
-        // position
-        Fragment fragment = null;
 
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.Profile:
-                //fragmentClass = UserProfileFragment.class;
                 Intent profileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
                 startActivity(profileActivity);
                 break;
-       /*     case R.id.family_guy:
-                fragmentClass = FamilyGuyFragment.class;
-                break;
-            case R.id.simpsons:
-                fragmentClass = SimpsonsFragment.class;
-                break;*/
             default:
                 fragmentClass = MainActivity.class;
         }
 
-        try {
-            //fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-       // fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);

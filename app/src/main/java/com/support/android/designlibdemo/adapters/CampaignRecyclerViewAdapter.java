@@ -49,16 +49,12 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
     @Override
     public CampaignRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         //Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-
         // Inflate the custom layout
         View contactView = inflater.inflate(R.layout.list_item, parent, false);
-
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
-
         return viewHolder;
     }
 
