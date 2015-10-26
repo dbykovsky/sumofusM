@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Populate current UserName
         ParseUser currentUser = ParseUser.getCurrentUser();
+        // Skip if already subscribed
+        subscribeUserToChannel();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
@@ -218,4 +221,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 0);
     }
 
+    private void subscribeUserToChannel() {
+        ParsePush.subscribeInBackground("NewCampaigns");
+    }
 }
