@@ -15,6 +15,8 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
 
+        String c =  getIntent().getSerializableExtra("campaigId").toString();
+
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new PhotoFragmentPagerAdapter(getSupportFragmentManager()));
