@@ -78,14 +78,15 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_email_black_24dp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/tv_userEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test@gmail.com"
+                android:hint="some@email.com"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_weight="3"
+                android:background="#00000000"
                 />
 
         </LinearLayout>
@@ -106,16 +107,16 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_phone_black_24dp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/tv_userPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(650)248-8982"
+                android:hint="(650)248-8982"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_weight="3"
+                android:background="#00000000"
                 />
-
 
 
         </LinearLayout>
@@ -136,11 +137,62 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_web_black_24dp"
                 />
-            <TextView
+            <EditText
                 android:id="@+id/tv_userSite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="www.greenpeace.com"
+                android:hint="www.greenpeace.com"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_weight="3"
+                android:background="#00000000"
+                />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvCcInfo"
+            android:layout_below="@+id/ll_contact_rows_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment info:"
+            android:textSize="20sp"
+            android:textColor="@color/blue_500"
+            android:layout_alignParentLeft="true" />
+
+        <View
+            android:id="@+id/v_separator"
+            android:layout_width="fill_parent"
+            android:paddingTop="5dp"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/ll_contact_rows_site"
+            />
+
+        <LinearLayout
+
+            android:id="@+id/ll_credit_card_rows"
+            android:layout_below="@+id/tvCcInfo"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:src="@drawable/ic_email_black_24dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_cc_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="1111-2222-3333-4444"
+                android:textSize="16sp"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_weight="3"
@@ -148,13 +200,47 @@
 
         </LinearLayout>
 
+        <LinearLayout
 
+            android:id="@+id/ll_credit_card_row"
+            android:layout_below="@+id/ll_credit_card_rows"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_menu_my_calendar"
+                />
 
+            <TextView
+                android:id="@+id/tv_cc_experation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:hint="11/12"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_weight="3"
+                />
 
+        </LinearLayout>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Credit card"
+            android:id="@+id/bt_addCreditCard"
+            android:layout_below="@+id/ll_credit_card_row"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+
 
 
 </RelativeLayout>

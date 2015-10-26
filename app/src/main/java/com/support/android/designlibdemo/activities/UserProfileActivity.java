@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,8 +21,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     ImageView ivUserProfile;
     TextView userName;
-    TextView userEmail;
-    TextView userPhoneNumber;
+    EditText userEmail;
+    EditText userPhoneNumber;
 
 
 
@@ -32,8 +33,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
-        userEmail = (TextView) findViewById(R.id.tv_userEmail);
-        userPhoneNumber = (TextView) findViewById(R.id.tv_userPhone);
+        userEmail = (EditText) findViewById(R.id.tv_userEmail);
+        userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
 
 
         //making user profile photo oval
@@ -54,8 +55,6 @@ public class UserProfileActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         Log.i("SumOfUs USER info", currentUser.getUsername());
         userName.setText(currentUser.getUsername());
-
-
     }
 
     @Override
