@@ -260,22 +260,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 final ParseFile file = new ParseFile("posted_by_user_"+ ParseUser.getCurrentUser().getUsername()+".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
-                final ParseObject photoPost = new ParseObject("Images");
+                ParseObject photoPost = new ParseObject("Images");
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
-                photoPost.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-
-                        if (e == null) {
-                            // Saved successfully.
-                            photoId = photoPost.getObjectId().toString();
-                            savetoCampaign(campaign.getTitle());
-                        } else {
-                            // Operation failed.
-                            photoId = "ERROR";
-                        }
-                    }
-                });
+                photoPost.saveInBackground();
+                photoPost.saveInBackground();
 
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
@@ -289,24 +278,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
         }
     }
 
-
-    private void savetoCampaign(String title) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("CampaignParse");
-        query.whereEqualTo("title", title);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                ParseObject campaignResult = list.get(0);
-                if (e == null && (photoId != "ERROR") ) {
-                    // Success
-                    campaignResult.addUnique("image", photoId);
-                    campaignResult.saveInBackground();
-                } else {
-                    // Nothing found
-                }
-            }
-        });
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -431,7 +402,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
     }
 
 
-
+    //this is for getting the list of image urls uploaded by user
     public List<String> getImagesUploadedByUserForCampaign(String campaignObjectId){
         final List<String> imageUrls = new ArrayList<>();
 
@@ -443,7 +414,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-
                     for (ParseObject photoPost : list) {
                         imageUrls.add( photoPost.getParseFile("imagePost").getUrl());
 
@@ -455,6 +425,24 @@ public class CampaignDetailActivity extends AppCompatActivity {
         });
 
         return imageUrls;
+    }
+
+    private void savetoCampaign(String title) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CampaignParse");
+        query.whereEqualTo("title", title);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                ParseObject campaignResult = list.get(0);
+                if (e == null && (photoId != "ERROR") ) {
+                    // Success
+                    campaignResult.addUnique("image", photoId);
+                    campaignResult.saveInBackground();
+                } else {
+                    // Nothing found
+                }
+            }
+        });
     }
 
 }
