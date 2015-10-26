@@ -445,4 +445,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         });
     }
 
+    public void startGallery(View view) {
+        startActivity(new Intent(this, PhotoGalleryActivity.class));
+    }
 }
