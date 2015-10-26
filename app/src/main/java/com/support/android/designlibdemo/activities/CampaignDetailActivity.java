@@ -50,6 +50,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
@@ -87,6 +88,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private Uri photoUri;
     private Bitmap photoBitmap;
     private Campaign campaign;
+    private String photoId;
 
 
     @Override
@@ -258,10 +260,22 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 final ParseFile file = new ParseFile("posted_by_user_"+ ParseUser.getCurrentUser().getUsername()+".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
-                ParseObject photoPost = new ParseObject("Images");
+                final ParseObject photoPost = new ParseObject("Images");
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
-                photoPost.saveInBackground();
+                photoPost.saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+
+                        if (e == null) {
+                            // Saved successfully.
+                            photoId = photoPost.getObjectId().toString();
+                            savetoCampaign(campaign.getTitle());
+                        } else {
+                            // Operation failed.
+                            photoId = "ERROR";
+                        }
+                    }
+                });
 
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
@@ -275,6 +289,24 @@ public class CampaignDetailActivity extends AppCompatActivity {
         }
     }
 
+
+    private void savetoCampaign(String title) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CampaignParse");
+        query.whereEqualTo("title", title);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                ParseObject campaignResult = list.get(0);
+                if (e == null && (photoId != "ERROR") ) {
+                    // Success
+                    campaignResult.addUnique("image", photoId);
+                    campaignResult.saveInBackground();
+                } else {
+                    // Nothing found
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
