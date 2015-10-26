@@ -39,4 +39,5 @@ dependencies {
     compile 'io.card:android-sdk:5.1.1'
     compile fileTree(dir: 'libs', include: 'ParseCrashReporting-*.jar')
     compile 'com.android.support:percent:23.0.1'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }
