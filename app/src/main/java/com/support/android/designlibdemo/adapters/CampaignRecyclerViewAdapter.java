@@ -6,12 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.activities.CampaignDetailActivity;
+import com.support.android.designlibdemo.activities.SignPetitionActivity;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
 
@@ -29,11 +31,13 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
         public TextView tvShortCampaignDescription;
         public ImageView ivCampaign;
+        public Button btTakeAction;
 
         public ViewHolder(View view) {
             super(view);
             tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
+            btTakeAction = (Button) view.findViewById(R.id.btTakeActionDetail);
         }
     }
 
@@ -77,6 +81,17 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
             }
         });
+
+        holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
+                i.putExtra("camp", camp);
+                holder.ivCampaign.getContext().startActivity(i);
+            }
+        });
+
     }
 
 
