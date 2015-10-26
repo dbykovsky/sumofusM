@@ -446,6 +446,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
     }
 
     public void startGallery(View view) {
-        startActivity(new Intent(this, PhotoGalleryActivity.class));
+        Intent intent = new Intent(this, PhotoGalleryActivity.class);
+        intent.putExtra("campaigId", campaign.getObjectId()); // set the image file name
+        startActivity(intent);
     }
 }
