@@ -331,7 +331,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, campaign.getTitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.sumofus.org");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, campaign.getCampaignUrl());
             shareIntent.setType("image/*");
             // Launch sharing dialog for image
             startActivity(Intent.createChooser(shareIntent, "send"));
@@ -347,10 +347,10 @@ public class CampaignDetailActivity extends AppCompatActivity {
         shareDialog = new ShareDialog(this);
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentTitle("SumOfUs")
+                .setContentTitle(campaign.getTitle())
                 .setContentDescription(
                         "\"Title Of Test Post\"")
-                .setContentUrl(Uri.parse("http://www.sumofus.org"))
+                .setContentUrl(Uri.parse(campaign.getCampaignUrl()))
                 .build();
 
         shareDialog.show(linkContent);

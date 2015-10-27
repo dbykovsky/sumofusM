@@ -19,7 +19,7 @@ public class Campaign implements Serializable{
     private int goalCount;
     private String message;
     private String title;
-
+    private String campaignUrl;
 
     public Campaign(CampaignParse parseObject){
 
@@ -31,6 +31,7 @@ public class Campaign implements Serializable{
         imageUrl = getImageMainUrl(parseObject.getmainImageMain());
         goal = parseObject.getGoal();
         goalCount = parseObject.getCurrentSignatureCount();
+        campaignUrl = parseObject.getCampaignUrl();
 
     }
 
@@ -124,6 +125,14 @@ public class Campaign implements Serializable{
 
     public void setGoal(int goal) {
         this.goal = goal;
+    }
+
+    public String getCampaignUrl() {
+        return campaignUrl;
+    }
+
+    public void setCampaignUrl(String campaignUrl) {
+        this.campaignUrl = campaignUrl;
     }
 
 }
