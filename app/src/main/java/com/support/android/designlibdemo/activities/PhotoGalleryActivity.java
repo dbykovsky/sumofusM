@@ -10,69 +10,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.adapters.PhotogalleryAdapter;
+import com.support.android.designlibdemo.utils.DeviceDimensionsHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhotoGalleryActivity extends AppCompatActivity {
 
-    CustomPagerAdapter mCustomPagerAdapter;
+    private static final String ITENT_TAG= "camp";
+
+    PhotogalleryAdapter mCustomPagerAdapter;
     ViewPager mViewPager;
+    ArrayList<String> imageUrls = new ArrayList<>();
 
-
-    int[] mResources = {
-        R.drawable.ic_access_time_black_24dp,
-        R.drawable.profile_pic,
-        R.drawable.ic_camera
-
-    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_gallery);
-        mCustomPagerAdapter = new CustomPagerAdapter(this);
+        imageUrls = getIntent().getExtras().getStringArrayList(ITENT_TAG);
+
+        mCustomPagerAdapter = new PhotogalleryAdapter(this, imageUrls);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
-    }
-
-
-    class CustomPagerAdapter extends PagerAdapter {
-
-        Context mContext;
-        LayoutInflater mLayoutInflater;
-
-        public CustomPagerAdapter(Context context) {
-            mContext = context;
-            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return mResources.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
-
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            imageView.setImageResource(mResources[position]);
-
-            container.addView(itemView);
-
-            return itemView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout) object);
-        }
     }
 
 
