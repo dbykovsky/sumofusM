@@ -207,8 +207,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
         btTakeanAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
-                i.putStringArrayListExtra(ITENT_TAG, imageUrls);
+                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                i.putExtra(ITENT_TAG, campaign);
                 startActivity(i);
 
             }
@@ -330,7 +330,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Title Of Test Post");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, campaign.getTitle());
             shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.sumofus.org");
             shareIntent.setType("image/*");
             // Launch sharing dialog for image

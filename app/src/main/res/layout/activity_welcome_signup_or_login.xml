@@ -37,7 +37,7 @@ tools:context="Welcome_LoginActivity_or_Signup">
         android:id="@+id/tv_topText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login. Here we go!"
+        android:text="Welcome to SumOfUs"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
@@ -115,17 +115,6 @@ tools:context="Welcome_LoginActivity_or_Signup">
             />
 
     </android.support.percent.PercentRelativeLayout>
-
-
-    <TextView
-        android:id="@+id/tv_forgot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot password"
-        android:layout_below="@+id/buttonsSection"
-
-        />
-
 
 
 </RelativeLayout>

@@ -1,6 +1,9 @@
 package com.support.android.designlibdemo.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,11 +58,11 @@ public class UserProfileActivity extends AppCompatActivity {
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_number);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
         //if user has CC attached, then show it and hide ADD CC BUTTON
-
-
-        ParseUser user = ParseUser.getCurrentUser();
-        if(user.getString("creditNumber")!=null){
+        if(currentUser.getString("creditNumber")!=null){
             tvCreditCardNumber.setText(creditCardNumber);
             tvCreditCardExperation.setText(creditCardExperation);
         }else
@@ -72,8 +75,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             });
         }
-
-
 
         //making user profile photo oval
         Transformation transformation = new RoundedTransformationBuilder()
@@ -90,9 +91,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 .into(ivUserProfile);
 
         //Populate current UserName
-        ParseUser currentUser = ParseUser.getCurrentUser();
         Log.i("SumOfUs USER info", currentUser.getUsername());
         userName.setText(currentUser.getUsername());
+        userEmail.setText(currentUser.getEmail());
     }
 
     @Override
@@ -187,7 +188,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // Set up a new Parse user
         ParseUser user = ParseUser.getCurrentUser();
-        user.add("creditNumber",creditCardNumber);
+        user.add("creditNumber", creditCardNumber);
         user.put("creditExpr", creditCardExperation);
         // Call the Parse save method
         user.saveInBackground();
@@ -204,4 +205,24 @@ public class UserProfileActivity extends AppCompatActivity {
         }*/
 
     }
+
+
+    //Show alert dialog if network is not awailable
+    public AlertDialog.Builder buildDialog(Context c) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(c,android.R.style.Theme_Material_Light_Dialog_NoActionBar);
+        builder.setTitle("Payment method");
+        builder.setMessage("Would you like to add a payment \n" +
+                "since no payment attached");
+        builder.setIcon(R.mipmap.ic_launcher_sou);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        return builder;
+    }
+
+
 }

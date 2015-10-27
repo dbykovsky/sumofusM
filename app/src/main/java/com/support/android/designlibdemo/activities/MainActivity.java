@@ -36,14 +36,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.fragments.VideosFragment;
@@ -132,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new CampaignsFragment(), "Campaigns");
         adapter.addFragment(new VideosFragment(), "Watch");
-        adapter.addFragment(new CampaignsFragment(), "Category 3");
+        adapter.addFragment(new CampaignsFragment(), "I supported");
         viewPager.setAdapter(adapter);
     }
 
@@ -152,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.Profile:
+            case R.id.nav_profile:
                 Intent profileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
                 startActivity(profileActivity);
                 break;

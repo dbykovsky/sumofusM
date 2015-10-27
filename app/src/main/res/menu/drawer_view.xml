@@ -18,32 +18,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_dashboard"
-            android:title="Home" />
-        <item
-            android:id="@+id/Profile"
-            android:icon="@drawable/ic_event"
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_box_black_24dp"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_headset"
-            android:title="Friends" />
+            android:id="@+id/nav_donate"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Donate" />
         <item
-            android:id="@+id/nav_discussion"
-            android:icon="@drawable/ic_forum"
-            android:title="Discussion" />
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About us" />
     </group>
 
-    <item android:title="Sub items">
-        <menu>
-            <item
-                android:icon="@drawable/ic_dashboard"
-                android:title="Sub item 1" />
-            <item
-                android:icon="@drawable/ic_forum"
-                android:title="Sub item 2" />
-        </menu>
-    </item>
 
 </menu>

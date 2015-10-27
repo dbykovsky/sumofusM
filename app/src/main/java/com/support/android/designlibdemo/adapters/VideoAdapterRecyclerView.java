@@ -60,15 +60,13 @@ public class VideoAdapterRecyclerView extends RecyclerView.Adapter<VideoAdapterR
 
             @Override
             public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
-
                 youTubeThumbnailLoader.setVideo(VideoID[position]);
                 youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
-
             }
 
             @Override
             public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-                Toast.makeText(mContext,"Problems during initialization", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,"Problems during initialization of Youtube", Toast.LENGTH_LONG).show();
             }
         });
 

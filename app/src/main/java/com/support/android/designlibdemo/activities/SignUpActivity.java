@@ -21,6 +21,7 @@ import com.support.android.designlibdemo.R;
 public class SignUpActivity extends AppCompatActivity {
     // UI references.
     private EditText usernameEditText;
+    private EditText useremail;
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
 
@@ -32,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Set up the signup form.
         usernameEditText = (EditText) findViewById(R.id.username_edit_text);
-
+        useremail = (EditText)findViewById(R.id.useremail_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
         passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -59,15 +60,23 @@ public class SignUpActivity extends AppCompatActivity {
     private void signup() {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        String uemail = useremail.getText().toString().trim();
         String passwordAgain = passwordAgainEditText.getText().toString().trim();
 
         // Validate the sign up data
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
         }
+
+        if (uemail.length() == 0) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_useremail));
+        }
+
         if (password.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
@@ -99,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Set up a new Parse user
         ParseUser user = new ParseUser();
         user.setUsername(username);
+        user.setEmail(uemail);
         user.setPassword(password);
 
         // Call the Parse signup method
