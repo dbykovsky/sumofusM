@@ -36,7 +36,7 @@ public class PhotoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_photo, container, false);
         TextView tvTitle = (TextView) view.findViewById(R.id.tvGalleryText);
-        tvTitle.setText("Fragment #" + mPage);
+        tvTitle.setText("El Fragmento #" + mPage);
         ImageView ivPhotoGallery = (ImageView) view.findViewById(R.id.ivPhotoGallery);
 
         return view;

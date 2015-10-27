@@ -130,6 +130,20 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvGoal.setText("Campaign goal: "+ String.valueOf(campaign.getGoal()));
 
 
+        ivCampaignImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
+                //i.putExtra(ITENT_TAG, campaign);
+                startActivity(i);
+
+
+            }
+        });
+
+
+
         //set floating action button
         floatingCamera = (FloatingActionButton) findViewById(R.id.bt_camera);
         final int[] selection = new int[1];
@@ -445,9 +459,4 @@ public class CampaignDetailActivity extends AppCompatActivity {
         });
     }
 
-    public void startGallery(View view) {
-        Intent intent = new Intent(this, PhotoGalleryActivity.class);
-        intent.putExtra("campaigId", campaign.getObjectId()); // set the image file name
-        startActivity(intent);
-    }
 }

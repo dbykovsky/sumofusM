@@ -184,14 +184,14 @@
                 android:layout_height="30dp"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:src="@drawable/ic_email_black_24dp"
+                android:src="@drawable/ic_payment_black_24dp"
                 />
 
             <TextView
                 android:id="@+id/tv_cc_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="1111-2222-3333-4444"
+                android:hint="    -    -    -    "
                 android:textSize="16sp"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|right"
@@ -214,7 +214,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:src="@android:drawable/ic_menu_my_calendar"
+                android:src="@drawable/ic_access_time_black_24dp"
                 />
 
             <TextView
@@ -222,7 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:hint="11/12"
+                android:hint="dd/mm"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|right"
                 android:layout_weight="3"
@@ -234,7 +234,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Credit card"
-            android:onClick="onScanPress"
+            android:visibility="gone"
             android:id="@+id/bt_addCreditCard"
             android:layout_below="@+id/ll_credit_card_row"
             android:layout_alignParentLeft="true"
