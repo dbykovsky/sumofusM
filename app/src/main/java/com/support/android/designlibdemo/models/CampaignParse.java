@@ -101,12 +101,12 @@ public class CampaignParse extends ParseObject {
 
 
     public String getCampaignUrl() {
-        String text = getString("url");
+        String text = getString("campaignUrl");
         return strUrl(text);
     }
 
-    public void setCampaignUrl(String url) {
-        put("url", url);
+    public void setCampaignUrl(String campaignUrl) {
+        put("campaignUrl", campaignUrl);
     }
 
     public JSONArray getAllImageUrls() {

@@ -94,14 +94,14 @@
         android:hint="@string/campaign_url"
         />
 
-    <EditText
+    <!--EditText
         android:id="@+id/image_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:hint="@string/image_url"
         android:textIsSelectable="true"
-        android:editable="true" />
+        android:editable="true" /-->
 
     <Spinner
         android:id="@+id/categories_spinner"
