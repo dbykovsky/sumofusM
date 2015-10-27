@@ -32,6 +32,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +57,7 @@ import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.models.Campaign;
 
+import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 
@@ -89,13 +91,14 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private Bitmap photoBitmap;
     private Campaign campaign;
     private String photoId;
+    private ArrayList<String> imageUrls;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        imageUrls = new ArrayList<String>();
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
@@ -104,6 +107,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
         //getting intent
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
+        getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -133,11 +137,10 @@ public class CampaignDetailActivity extends AppCompatActivity {
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
-                //i.putExtra(ITENT_TAG, campaign);
+                i.putExtra(ITENT_TAG, campaign.getObjectId());
+                i.putStringArrayListExtra(ITENT_TAG, imageUrls);
                 startActivity(i);
-
 
             }
         });
@@ -204,9 +207,10 @@ public class CampaignDetailActivity extends AppCompatActivity {
         btTakeanAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
-                i.putExtra(ITENT_TAG, campaign);
+                Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
+                i.putStringArrayListExtra(ITENT_TAG, imageUrls);
                 startActivity(i);
+
             }
         });
     }
@@ -249,6 +253,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground();
+                getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
             } else if (requestCode == PICK_PHOTO_CODE) {
 
@@ -279,7 +284,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground();
                 photoPost.saveInBackground();
-
+                getImagesUploadedByUserForCampaign(campaign.getObjectId());
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
 
@@ -417,19 +422,21 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
 
     //this is for getting the list of image urls uploaded by user
-    public List<String> getImagesUploadedByUserForCampaign(String campaignObjectId){
-        final List<String> imageUrls = new ArrayList<>();
-
+    private void  getImagesUploadedByUserForCampaign(String campaignObjectId){
+        if(imageUrls!=null){
+            imageUrls.removeAll(imageUrls);
+        }
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Images");
         // Restrict by campaignId
         query.whereEqualTo("campaignId", campaignObjectId);
+        query.orderByDescending("createdAt");
         // Run the query to find all images associated with a specific Campaign
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     for (ParseObject photoPost : list) {
-                        imageUrls.add( photoPost.getParseFile("imagePost").getUrl());
+                        imageUrls.add(photoPost.getParseFile("imagePost").getUrl());
 
                     }
                 }else {
@@ -438,25 +445,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }
         });
 
-        return imageUrls;
     }
 
-    private void savetoCampaign(String title) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("CampaignParse");
-        query.whereEqualTo("title", title);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                ParseObject campaignResult = list.get(0);
-                if (e == null && (photoId != "ERROR") ) {
-                    // Success
-                    campaignResult.addUnique("image", photoId);
-                    campaignResult.saveInBackground();
-                } else {
-                    // Nothing found
-                }
-            }
-        });
-    }
 
 }
