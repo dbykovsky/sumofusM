@@ -26,9 +26,6 @@
   <string name="checkin">Checkin</string>
   <string name="menu_settings">Settings</string>
 
-
-  //ALBERTO
-
   <string name="hello_world">Hello world!</string>
   <string name="action_settings">Settings</string>
   <color name="red">#FF0000</color>
@@ -44,7 +41,7 @@
   <!--string name="parse_client_key">K1SRMMFlA6kwEnur7Ypk0X4Uw9eHBGVQBksyzk1V</string-->
   <string name="parse_app_id">LCPA3eHqb1CyiP2pmZGdDXw6I54pZKNCoxTGAsTt</string>
   <string name="parse_client_key">hweFBlma45UrDKmcRNSlcdG7Fidp6lST0Siu8tcx</string>
-  <string name="facebook_app_id">1692972167639713</string>
+  <string name="facebook_app_id">577201735745344</string>
 
   <string name="take_action">Take Action</string>
   <string name="create_campaign">Create Campaign</string>
@@ -56,7 +53,7 @@
   <string name="campaign_overview">Overview</string>
   <string name="campaign_sign_message">Suggested support message</string>
   <string name="campaign_goal">Supporters goal</string>
-  <string name="campaign_url">Your campaign website</string>
+  <string name="campaign_url">Sum of Us webpage</string>
 
   <string-array name="category_array">
     <item>Support individual</item>

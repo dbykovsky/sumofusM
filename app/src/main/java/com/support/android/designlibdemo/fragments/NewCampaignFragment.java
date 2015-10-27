@@ -39,7 +39,7 @@ public class NewCampaignFragment extends Fragment {
     private TextView campaignMessage;
     private TextView campaignGoal;
     private TextView campaignUrl;
-    private TextView campaignImage;
+  //  private TextView campaignImage;
     private Spinner campaignCategory;
 
 
@@ -60,7 +60,7 @@ public class NewCampaignFragment extends Fragment {
         campaignGoal = ((EditText) v.findViewById(R.id.campaign_goal));
         campaignMessage = ((EditText) v.findViewById(R.id.campaign_sign_message));
         campaignUrl = ((EditText) v.findViewById(R.id.campaign_url));
-        campaignImage = ((EditText) v.findViewById(R.id.image_url));
+      //  campaignImage = ((EditText) v.findViewById(R.id.image_url));
 
         // The campaignCategory spinner lets people assign a general category for their campaign
 
@@ -97,7 +97,7 @@ public class NewCampaignFragment extends Fragment {
                 campaign.setSignMessage(campaignMessage.getText().toString());
                 campaign.setGoal(Integer.parseInt(campaignGoal.getText().toString()));
                 campaign.setCampaignUrl(campaignUrl.getText().toString());
-                campaign.setImageUrl(campaignImage.getText().toString());
+             //   campaign.setImageUrl(campaignImage.getText().toString());
                 campaign.setCategory(campaignCategory.getSelectedItem().toString());
 
                 // Associate the campaign with the current user
