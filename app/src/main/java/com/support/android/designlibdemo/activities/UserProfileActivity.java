@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.support.android.designlibdemo.R;
 
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
 import io.card.payment.CardIOActivity;
@@ -85,15 +86,31 @@ public class UserProfileActivity extends AppCompatActivity {
                 .build();
 
         //setting user profile photo
-        Picasso.with(this)
+       /* Picasso.with(this)
                 .load(userProfilePhotoUrl).resize(400, 400)
                 .transform(transformation)
                 .into(ivUserProfile);
 
+*/
+        JSONArray ar = currentUser.getJSONArray("myCampaigns");
+
+        int i = ar.length();
+        String contributions = ", welcome!";
+
+        if (i>1) {
+            ivUserProfile.setImageResource(R.drawable.profileactivist);
+            contributions = ", you have supported " + i + " campaigns. Thank you!";
+        }
+        else
+        {
+            ivUserProfile.setImageResource(R.drawable.iconbaby);
+        }
+
         //Populate current UserName
         Log.i("SumOfUs USER info", currentUser.getUsername());
-        userName.setText(currentUser.getUsername());
+        userName.setText(currentUser.getUsername() + contributions);
         userEmail.setText(currentUser.getEmail());
+
     }
 
     @Override
