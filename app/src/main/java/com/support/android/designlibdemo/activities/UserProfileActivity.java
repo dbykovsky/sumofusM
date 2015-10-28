@@ -56,15 +56,15 @@ public class UserProfileActivity extends AppCompatActivity {
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
-        tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_number);
+        tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         //if user has CC attached, then show it and hide ADD CC BUTTON
         if(currentUser.getString("creditNumber")!=null){
-            tvCreditCardNumber.setText(creditCardNumber);
-            tvCreditCardExperation.setText(creditCardExperation);
+            tvCreditCardNumber.setText(currentUser.getString("creditNumber"));
+            tvCreditCardExperation.setText(currentUser.getString("creditExpr"));
         }else
         {
             btAddCrefirCard.setVisibility(View.VISIBLE);
@@ -157,7 +157,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 // Never log a raw card number. Avoid displaying it, but if necessary use getFormattedCardNumber()
                 resultDisplayStr = "Card Number: " + scanResult.getRedactedCardNumber() + "\n";
                 creditCardNumber = scanResult.getRedactedCardNumber();
-                Toast.makeText(this, "My experation is"+creditCardExperation, Toast.LENGTH_SHORT).show();
 
                 // Do something with the raw number, e.g.:
                 // myService.setCardNumber( scanResult.cardNumber );
@@ -165,7 +164,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (scanResult.isExpiryValid()) {
                     resultDisplayStr += "Expiration Date: " + scanResult.expiryMonth + "/" + scanResult.expiryYear + "\n";
 
-                    creditCardExperation = resultDisplayStr;
+                    creditCardExperation = scanResult.expiryMonth + "/" + scanResult.expiryYear;
                     Toast.makeText(this, "My experation is"+creditCardExperation, Toast.LENGTH_SHORT).show();
                 }
 
@@ -188,21 +187,18 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // Set up a new Parse user
         ParseUser user = ParseUser.getCurrentUser();
-        user.add("creditNumber", creditCardNumber);
+        user.put("creditNumber", creditCardNumber);
         user.put("creditExpr", creditCardExperation);
         // Call the Parse save method
         user.saveInBackground();
+        //disable add button
+        btAddCrefirCard.setVisibility(View.GONE);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-/*        if(creditCardNumber!=null && creditCardExperation!=null){
-            tvCreditCardNumber.setText(creditCardNumber);
-            tvCreditCardExperation.setText(creditCardExperation);
-        }*/
 
     }
 

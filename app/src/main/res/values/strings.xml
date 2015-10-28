@@ -86,6 +86,28 @@
   <string name="error_end">.</string>
   <string name="progress_login">Logging you in&#8230;</string>
   <string name="progress_signup">Signing you up&#8230;</string>
+  <string name="aboutus"><![CDATA[<h2>SumOfUs.org is a new world-wide movement for a better global economy.</h2>
+<h3>Here’s what we stand for:</h3>
+
+<p>&#8226;Governments that answer to citizens – not corporations</p>
+<p>&#8226;Fair treatment of workers and the right of every human being to make a living, safely and ethically, for themselves and their family;</p>
+<p>&#8226;The right of ordinary consumers to products that are produced and marketed ethically, sustainably and transparently;</p>
+<p>&#8226;The right of communities to manage and protect their own environment and natural resources;</p>
+<p>&#8226;Business models that put people and the planet first instead of being driven by shortsighted greed.</p>
+
+<h3>Yeah, take that deep breath, close your eyes and imagine what kind of a world that could be – and then crash back to this one.</h3>
+
+<h4>We’ve witnessed again and again what happens when powerful corporations get their way:</h4>
+    <p>&#8226;Environmental and health catastrophes like Fukushima and the BP oil disaster;</p>
+    <p>&#8226;A global financial crisis that destroys entire economies;</p>
+    <p>&#8226;Rising food prices and starving children;<</p>
+    <p>&#8226;<Familie></Familie>s from Kalamazoo to Timbuktu losing their houses and land;</p>
+    <p>&#8226;Poisons pouring into our air and water.</p>
+
+
+]]>
+</string>
+
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
