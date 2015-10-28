@@ -1,11 +1,15 @@
 package com.support.android.designlibdemo.fragments;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,29 +28,40 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParsePush;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.activities.NewCampaignActivity;
 import com.support.android.designlibdemo.models.CampaignParse;
+import com.support.android.designlibdemo.utils.BitmapScaler;
+
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 
 public class NewCampaignFragment extends Fragment {
+    private static final int PICK_PHOTO_CODE = 445533;
     private ImageButton photoButton;
     private Button saveButton;
     private Button cancelButton;
+    private ImageButton uploadButton;
     private TextView campaignTitle;
     private TextView campaignDescription;
     private TextView campaignOverview;
     private TextView campaignMessage;
     private TextView campaignGoal;
     private TextView campaignUrl;
-    private TextView campaignImage;
+  //  private TextView campaignImage;
     private Spinner campaignCategory;
+    private CampaignParse campaign;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        campaign = ((NewCampaignActivity) getActivity()).getCurrentCampaign();
     }
 
     @Override
@@ -60,7 +76,7 @@ public class NewCampaignFragment extends Fragment {
         campaignGoal = ((EditText) v.findViewById(R.id.campaign_goal));
         campaignMessage = ((EditText) v.findViewById(R.id.campaign_sign_message));
         campaignUrl = ((EditText) v.findViewById(R.id.campaign_url));
-        campaignImage = ((EditText) v.findViewById(R.id.image_url));
+      //  campaignImage = ((EditText) v.findViewById(R.id.image_url));
 
         // The campaignCategory spinner lets people assign a general category for their campaign
 
@@ -88,7 +104,7 @@ public class NewCampaignFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                CampaignParse campaign = ((NewCampaignActivity) getActivity()).getCurrentCampaign();
+
 
                 // Add data to the campaign object:
                 campaign.setTitle(campaignTitle.getText().toString());
@@ -97,7 +113,7 @@ public class NewCampaignFragment extends Fragment {
                 campaign.setSignMessage(campaignMessage.getText().toString());
                 campaign.setGoal(Integer.parseInt(campaignGoal.getText().toString()));
                 campaign.setCampaignUrl(campaignUrl.getText().toString());
-                campaign.setImageUrl(campaignImage.getText().toString());
+             //   campaign.setImageUrl(campaignImage.getText().toString());
                 campaign.setCategory(campaignCategory.getSelectedItem().toString());
 
                 // Associate the campaign with the current user
@@ -139,6 +155,18 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
+        uploadButton = ((ImageButton) v.findViewById(R.id.upload_button));
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getActivity()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(campaignTitle.getWindowToken(), 0);
+                startUpload();
+            }
+        });
+
+
        // campaignImagePreview = (ParseImageView) v.findViewById(R.id.campaign_preview_image);
        // campaignImagePreview.setVisibility(View.INVISIBLE);
 
@@ -154,6 +182,60 @@ public class NewCampaignFragment extends Fragment {
         transaction.commit();
     }
 
+    public void startUpload() {
+        // Take the user to the gallery app to pick a photo
+        Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (requestCode == PICK_PHOTO_CODE) {
+                Uri photoUri;
+                Bitmap photoBitmap = null;
+                final ParseFile photoFile;
+
+                photoUri = data.getData();
+                try {
+                    photoBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),photoUri); //( photoUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+              //  ivCampaignImage.getAdjustViewBounds();
+              //  ivCampaignImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                //********** Update parse with image
+                //ivCampaignImage.setImageBitmap(resizedImage);
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile with resized image
+                photoFile = new ParseFile("mainImage_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                photoFile.saveInBackground(new SaveCallback() {
+
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Toast.makeText(getActivity(),
+                                    "Error saving: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+
+                            // Success. Populate this new campaign in the "Campaigns" listing.
+                            campaign.setImageMain(photoFile);
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     @Override
     public void onResume() {
@@ -175,9 +257,10 @@ public class NewCampaignFragment extends Fragment {
     }
 
     private void sendPushNotification() {
+        String msg = "New campaign available!";
         ParsePush push = new ParsePush();
         push.setChannel("NewCampaigns");
-        push.setMessage("New campaign available!");
+        push.setMessage(msg);
         push.sendInBackground();
     }
 

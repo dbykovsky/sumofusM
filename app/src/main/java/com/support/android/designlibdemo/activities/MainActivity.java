@@ -17,9 +17,11 @@
 package com.support.android.designlibdemo.activities;
 
 import android.annotation.TargetApi;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -204,5 +206,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void subscribeUserToChannel() {
         ParsePush.subscribeInBackground("NewCampaigns");
+    }
+
+    @Nullable
+    @Override
+    public ComponentName getCallingActivity() {
+        return super.getCallingActivity();
     }
 }

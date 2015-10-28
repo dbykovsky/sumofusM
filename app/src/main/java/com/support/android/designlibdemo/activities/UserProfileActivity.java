@@ -187,7 +187,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // Set up a new Parse user
         ParseUser user = ParseUser.getCurrentUser();
-        user.put("creditNumber",creditCardNumber);
+        user.add("creditNumber",creditCardNumber);
         user.put("creditExpr", creditCardExperation);
         // Call the Parse save method
         user.saveInBackground();
