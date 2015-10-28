@@ -119,6 +119,12 @@
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.support.android.designlibdemo.app.Receiver"
+            android:exported="false" >
+            <intent-filter>
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
@@ -135,7 +141,7 @@
 
         <meta-data
             android:name="com.parse.push.notification_icon"
-            android:resource="@android:drawable/ic_dialog_email" />
+            android:resource="@mipmap/new_icon" />
 
         <activity android:name=".activities.PhotoGalleryActivity" >
         </activity>
