@@ -66,6 +66,9 @@ public class SignPetitionActivity extends AppCompatActivity {
         if(ParseUser.getCurrentUser().getEmail()!=null){
             evEmailAddress.setText(ParseUser.getCurrentUser().getEmail());
         }
+        if(ParseUser.getCurrentUser().getEmail()!=null){
+            evZipCode.setText(ParseUser.getCurrentUser().getString("zipcode"));
+        }
 
         btSignPetition = (Button) findViewById(R.id.btSignPetitoin);
 
