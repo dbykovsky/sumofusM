@@ -53,6 +53,7 @@ import com.support.android.designlibdemo.dialogs.DonationDialog;
 import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.fragments.CampaignsSupportedFragment;
 import com.support.android.designlibdemo.fragments.VideosFragment;
 
 import org.w3c.dom.Text;
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new CampaignsFragment(), "Campaigns");
         adapter.addFragment(new VideosFragment(), "Watch");
-        adapter.addFragment(new CampaignsFragment(), "I supported");
+        adapter.addFragment(new CampaignsSupportedFragment(), "I supported");
         viewPager.setAdapter(adapter);
     }
 
