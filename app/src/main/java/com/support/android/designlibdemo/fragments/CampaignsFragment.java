@@ -99,6 +99,7 @@ public class CampaignsFragment extends Fragment {
         campaigns = new ArrayList<>();
 
         ParseQuery<CampaignParse> query = ParseQuery.getQuery(CampaignParse.class);
+        query.orderByDescending("updatedAt");
         query.findInBackground(new FindCallback<CampaignParse>() {
             @Override
             public void done(List<CampaignParse> list, ParseException e) {
