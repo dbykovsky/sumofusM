@@ -65,7 +65,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
         holder.tvShortCampaignDescription.setText(camp.getTitle());
 
-        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).placeholder(R.drawable.ic_no_image).
+        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).placeholder(R.drawable.downloading).
                 resize(DeviceDimensionsHelper.getDisplayWidth(holder.ivCampaign.getContext()), 0).into(holder.ivCampaign);
 
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {

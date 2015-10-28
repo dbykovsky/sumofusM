@@ -35,6 +35,8 @@ import com.support.android.designlibdemo.activities.NewCampaignActivity;
 import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -255,9 +257,10 @@ public class NewCampaignFragment extends Fragment {
     }
 
     private void sendPushNotification() {
+        String msg = "New campaign available!";
         ParsePush push = new ParsePush();
         push.setChannel("NewCampaigns");
-        push.setMessage("New campaign available!");
+        push.setMessage(msg);
         push.sendInBackground();
     }
 
