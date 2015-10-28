@@ -14,16 +14,17 @@ The following functionality is proposed for implementation:
 * [ ] User can view a listing of campaigns
 * [ ] User can view details on a single campaign
 * [ ] User can sign in / up to perform actions on campaigns
-* [ ] User can mark perform the following actions on a campaign:
-  * [ ] Mark as favorite, unfavorite
-  * [ ] Sign campaign
-  * [ ] Share through Facebook and Twitter campaign link
-* [ ] User can view a summary of his or her favorited, signed or shared campaigns
+* [ ] User can "Sign" a campaign/petition
+* [ ] User Share through Facebook campaign link
+* [ ] User can view a summary of his or her signed campaigns
 * [ ] User can navigate to **view their own profile**
   * [ ] User can modify profile information
 * [ ] User can make a donation to Sum of Us
-* [ ] Settings and preferences allow the user to sign a petition by tapping on a 'Sign' button (perhaps a heart or a star) without having to confirm?
 
+The following features will be implemented in a next milestone:
+* [ ] User can mark as favorite, unfavorite
+* [ ] Settings and preferences allow the user to sign a petition by tapping on a 'Sign' button (perhaps a heart or a star) without having to confirm?
+* 
 The following **optional** features could be implemented in a future release:
 
 * [ ] User can locate campaigns based on geographical location, i.e. by city, state, country
