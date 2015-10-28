@@ -21,12 +21,10 @@ The following functionality is proposed for implementation:
   * [ ] User can modify profile information
 * [ ] User can make a donation to Sum of Us
 
-The following features will be implemented in a next milestone:
-* [ ] User can mark as favorite, unfavorite
-* [ ] Settings and preferences allow the user to sign a petition by tapping on a 'Sign' button (perhaps a heart or a star) without having to confirm?
-* 
 The following **optional** features could be implemented in a future release:
 
+* [ ] User can mark as favorite, unfavorite
+* [ ] Settings and preferences allow the user to sign a petition by tapping on a 'Sign' button (perhaps a heart or a star) without having to confirm?
 * [ ] User can locate campaigns based on geographical location, i.e. by city, state, country
 * [ ] Allow offline reading on favorite campaigns
 * [ ] Allow recurring donations
