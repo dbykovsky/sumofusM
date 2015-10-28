@@ -24,6 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText useremail;
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
+    private EditText zipcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Set up the signup form.
         usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        zipcode = (EditText)findViewById(R.id.user_zipcode);
         useremail = (EditText)findViewById(R.id.useremail_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
@@ -59,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signup() {
         String username = usernameEditText.getText().toString().trim();
+        String userzipcode = zipcode.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String uemail = useremail.getText().toString().trim();
         String passwordAgain = passwordAgainEditText.getText().toString().trim();
@@ -70,6 +73,10 @@ public class SignUpActivity extends AppCompatActivity {
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
+        }
+        if (userzipcode.length() == 0) {
+            validationError = true;
+            validationErrorMessage.append(getString(R.string.error_blank_zipcode));
         }
 
         if (uemail.length() == 0) {
@@ -110,6 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setEmail(uemail);
         user.setPassword(password);
+        user.put("zipcode", userzipcode);
 
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
