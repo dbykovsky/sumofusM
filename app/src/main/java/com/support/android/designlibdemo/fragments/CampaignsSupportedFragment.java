@@ -55,8 +55,6 @@ public class CampaignsSupportedFragment extends Fragment{
     }
 
 
-
-
     public List<Campaign> populateCampaignsISignedParse() {
         campaigns = new ArrayList<>();
         //get all campaigns by a certain user
