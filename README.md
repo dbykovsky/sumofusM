@@ -40,7 +40,7 @@ The following **optional** features could be implemented in a future release:
 
 In progress.
 
-<img src='http://i.imgur.com/Mgm4KxA.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='milestone2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
