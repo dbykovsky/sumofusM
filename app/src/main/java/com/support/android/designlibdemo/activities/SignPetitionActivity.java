@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.lang.CharSequence;
 
 import java.lang.Override;
+import java.util.Arrays;
 
 public class SignPetitionActivity extends AppCompatActivity {
 
@@ -94,24 +95,33 @@ public class SignPetitionActivity extends AppCompatActivity {
                 //updating votes count on parse
                 // Create a pointer to an object of class Point with id dlkj83d
                 ParseObject campaignParse = ParseObject.createWithoutData("CampaignParse", campaign.getObjectId());
-
                 // Set a new value on count
                 campaignParse.put("count", campaign.getGoalCount()+1);
-
-
                 campaignParse.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(SignPetitionActivity.this, "Thank you for signing the petition", Toast.LENGTH_LONG).show();
                             //Take back to to fragments
-                            Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
-                            startActivity(i);
+                            ParseUser currentUser = ParseUser.getCurrentUser();
+                            currentUser.addAllUnique("myCampaigns", Arrays.asList(campaign.getObjectId()));
+                            //start main activity
+                            currentUser.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                   if(e==null){
+                                       Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
+                                       startActivity(i);
+                                   }
+
+                                }
+                            });
+
                         } else {
+
                             Toast.makeText(SignPetitionActivity.this, "Sorry we couldn't take your vote. Try again in a few minutes", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-
             }
         });
 
