@@ -110,6 +110,7 @@ public class SignPetitionActivity extends AppCompatActivity {
                                 public void done(ParseException e) {
                                    if(e==null){
                                        Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
+                                       i.putExtra("page",2);
                                        startActivity(i);
                                    }
 
@@ -117,7 +118,6 @@ public class SignPetitionActivity extends AppCompatActivity {
                             });
 
                         } else {
-
                             Toast.makeText(SignPetitionActivity.this, "Sorry we couldn't take your vote. Try again in a few minutes", Toast.LENGTH_LONG).show();
                         }
                     }

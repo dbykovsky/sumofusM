@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ParseUser currentUser;
+    private ViewPager viewPager;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+         viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
@@ -115,7 +116,15 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int viewPagerFragmentToStart = getIntent().getIntExtra("page",0);
+        if(viewPagerFragmentToStart!=0){
+            viewPager.setCurrentItem(viewPagerFragmentToStart);
+        }
 
     }
 
