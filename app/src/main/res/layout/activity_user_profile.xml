@@ -33,7 +33,8 @@
             android:id="@+id/ivProfilePicProfile"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_userNameDrawer"
-            />
+            android:maxWidth="20dp"
+            android:maxHeight="20dp" />
 
         <View
             android:layout_width="fill_parent"
