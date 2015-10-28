@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setEmail(uemail);
         user.setPassword(password);
-        user.put("zipcode", userzipcode);
+        user.put("zipcode", userzipcode); //add zipcode
 
         // Call the Parse signup method
         user.signUpInBackground(new SignUpCallback() {
