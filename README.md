@@ -44,12 +44,13 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+UX and UI design was the main challenge while developing this app. We still need to polish the look and feel; and in general, we need to improve the end to end flow to make a seamless user experiece.
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Cheesesquare](https://github.com/chrisbanes/cheesesquare) - Material layout
 
 ## License
 
