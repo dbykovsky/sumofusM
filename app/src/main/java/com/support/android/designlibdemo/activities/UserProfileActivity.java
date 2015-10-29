@@ -220,7 +220,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
-
     //Show alert dialog if network is not awailable
     public AlertDialog.Builder buildDialog(Context c) {
         AlertDialog.Builder builder = new AlertDialog.Builder(c,android.R.style.Theme_Material_Light_Dialog_NoActionBar);
