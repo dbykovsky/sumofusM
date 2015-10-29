@@ -8,18 +8,18 @@ Time spent: **1** hours spent in total
 
 The following functionality is proposed for implementation:
 
-* [ ] Administrator can create a campaign
-* [ ] Administrator can attach a picture to the campaign
-* [ ] Administrator can send a Push Notification to registered users of a new campaigned available
-* [ ] User can view a listing of campaigns
-* [ ] User can view details on a single campaign
-* [ ] User can sign in / up to perform actions on campaigns
-* [ ] User can "Sign" a campaign/petition
-* [ ] User Share through Facebook campaign link
-* [ ] User can view a summary of his or her signed campaigns
-* [ ] User can navigate to **view their own profile**
-  * [ ] User can modify profile information
-* [ ] User can make a donation to Sum of Us
+* [x] User can create a campaign
+* [x] User can attach a picture to the campaign
+* [x] User can send a Push Notification to registered users of a new campaign available
+* [x] User can view a listing of campaigns
+* [x] User can view details on a single campaign
+* [x] User can sign in / up to perform actions on campaigns
+* [x] User can "Sign" a campaign/petition
+* [x] User Share through Facebook campaign link
+* [x] User can view a summary of his or her signed campaigns
+* [x] User can navigate to **view their own profile**
+  * [x] User can modify profile information
+* [x] User can make a donation to Sum of Us
 
 The following **optional** features could be implemented in a future release:
 
@@ -36,7 +36,7 @@ The following **optional** features could be implemented in a future release:
 
 ## Video Walkthrough 
 
-In progress.
+Milestone 2:
 
 <img src='milestone2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
