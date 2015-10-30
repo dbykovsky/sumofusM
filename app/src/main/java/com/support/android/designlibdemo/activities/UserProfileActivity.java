@@ -83,7 +83,6 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
-        ivUserPic = (ImageView) findViewById(R.id.ivUserProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
@@ -146,7 +145,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
-//call the function
+        //Get Image from parse
         if(image!=null){
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
@@ -335,8 +334,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -364,8 +364,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");

@@ -39,7 +39,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="camera"
+            android:text="@string/upload_image"
             android:id="@+id/photo_button"
             android:layout_below="@+id/ivProfilePicProfile"
             android:layout_centerHorizontal="true" />
@@ -251,13 +251,6 @@
 
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ivUserProfile"
-            android:layout_below="@+id/ll_credit_card_row"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher" />
 
     </RelativeLayout>
 
