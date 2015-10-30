@@ -92,7 +92,12 @@
         <!-- Sign Petition Activity -->
         <activity
             android:name=".activities.SignPetitionActivity"
-            android:label="@string/title_activity_sign_petition" >
+            android:label="@string/title_activity_sign_petition"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
 
         <!-- Share to Facebook -->
@@ -111,7 +116,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
-
         </activity>
         <activity android:name=".activities.NewCampaignActivity" >
         </activity>
