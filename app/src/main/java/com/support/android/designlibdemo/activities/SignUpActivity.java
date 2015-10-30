@@ -206,8 +206,9 @@ public class SignUpActivity extends AppCompatActivity {
         // Compress image to lower quality scale 1 - 100
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] image = stream.toByteArray();
+        Date targetTime = new Date();
+       final ParseFile file = new ParseFile(targetTime+"_"+"profilePicture"+ ".jpg", image);
 
-       final ParseFile file = new ParseFile("profilePicture"+ ".jpg", image);
         //file.saveInBackground();
         // Save the meal and return
         file.saveInBackground(new SaveCallback() {
