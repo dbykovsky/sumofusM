@@ -82,7 +82,7 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
+        ivUserPic = (ImageView) findViewById(R.id.ivProfilePicProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
@@ -120,7 +120,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 .load(userProfilePhotoUrl).resize(400, 400)
                 .transform(transformation)
                 .into(ivUserProfile);
-
 */
         JSONArray ar = currentUser.getJSONArray("myCampaigns");
         int i = 0;
@@ -145,14 +144,14 @@ public class UserProfileActivity extends AppCompatActivity {
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
-        //Get Image from parse
+//call the function
         if(image!=null){
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        // ivUserPic.setImageBitmap(bmp);
-                        ivUserProfile.setImageBitmap(bmp);
+                        ivUserPic.setImageBitmap(bmp);
+
                     } else {
                         e.printStackTrace();
                     }

@@ -78,8 +78,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int CROP_PHOTO_CODE = 3;
     private static final String ITENT_TAG= "camp";
 
-
-
     TextView tvCampaignText;
     ImageView ivCampaignImage;
     TextView tvGoal;
