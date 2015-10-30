@@ -40,6 +40,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -106,10 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
                         final Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        // ProfileimageView.setImageBitmap(bmp);
+                       // ImageView ivUserPic = (ImageView) findViewById(R.id.ivProfilePicProfile);
+                        //ivUserPic.setImageBitmap(bmp);
 
                     } else {
                         e.printStackTrace();
+                        Log.i("SumOfUs USER info: ", "error getting user pic.");
                     }
                 }
             });
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
-        //((ImageView) nav_header.findViewById(R.id.ProfileimageView)).setImageBitmap(bmp);
+       // ((ImageView) nav_header.findViewById(R.id.ProfileimageView)).setImageBitmap(bmp);
         ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
         ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
         navigationView.addHeaderView(nav_header);
