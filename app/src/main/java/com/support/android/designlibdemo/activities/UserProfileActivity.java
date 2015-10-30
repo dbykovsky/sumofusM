@@ -336,8 +336,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -365,8 +366,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");
