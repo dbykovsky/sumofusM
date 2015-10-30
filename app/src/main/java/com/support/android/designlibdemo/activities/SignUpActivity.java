@@ -228,7 +228,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                     //if user dont want to upload image we will sent, the image showsn as default..
 
-
                     // Call the Parse signup method
                     user.signUpInBackground(new
 
@@ -251,19 +250,11 @@ public class SignUpActivity extends AppCompatActivity {
                                                     });
                 } else {
 
-                    Log.i("SumOfUs USER info", "caca");
+                    Log.i("SumOfUs USER info", "failed...");
                 }
             }
 
         });
-
-
-
-
-
-
-
-
 
     }
 
@@ -271,6 +262,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
+            signup();
 
             if (requestCode == TAKE_PHOTO_CODE) {
 
@@ -326,9 +318,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                 user.put("profilePicture", file);
                 user.saveInBackground();
-
                 //getImagesUploadedByUserForCampaign(campaign.getObjectId());
-            } else if (requestCode == CROP_PHOTO_CODE) {
+            }
+            else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
 
                 ivProfilePicProfile.getAdjustViewBounds();
