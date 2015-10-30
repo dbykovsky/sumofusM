@@ -68,6 +68,7 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView userName;
     EditText userEmail;
     EditText userPhoneNumber;
+    EditText userSite;
     TextView tvCreditCardNumber;
     TextView tvCreditCardExperation;
     Button btAddCrefirCard;
@@ -86,6 +87,7 @@ public class UserProfileActivity extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
+        userSite = (EditText) findViewById(R.id.tv_userSite);
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
@@ -140,6 +142,8 @@ public class UserProfileActivity extends AppCompatActivity {
         Log.i("SumOfUs USER info", currentUser.getUsername());
         userName.setText(currentUser.getUsername() + contributions);
         userEmail.setText(currentUser.getEmail());
+        userPhoneNumber.setText(currentUser.getString("phoneNumber"));
+        userSite.setText(currentUser.getString("webSite"));
 
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
@@ -213,7 +217,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         });
 
-        //Update User profile
+        //Update User's profile
         userEmail.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -232,6 +236,54 @@ public class UserProfileActivity extends AppCompatActivity {
                 String newEmail = s.toString();
                 Log.i("SumOfUs USER info", newEmail);
                 currentUser.setEmail(newEmail);
+
+            }
+        });
+
+        //Update User's phone
+        userPhoneNumber.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
+                //myOutputBox.setText(s);
+                //Save changes to Parse one the user stop editing
+                //Save on backPress()
+                String newPhone = s.toString();
+              //  currentUser.put("profilePicture", file);
+                Log.i("SumOfUs USER info", newPhone);
+                currentUser.put("phoneNumber",newPhone);
+
+            }
+        });
+
+        //Update User's Website
+        userSite.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
+                //myOutputBox.setText(s);
+                //Save changes to Parse one the user stop editing
+                //Save on backPress()
+                String webSite = s.toString();
+                //  currentUser.put("profilePicture", file);
+                Log.i("SumOfUs USER info", webSite);
+                currentUser.put("webSite",webSite);
 
             }
         });
