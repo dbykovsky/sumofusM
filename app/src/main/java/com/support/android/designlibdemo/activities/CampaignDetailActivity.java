@@ -132,12 +132,9 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvCampaignText.setText(campaign.getLongDescription());
 
         //set goal text
-
         PrettyText goal = new PrettyText();
-        String txt = goal.numberToAmounts(campaign.getGoal()) + " signatures.";
-
+        String txt = goal.numberToAmounts(campaign.getGoal()) + " signatures";
         tvGoal.setText("Campaign goal: "+ txt);
-
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
             @Override
