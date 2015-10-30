@@ -20,6 +20,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,9 +45,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
@@ -91,10 +97,29 @@ public class MainActivity extends AppCompatActivity {
         currentUser = ParseUser.getCurrentUser();
         // Skip if already subscribed
         subscribeUserToChannel();
+        //Load image from Parse
+        ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
+
+        //Get Image from parse
+        if(image!=null){
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        final Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        // ProfileimageView.setImageBitmap(bmp);
+
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+        //((ImageView) nav_header.findViewById(R.id.ProfileimageView)).setImageBitmap(bmp);
         ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
+        ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
         navigationView.addHeaderView(nav_header);
 
         if (navigationView != null) {

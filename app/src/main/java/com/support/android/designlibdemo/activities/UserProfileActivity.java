@@ -146,7 +146,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
-//call the function
+        //Get Image from parse
         if(image!=null){
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
