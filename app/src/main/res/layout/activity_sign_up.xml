@@ -61,7 +61,8 @@
                 android:maxWidth="20dp"
                 android:maxHeight="20dp"
                 android:background="@drawable/user_image_placeholder"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -70,11 +71,12 @@
                 android:id="@+id/photo_button"
                 android:layout_below="@+id/ivProfilePicProfile"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/action_button"
-                android:layout_width="337dp"
+                android:layout_width="400dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingLeft="32dp"
