@@ -136,11 +136,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
         }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.logout) {
+            //return true;
+            LogOut();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -288,6 +298,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return builder;
+    }
+    public void LogOut() {
+        ParseUser.logOut();
+        Intent intent = new Intent(MainActivity.this, DispatchActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public AlertDialog.Builder buildDialogAboutUs(Context c) {
