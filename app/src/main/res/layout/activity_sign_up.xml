@@ -11,7 +11,8 @@
 
         <LinearLayout
             style="@style/LoginFormContainer"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <EditText
                 android:id="@+id/username_edit_text"
@@ -52,15 +53,36 @@
                 android:imeActionLabel="@string/signup"
                 android:imeOptions="actionUnspecified" />
 
-            <Button
-                android:id="@+id/action_button"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:id="@+id/ivProfilePicProfile"
+                android:layout_centerHorizontal="true"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:background="@drawable/user_image_placeholder"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                android:id="@+id/photo_button"
+                android:layout_below="@+id/ivProfilePicProfile"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/action_button"
+                android:layout_width="337dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
-                android:text="@string/signup" />
+                android:text="@string/signup"
+                android:layout_gravity="center"
+                />
+
         </LinearLayout>
     </ScrollView>
 

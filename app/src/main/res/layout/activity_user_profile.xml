@@ -39,7 +39,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="camera"
+            android:text="@string/upload_image"
             android:id="@+id/photo_button"
             android:layout_below="@+id/ivProfilePicProfile"
             android:layout_centerHorizontal="true" />

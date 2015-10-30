@@ -65,6 +65,7 @@
   <string name="save_button_text">Save</string>
   <string name="cancel_button_text">Cancel</string>
   <string name="title_activity_user_profile">UserProfile</string>
+  <string name="title_register_user">Register</string>
 
   <!-- Strings related to login -->
   <string name="signup">Sign up</string>
@@ -72,6 +73,7 @@
   <string name="title_activity_signup">Sign up</string>
   <string name="logout">Log Out</string>
   <string name="prompt_username">User name</string>
+  <string name="upload_image">Upload Image</string>
   <string name="prompt_useremail">User e-mail</string>
   <string name="prompt_password">Password</string>
   <string name="prompt_password_again">Password Again</string>
