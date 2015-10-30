@@ -1,7 +1,11 @@
 package com.support.android.designlibdemo.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,10 +75,18 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //locate FAB that belongs to the other layout
+                View view = (View) LayoutInflater.from(mContext).inflate(R.layout.activity_main, null);
+                FloatingActionButton fb = (FloatingActionButton) view.findViewById(R.id.fab);
+                //create a new intent
                 Intent i = new Intent(holder.ivCampaign.getContext(), CampaignDetailActivity.class);
                 i.putExtra("camp", camp);
-                holder.ivCampaign.getContext().startActivity(i);
-
+                Pair<View, String> p1 = Pair.create((View)holder.ivCampaign, "profile");
+                Pair<View, String> p2 = Pair.create((View)fb, "fab");
+                //initiate transition
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) holder.ivCampaign.getContext(),p1, p2);
+                holder.ivCampaign.getContext().startActivity(i, options.toBundle());
             }
         });
 
