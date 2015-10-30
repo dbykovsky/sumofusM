@@ -1,31 +1,55 @@
 package com.support.android.designlibdemo.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.dialogs.CameraDialog;
+import com.support.android.designlibdemo.utils.BitmapScaler;
 
 import org.json.JSONArray;
 import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
@@ -37,14 +61,20 @@ public class UserProfileActivity extends AppCompatActivity {
     private String creditCardNumber=null;
     private String creditCardExperation=null;
 
-
-    ImageView ivUserProfile;
+    private static final int TAKE_PHOTO_CODE = 1;
+    private static final int PICK_PHOTO_CODE = 2;
+    private static final int CROP_PHOTO_CODE = 3;
+    ImageView ivUserProfile, ivUserPic;
     TextView userName;
     EditText userEmail;
     EditText userPhoneNumber;
     TextView tvCreditCardNumber;
     TextView tvCreditCardExperation;
     Button btAddCrefirCard;
+    private Uri photoUri;
+    private Bitmap photoBitmap;
+
+    final int[] selection = new int[1];
 
 
     @Override
@@ -53,6 +83,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
+        ivUserPic = (ImageView) findViewById(R.id.ivUserProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
@@ -60,7 +91,7 @@ public class UserProfileActivity extends AppCompatActivity {
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
 
         //if user has CC attached, then show it and hide ADD CC BUTTON
         if(currentUser.getString("creditNumber")!=null){
@@ -104,7 +135,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
         else
         {
-            ivUserProfile.setImageResource(R.drawable.iconbaby);
+            // ivUserProfile.setImageResource(R.drawable.iconbaby);
         }
 
         //Populate current UserName
@@ -112,6 +143,130 @@ public class UserProfileActivity extends AppCompatActivity {
         userName.setText(currentUser.getUsername() + contributions);
         userEmail.setText(currentUser.getEmail());
 
+        //Load image from Parse
+        ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
+
+//call the function
+
+
+        image.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    // ivUserPic.setImageBitmap(bmp);
+                    ivUserProfile.setImageBitmap(bmp);
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        //Camera
+        Button photoButton = (Button) findViewById(R.id.photo_button);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getSupportFragmentManager();
+                final CameraDialog dialog = CameraDialog.newInstance("Add a new picture:");
+
+                dialog.setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selection[0] = which;
+                    }
+                });
+
+                dialog.setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if (selection[0] == 0) {
+                            // create Intent to take a picture and return control to the calling application
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            photoUri = Uri.fromFile(getOutputMediaFile()); // create a file to save the image
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri); // set the image file name
+                            // Start the image capture intent to take photo
+                            startActivityForResult(intent, TAKE_PHOTO_CODE);
+                        } else {
+                            // Take the user to the gallery app to pick a photo
+                            Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
+
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
+
+                dialog.setCancelClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+
+                });
+
+                dialog.show(fm, "TAG_DIALOG");
+
+            }
+
+        });
+
+        //Update User profile
+        userEmail.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
+                //myOutputBox.setText(s);
+                //Save changes to Parse one the user stop editing
+                //Save on backPress()
+                String newEmail = s.toString();
+                Log.i("SumOfUs USER info", newEmail);
+                currentUser.setEmail(newEmail);
+
+            }
+        });
+
+        currentUser.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    // myObjectSavedSuccessfully();
+                    Log.i("SumOfUs USER info", "Saveeee");
+                } else {
+                    //myObjectSaveDidNotSucceed();
+                    Log.i("SumOfUs USER info", "myObjectSaveDidNotSucceed");
+                }
+            }
+        });
+
+    }
+
+    //this is to create picture filename
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "sumofus");
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            return null;
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
     }
 
     @Override
@@ -165,9 +320,72 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
 
+            if (requestCode == TAKE_PHOTO_CODE) {
 
-      //  if (resultCode == MY_SCAN_REQUEST_CODE) {
+                photoBitmap = BitmapFactory.decodeFile(photoUri.getPath());
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+                ivUserPic.getAdjustViewBounds();
+                ivUserPic.setScaleType(ImageView.ScaleType.FIT_XY);
+                //ivUserPic.setImageResource(currentUser.getString("zipcode"));
+                //********** Update parse with image
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile with an image
+                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+
+                //posting an image file with campaign id to Parse to Images object
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                currentUser.put("profilePicture", file);
+                currentUser.saveInBackground();
+                // getImagesUploadedByUserForCampaign(campaign.getObjectId());
+
+            } else if (requestCode == PICK_PHOTO_CODE) {
+
+                photoUri = data.getData();
+                try {
+                    photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+                ivUserPic.getAdjustViewBounds();
+                ivUserPic.setScaleType(ImageView.ScaleType.FIT_XY);
+                //********** Update parse with image
+                //ivCampaignImage.setImageBitmap(resizedImage);
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                // Create the ParseFile with an image
+                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+
+                //posting an image file with campaign id to Parse to Images object
+                // ParseObject photoPost = new ParseObject("Images");
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                currentUser.put("profilePicture", file);
+                currentUser.saveInBackground();
+                //getImagesUploadedByUserForCampaign(campaign.getObjectId());
+            } else if (requestCode == CROP_PHOTO_CODE) {
+                photoBitmap = data.getParcelableExtra("data");
+
+                ivUserPic.getAdjustViewBounds();
+                ivUserPic.setScaleType(ImageView.ScaleType.FIT_XY);
+                ivUserPic.setImageBitmap(photoBitmap);
+                Toast.makeText(this, "I just took a picture", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        if (resultCode == MY_SCAN_REQUEST_CODE) {
             String resultDisplayStr;
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
@@ -183,7 +401,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     resultDisplayStr += "Expiration Date: " + scanResult.expiryMonth + "/" + scanResult.expiryYear + "\n";
 
                     creditCardExperation = scanResult.expiryMonth + "/" + scanResult.expiryYear;
-                    Toast.makeText(this, "My experation is"+creditCardExperation, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "My experation is" + creditCardExperation, Toast.LENGTH_SHORT).show();
                 }
 
                 if (scanResult.cvv != null) {
@@ -194,8 +412,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (scanResult.postalCode != null) {
                     resultDisplayStr += "Postal Code: " + scanResult.postalCode + "\n";
                 }
-            }
-            else {
+            } else {
                 resultDisplayStr = "Scan was canceled.";
             }
             //display in the text view
@@ -203,15 +420,16 @@ public class UserProfileActivity extends AppCompatActivity {
             tvCreditCardExperation.setText(creditCardExperation);
             //upload to parse for current user
 
-        // Set up a new Parse user
-        ParseUser user = ParseUser.getCurrentUser();
-        user.put("creditNumber", creditCardNumber);
-        user.put("creditExpr", creditCardExperation);
-        // Call the Parse save method
-        user.saveInBackground();
-        //disable add button
-        btAddCrefirCard.setVisibility(View.GONE);
+            // Set up a new Parse user
+            ParseUser user = ParseUser.getCurrentUser();
+            user.put("creditNumber", creditCardNumber);
+            user.put("creditExpr", creditCardExperation);
+            // Call the Parse save method
+            user.saveInBackground();
+            //disable add button
+            btAddCrefirCard.setVisibility(View.GONE);
 
+        }
     }
 
     @Override
@@ -220,9 +438,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
+
+
+
     //Show alert dialog if network is not awailable
     public AlertDialog.Builder buildDialog(Context c) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(c,android.R.style.Theme_Material_Light_Dialog_NoActionBar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(c, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
         builder.setTitle("Payment method");
         builder.setMessage("Would you like to add a payment \n" +
                 "since no payment attached");
