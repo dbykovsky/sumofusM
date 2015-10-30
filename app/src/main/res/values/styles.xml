@@ -51,6 +51,8 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">  </style>
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
 
 </resources>

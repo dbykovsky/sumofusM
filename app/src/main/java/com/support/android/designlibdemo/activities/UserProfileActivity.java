@@ -147,20 +147,19 @@ public class UserProfileActivity extends AppCompatActivity {
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
 //call the function
-
-
-        image.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    // ivUserPic.setImageBitmap(bmp);
-                    ivUserProfile.setImageBitmap(bmp);
-                } else {
-                    e.printStackTrace();
+        if(image!=null){
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        // ivUserPic.setImageBitmap(bmp);
+                        ivUserProfile.setImageBitmap(bmp);
+                    } else {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
-
+            });
+        }
 
         //Camera
         Button photoButton = (Button) findViewById(R.id.photo_button);
