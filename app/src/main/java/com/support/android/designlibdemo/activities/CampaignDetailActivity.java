@@ -60,6 +60,7 @@ import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
+import com.support.android.designlibdemo.utils.PrettyText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -131,7 +132,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvCampaignText.setText(campaign.getLongDescription());
 
         //set goal text
-        tvGoal.setText("Campaign goal: "+ String.valueOf(campaign.getGoal()));
+
+        PrettyText goal = new PrettyText();
+        String txt = goal.numberToAmounts(campaign.getGoal()) + " signatures.";
+
+        tvGoal.setText("Campaign goal: "+ txt);
 
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
