@@ -29,8 +29,6 @@
         <item name="android:windowEnterTransition">@transition/change_image_transform</item>
         <item name="android:windowExitTransition">@transition/change_image_transform</item>
 
-
-
         <!-- specify shared element transitions -->
         <item name="android:windowSharedElementEnterTransition">
             @transition/change_image_transform</item>

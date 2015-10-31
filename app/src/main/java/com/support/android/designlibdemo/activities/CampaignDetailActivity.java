@@ -32,7 +32,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,13 +50,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.models.Campaign;
 
-import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 import com.support.android.designlibdemo.utils.PrettyText;
@@ -107,12 +104,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
-        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetail);
+        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
 
         //getting intent
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
         getImagesUploadedByUserForCampaign(campaign.getObjectId());
-
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

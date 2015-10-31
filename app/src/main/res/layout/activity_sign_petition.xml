@@ -12,21 +12,22 @@
     <RelativeLayout
         android:id="@+id/ll_backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginBottom="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/linear_layout_round"
         >
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Petition text goes in here"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:id="@+id/tvPetitionName"
+            android:id="@+id/tvPetitionMessage"
             />
 
         </RelativeLayout>

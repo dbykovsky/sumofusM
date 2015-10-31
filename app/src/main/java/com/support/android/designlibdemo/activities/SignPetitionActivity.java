@@ -20,8 +20,6 @@ import com.parse.SaveCallback;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.models.Campaign;
 
-import org.w3c.dom.Text;
-
 import java.lang.CharSequence;
 
 import java.lang.Override;
@@ -55,8 +53,10 @@ public class SignPetitionActivity extends AppCompatActivity {
        evFulName = (EditText) findViewById(R.id.etFullNameSign);
        evEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
        evZipCode = (EditText)findViewById(R.id.etZipCode);
-       tvPetitionMessage = (TextView) findViewById(R.id.tvPetitionName);
-       tvPetitionMessage.setText(campaign.getMessage());
+       tvPetitionMessage = (TextView) findViewById(R.id.tvPetitionMessage);
+
+        //setting petition message
+        tvPetitionMessage.setText(campaign.getMessage());
 
         //prepopulating fields
        if(ParseUser.getCurrentUser().getUsername()!=null){
