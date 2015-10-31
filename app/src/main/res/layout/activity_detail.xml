@@ -87,7 +87,6 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-
                     <com.support.android.designlibdemo.utils.CustomProgress
                         android:id="@+id/pbGoal"
                         android:layout_width="match_parent"
@@ -99,6 +98,14 @@
                         style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
                         android:layout_alignParentLeft="true"
                         />
+
+                    <TextView
+                        android:id="@+id/tvPercentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
