@@ -45,14 +45,32 @@ public class SignUpActivity extends AppCompatActivity {
     private static final int TAKE_PHOTO_CODE = 1;
     private static final int PICK_PHOTO_CODE = 2;
     private static final int CROP_PHOTO_CODE = 3;
-
     final int[] selection = new int[1];
-
+    private Uri photoUri;
+    private Bitmap photoBitmap;
     // UI references.
     private EditText usernameEditText;
     private EditText useremail;
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
+    private Button photoButton;
+    private ImageView ivProfilePicProfile;
+
+    //this is to create picture filename
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "sumofus");
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            return null;
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Set up the signup form.
         usernameEditText = (EditText) findViewById(R.id.username_edit_text);
-        useremail = (EditText) findViewById(R.id.useremail_edit_text);
+        useremail = (EditText)findViewById(R.id.useremail_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
         passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -85,11 +103,68 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        //Add picture to signup page
+        ivProfilePicProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
+
+
+        photoButton = (Button) findViewById(R.id.photo_button);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getSupportFragmentManager();
+                final CameraDialog dialog = CameraDialog.newInstance("Add a new picture:");
+
+                dialog.setOnChoiceClickListener(new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selection[0] = which;
+                    }
+                });
+
+                dialog.setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if (selection[0] == 0) {
+                            // create Intent to take a picture and return control to the calling application
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            photoUri = Uri.fromFile(getOutputMediaFile()); // create a file to save the image
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri); // set the image file name
+                            // Start the image capture intent to take photo
+                            startActivityForResult(intent, TAKE_PHOTO_CODE);
+                        } else {
+                            // Take the user to the gallery app to pick a photo
+                            Intent photoGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(photoGalleryIntent, PICK_PHOTO_CODE);
+
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
+
+                dialog.setCancelClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+
+                });
+
+                dialog.show(fm, "TAG_DIALOG");
+
+            }
+
+        });
+
     }
 
     private void signup() {
         final String username = usernameEditText.getText().toString().trim();
-        final String password = passwordEditText.getText().toString().trim();
+        final  String password = passwordEditText.getText().toString().trim();
         final String uemail = useremail.getText().toString().trim();
         final String passwordAgain = passwordAgainEditText.getText().toString().trim();
 
@@ -136,6 +211,7 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.show();
 
 
+
         //ADD IMAGE Hardcoded for now. Work in Progress
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.user_image_placeholder);
@@ -144,9 +220,8 @@ public class SignUpActivity extends AppCompatActivity {
         // Compress image to lower quality scale 1 - 100
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] image = stream.toByteArray();
-        Date targetTime = new Date();
-        final ParseFile file = new ParseFile(targetTime + "_" + "profilePicture" + ".jpg", image);
 
+        final ParseFile file = new ParseFile("profilePicture"+ ".jpg", image);
         //file.saveInBackground();
         // Save the meal and return
         file.saveInBackground(new SaveCallback() {
@@ -165,6 +240,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.saveInBackground();
 
                     //if user dont want to upload image we will sent, the image showsn as default..
+
 
                     // Call the Parse signup method
                     user.signUpInBackground(new
@@ -188,13 +264,92 @@ public class SignUpActivity extends AppCompatActivity {
                                                     });
                 } else {
 
-                    Log.i("SumOfUs USER info", "failed...");
+                    Log.i("SumOfUs USER info", "error during user creation");
                 }
             }
 
         });
 
+
+
+
+
+
+
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
 
+            if (requestCode == TAKE_PHOTO_CODE) {
+
+                photoBitmap = BitmapFactory.decodeFile(photoUri.getPath());
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+                ivProfilePicProfile.getAdjustViewBounds();
+                ivProfilePicProfile.setScaleType(ImageView.ScaleType.FIT_XY);
+                ivProfilePicProfile.setImageBitmap(resizedImage);
+                //ivUserPic.setImageResource(currentUser.getString("zipcode"));
+                //********** Update parse with image
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+                //Add date to image
+                Date targetTime = new Date();
+                // Create the ParseFile with an image
+                final ParseFile file = new ParseFile("posted_by_user_" + targetTime + ".jpg", image);
+
+                // Set up a new Parse user
+                ParseUser user = new ParseUser();
+                user.put("profilePicture", file);
+                user.saveInBackground();
+
+            } else if (requestCode == PICK_PHOTO_CODE) {
+
+                photoUri = data.getData();
+                try {
+                    photoBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
+                ivProfilePicProfile.getAdjustViewBounds();
+                ivProfilePicProfile.setScaleType(ImageView.ScaleType.FIT_XY);
+                ivProfilePicProfile.setImageBitmap(resizedImage);
+
+                // Convert bitmap to a byte array
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                // Create the ParseFile with an image
+
+                //Add date to image
+                Date targetTime = new Date();
+                final ParseFile file = new ParseFile("posted_by_user_" + targetTime + ".jpg", image);
+
+                // Set up a new Parse user
+                ParseUser user = new ParseUser();
+
+                user.put("profilePicture", file);
+                user.saveInBackground();
+
+                //getImagesUploadedByUserForCampaign(campaign.getObjectId());
+            } else if (requestCode == CROP_PHOTO_CODE) {
+                photoBitmap = data.getParcelableExtra("data");
+
+                ivProfilePicProfile.getAdjustViewBounds();
+                ivProfilePicProfile.setScaleType(ImageView.ScaleType.FIT_XY);
+                ivProfilePicProfile.setImageBitmap(photoBitmap);
+                Toast.makeText(this, "I just took a picture", Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
 }
