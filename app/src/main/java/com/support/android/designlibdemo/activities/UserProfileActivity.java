@@ -125,13 +125,13 @@ public class UserProfileActivity extends AppCompatActivity {
 */
         JSONArray ar = currentUser.getJSONArray("myCampaigns");
         int i = 0;
-        String contributions = ", welcome!";
+        String contributions = ", welcome!"+"\n";
         if (ar != null ) {
             i = ar.length();
         }
         if (i>1) {
-            ivUserProfile.setImageResource(R.drawable.profileactivist);
-            contributions = ", you have supported " + i + " campaigns. Thank you!";
+           // ivUserProfile.setImageResource(R.drawable.profileactivist);
+            contributions = ", you have supported"+"\n" + i + " campaigns. Thank you!";
         }
         else
         {
