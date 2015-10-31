@@ -35,6 +35,7 @@ public class Welcome_LoginActivity_or_Signup extends AppCompatActivity {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
                 startActivity(new Intent(Welcome_LoginActivity_or_Signup.this, MainActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -44,6 +45,7 @@ public class Welcome_LoginActivity_or_Signup extends AppCompatActivity {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
                 startActivity(new Intent(Welcome_LoginActivity_or_Signup.this, SignUpActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

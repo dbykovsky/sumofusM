@@ -82,6 +82,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
                 //create a new intent
                 Intent i = new Intent(holder.ivCampaign.getContext(), CampaignDetailActivity.class);
                 i.putExtra("camp", camp);
+                ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 Pair<View, String> p1 = Pair.create((View)holder.ivCampaign, "profile");
                 Pair<View, String> p2 = Pair.create((View)fb, "fab");
                 Pair<View, String> p3 = Pair.create((View)holder.btTakeAction, "take_action");
@@ -99,11 +100,13 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
 
                 Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
                 i.putExtra("camp", camp);
+                ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 holder.ivCampaign.getContext().startActivity(i);
             }
         });
-
     }
+
 
 
     @Override

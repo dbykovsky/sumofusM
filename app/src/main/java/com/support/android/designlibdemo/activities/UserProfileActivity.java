@@ -346,6 +346,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(UserProfileActivity.this, DispatchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void onScanPress() {
@@ -507,6 +508,12 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
         return builder;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
 
