@@ -135,6 +135,7 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/edit_text_round_corners"
         android:hint="Zip"
+        android:inputType="number"
         android:gravity="center_vertical"
 
         />

@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_profile:
                 Intent profileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
                 startActivity(profileActivity);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case R.id.nav_donate:
                 //if payment is attached
@@ -332,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, DispatchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public AlertDialog.Builder buildDialogAboutUs(Context c) {
@@ -349,6 +351,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         return builder;
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
 }
