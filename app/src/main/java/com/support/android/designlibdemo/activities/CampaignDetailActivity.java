@@ -59,6 +59,8 @@ import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 import com.support.android.designlibdemo.utils.PrettyText;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -81,6 +83,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
     TextView tvCampaignText;
     ImageView ivCampaignImage;
+    TextView tvCampaignOverview;
     TextView tvGoal;
     TextView tvPercentage;
     CustomProgress customProgress;
@@ -102,6 +105,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         tvPercentage= (TextView) findViewById(R.id.tvPercentage);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
+        tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
         btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
@@ -117,7 +121,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
-        collapsingToolbar.setTitle(campaign.getShortDescription());
+        collapsingToolbar.setTitle(campaign.getTitle());
         collapsingToolbar.getCollapsedTitleGravity();
         loadBackdrop(campaign.getImageUrl(), ivCampaignImage);
 
@@ -142,6 +146,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress.setShowingPercentage(true);
         customProgress.setText(customProgress.getText());
         //set text above progress
+        tvCampaignOverview.setText(campaign.getShortDescription());
         tvCampaignText.setText(campaign.getLongDescription());
 
         //set goal text

@@ -67,7 +67,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Campaign camp =  mCampaigns.get(position);
 
-        holder.tvShortCampaignDescription.setText(camp.getTitle());
+        holder.tvShortCampaignDescription.setText(camp.getShortDescription());
 
         //I commented out image holder temporarily  placeholder(R.drawable.image_holder_new)
         Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).

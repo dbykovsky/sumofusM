@@ -15,8 +15,10 @@
         android:id="@+id/campaign_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="@string/campaign_title" />
+        android:hint="@string/campaign_title"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxLength="20" />
 
     <!--TextView
         android:layout_width="match_parent"
