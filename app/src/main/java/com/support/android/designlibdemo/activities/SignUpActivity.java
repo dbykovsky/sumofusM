@@ -2,23 +2,37 @@ package com.support.android.designlibdemo.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.support.android.designlibdemo.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class SignUpActivity extends AppCompatActivity {
+
     // UI references.
     private EditText usernameEditText;
     private EditText useremail;
@@ -33,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Set up the signup form.
         usernameEditText = (EditText) findViewById(R.id.username_edit_text);
-        useremail = (EditText)findViewById(R.id.useremail_edit_text);
+        useremail = (EditText) findViewById(R.id.useremail_edit_text);
         passwordEditText = (EditText) findViewById(R.id.password_edit_text);
         passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
         passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -55,13 +69,14 @@ public class SignUpActivity extends AppCompatActivity {
                 signup();
             }
         });
+
     }
 
     private void signup() {
-        String username = usernameEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
-        String uemail = useremail.getText().toString().trim();
-        String passwordAgain = passwordAgainEditText.getText().toString().trim();
+        final String username = usernameEditText.getText().toString().trim();
+        final String password = passwordEditText.getText().toString().trim();
+        final String uemail = useremail.getText().toString().trim();
+        final String passwordAgain = passwordAgainEditText.getText().toString().trim();
 
         // Validate the sign up data
         boolean validationError = false;
@@ -105,27 +120,62 @@ public class SignUpActivity extends AppCompatActivity {
         dialog.setMessage(getString(R.string.progress_signup));
         dialog.show();
 
-        // Set up a new Parse user
-        ParseUser user = new ParseUser();
-        user.setUsername(username);
-        user.setEmail(uemail);
-        user.setPassword(password);
+        //ADD IMAGE Hardcoded for now. Work in Progress
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.user_image_placeholder);
+        // Convert it to byte
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
 
-        // Call the Parse signup method
-        user.signUpInBackground(new SignUpCallback() {
+        final ParseFile file = new ParseFile("profilePicture" + ".jpg", image);
+        //file.saveInBackground();
+        // Save the meal and return
+        file.saveInBackground(new SaveCallback() {
+
             @Override
             public void done(ParseException e) {
-                dialog.dismiss();
-                if (e != null) {
-                    // Show the error message
-                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                if (e == null) {
+                    // setResult(Activity.RESULT_OK);
+                    // finish();
+                    // Set up a new Parse user
+                    ParseUser user = new ParseUser();
+                    user.setUsername(username);
+                    user.setEmail(uemail);
+                    user.setPassword(password);
+                    user.put("profilePicture", file);
+                    user.saveInBackground();
+
+                    // Call the Parse signup method
+                    user.signUpInBackground(new
+
+                                                    SignUpCallback() {
+                                                        @Override
+                                                        public void done(ParseException e) {
+                                                            dialog.dismiss();
+                                                            if (e != null) {
+                                                                // Show the error message
+                                                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                            } else {
+                                                                // Start an intent for the dispatch activity
+                                                                Intent intent = new Intent(SignUpActivity.this, DispatchActivity.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                startActivity(intent);
+                                                            }
+
+
+                                                        }
+                                                    });
                 } else {
-                    // Start an intent for the dispatch activity
-                    Intent intent = new Intent(SignUpActivity.this, DispatchActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+
+                    Log.i("SumOfUs USER info", "error during user creation");
                 }
             }
+
         });
+
     }
+
+
 }

@@ -68,6 +68,7 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView userName;
     EditText userEmail;
     EditText userPhoneNumber;
+    EditText userSite;
     TextView tvCreditCardNumber;
     TextView tvCreditCardExperation;
     Button btAddCrefirCard;
@@ -82,11 +83,11 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        ivUserProfile = (ImageView) findViewById(R.id.ivProfilePicProfile);
-        ivUserPic = (ImageView) findViewById(R.id.ivUserProfile);
+        ivUserPic = (ImageView) findViewById(R.id.ivProfilePicProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
         userEmail = (EditText) findViewById(R.id.tv_userEmail);
         userPhoneNumber = (EditText) findViewById(R.id.tv_userPhone);
+        userSite = (EditText) findViewById(R.id.tv_userSite);
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
@@ -121,7 +122,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 .load(userProfilePhotoUrl).resize(400, 400)
                 .transform(transformation)
                 .into(ivUserProfile);
-
 */
         JSONArray ar = currentUser.getJSONArray("myCampaigns");
         int i = 0;
@@ -142,6 +142,8 @@ public class UserProfileActivity extends AppCompatActivity {
         Log.i("SumOfUs USER info", currentUser.getUsername());
         userName.setText(currentUser.getUsername() + contributions);
         userEmail.setText(currentUser.getEmail());
+        userPhoneNumber.setText(currentUser.getString("phoneNumber"));
+        userSite.setText(currentUser.getString("webSite"));
 
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
@@ -152,8 +154,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        // ivUserPic.setImageBitmap(bmp);
-                        ivUserProfile.setImageBitmap(bmp);
+                        ivUserPic.setImageBitmap(bmp);
+
                     } else {
                         e.printStackTrace();
                     }
@@ -215,7 +217,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         });
 
-        //Update User profile
+        //Update User's profile
         userEmail.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -234,6 +236,54 @@ public class UserProfileActivity extends AppCompatActivity {
                 String newEmail = s.toString();
                 Log.i("SumOfUs USER info", newEmail);
                 currentUser.setEmail(newEmail);
+
+            }
+        });
+
+        //Update User's phone
+        userPhoneNumber.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
+                //myOutputBox.setText(s);
+                //Save changes to Parse one the user stop editing
+                //Save on backPress()
+                String newPhone = s.toString();
+              //  currentUser.put("profilePicture", file);
+                Log.i("SumOfUs USER info", newPhone);
+                currentUser.put("phoneNumber",newPhone);
+
+            }
+        });
+
+        //Update User's Website
+        userSite.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
+                //myOutputBox.setText(s);
+                //Save changes to Parse one the user stop editing
+                //Save on backPress()
+                String webSite = s.toString();
+                //  currentUser.put("profilePicture", file);
+                Log.i("SumOfUs USER info", webSite);
+                currentUser.put("webSite",webSite);
 
             }
         });
@@ -335,8 +385,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -364,8 +415,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
+                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile("posted_by_user_" + ParseUser.getCurrentUser().getUsername() + ".jpg", image);
+                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
 
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");
