@@ -82,15 +82,24 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <!-- Login Activities -->
-        <activity android:name=".activities.Welcome_LoginActivity_or_Signup" >
+        <activity android:name=".activities.Welcome_LoginActivity_or_Signup"
+            android:theme="@style/AppTheme2"
+            android:label="@string/app_name">
         </activity>
-        <activity android:name=".activities.SignUpActivity" >
+        <activity android:name=".activities.SignUpActivity"
+            android:label="@string/title_register_user"
+            android:theme="@style/AppTheme2">
         </activity>
 
         <!-- Sign Petition Activity -->
         <activity
             android:name=".activities.SignPetitionActivity"
-            android:label="@string/title_activity_sign_petition" >
+            android:label="@string/title_activity_sign_petition"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
 
         <!-- Share to Facebook -->
@@ -100,13 +109,15 @@
         <activity android:name="io.card.payment.CardIOActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="io.card.payment.DataEntryActivity" />
 
-
-
         <!-- User Activities -->
         <activity
             android:name=".activities.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme2" >
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
         <activity android:name=".activities.NewCampaignActivity" >
         </activity>

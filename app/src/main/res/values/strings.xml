@@ -36,7 +36,7 @@
   <string name="seek_to_hint">Seconds</string>
   <string name="title_activity_campaign_detail">CampaignDetailActivity</string>
   <string name="title_activity_add_new_campaign">AddNewCampaignActivity</string>
-  <string name="title_activity_sign_petition">SignPetitionActivity</string>
+  <string name="title_activity_sign_petition">Sign Petition</string>
   <!--string name="parse_app_id">bVRXQPXfFzWYsvtkAzLNmrwX8gqCAySdLhfmbe07</string-->
   <!--string name="parse_client_key">K1SRMMFlA6kwEnur7Ypk0X4Uw9eHBGVQBksyzk1V</string-->
   <string name="parse_app_id">LCPA3eHqb1CyiP2pmZGdDXw6I54pZKNCoxTGAsTt</string>
@@ -64,7 +64,8 @@
 
   <string name="save_button_text">Save</string>
   <string name="cancel_button_text">Cancel</string>
-  <string name="title_activity_user_profile">UserProfile</string>
+  <string name="title_activity_user_profile">Profile</string>
+  <string name="title_register_user">Register</string>
 
   <!-- Strings related to login -->
   <string name="signup">Sign up</string>
@@ -72,6 +73,7 @@
   <string name="title_activity_signup">Sign up</string>
   <string name="logout">Log Out</string>
   <string name="prompt_username">User name</string>
+  <string name="upload_image">Upload Image</string>
   <string name="prompt_useremail">User e-mail</string>
   <string name="prompt_password">Password</string>
   <string name="prompt_password_again">Password Again</string>
