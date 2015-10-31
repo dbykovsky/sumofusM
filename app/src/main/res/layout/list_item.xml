@@ -50,8 +50,9 @@
                 android:alpha="0.8"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:paddingBottom="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <ProgressBar
                 android:id="@+id/pbLoading"
@@ -67,7 +68,8 @@
                 android:background="@color/orange"
                 android:text="@string/take_action"
                 android:textColor="@color/white"
-                android:id="@+id/btTakeActionDetail"
+                android:transitionName="take_action"
+                android:id="@+id/bt_take_action_list_item"
                 android:shadowRadius="5"
                 android:layout_marginLeft="5dp"
                 android:paddingLeft="4dp"
