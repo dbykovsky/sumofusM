@@ -127,14 +127,30 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Compaign details:"
+                        android:text="Overview"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/tvCampaignOverview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Overview"
+                        android:paddingBottom="20dp"
+                        android:autoLink="web"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Details"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:id="@+id/tvCampaignDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="test text details"
+                        android:text="Details"
+                        android:paddingBottom="40dp"
                         android:autoLink="web"
                         />
 
