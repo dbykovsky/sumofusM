@@ -41,7 +41,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             super(view);
             tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
-            btTakeAction = (Button) view.findViewById(R.id.btTakeActionDetail);
+            btTakeAction = (Button) view.findViewById(R.id.bt_take_action_list_item);
         }
     }
 
@@ -67,9 +67,10 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Campaign camp =  mCampaigns.get(position);
 
-        holder.tvShortCampaignDescription.setText(camp.getTitle());
+        holder.tvShortCampaignDescription.setText(camp.getShortDescription());
 
-        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).placeholder(R.drawable.ic_no_image).
+        //I commented out image holder temporarily  placeholder(R.drawable.image_holder_new)
+        Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).
                 resize(DeviceDimensionsHelper.getDisplayWidth(holder.ivCampaign.getContext()), 0).into(holder.ivCampaign);
 
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +84,11 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
                 i.putExtra("camp", camp);
                 Pair<View, String> p1 = Pair.create((View)holder.ivCampaign, "profile");
                 Pair<View, String> p2 = Pair.create((View)fb, "fab");
+                Pair<View, String> p3 = Pair.create((View)holder.btTakeAction, "take_action");
+
                 //initiate transition
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity) holder.ivCampaign.getContext(),p1, p2);
+                        makeSceneTransitionAnimation((Activity) holder.ivCampaign.getContext(),p1, p2, p3);
                 holder.ivCampaign.getContext().startActivity(i, options.toBundle());
             }
         });

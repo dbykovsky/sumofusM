@@ -32,7 +32,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,16 +50,16 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.models.Campaign;
 
-import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 import com.support.android.designlibdemo.utils.PrettyText;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -79,9 +78,14 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int CROP_PHOTO_CODE = 3;
     private static final String ITENT_TAG= "camp";
 
+    int goalInt;
+    int progressInt;
+
     TextView tvCampaignText;
     ImageView ivCampaignImage;
+    TextView tvCampaignOverview;
     TextView tvGoal;
+    TextView tvPercentage;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
     Button btTakeanAction;
@@ -99,15 +103,16 @@ public class CampaignDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         imageUrls = new ArrayList<String>();
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
+        tvPercentage= (TextView) findViewById(R.id.tvPercentage);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
+        tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
-        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetail);
+        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
 
         //getting intent
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
         getImagesUploadedByUserForCampaign(campaign.getObjectId());
-
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,9 +121,22 @@ public class CampaignDetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
-        collapsingToolbar.setTitle(campaign.getShortDescription());
+        collapsingToolbar.setTitle(campaign.getTitle());
         collapsingToolbar.getCollapsedTitleGravity();
         loadBackdrop(campaign.getImageUrl(), ivCampaignImage);
+
+
+        PrettyText goal = new PrettyText();
+        String txt = "";
+        goalInt = campaign.getGoal();
+        progressInt = campaign.getGoalCount();
+
+        if (progressInt >= goalInt) {
+            txt = "SUCCESS! ";
+        }
+        txt += goal.numberToAmounts(goalInt);
+        txt += " / " + goal.numberToAmounts(progressInt);
+        tvPercentage.setText(txt);
 
         //setting up progress bar
         customProgress.setProgressColor(getResources().getColor(R.color.green_500));
@@ -126,13 +144,14 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress.setMaximumPercentage(calculatePercentage(campaign.getGoal(), campaign.getGoalCount()));
         customProgress.useRoundedRectangleShape(30.0f);
         customProgress.setShowingPercentage(true);
+        customProgress.setText(customProgress.getText());
         //set text above progress
+        tvCampaignOverview.setText(campaign.getShortDescription());
         tvCampaignText.setText(campaign.getLongDescription());
 
         //set goal text
-        PrettyText goal = new PrettyText();
-        String txt = goal.numberToAmounts(campaign.getGoal()) + " signatures";
-        tvGoal.setText("Campaign goal: "+ txt);
+        txt = goal.addComma(campaign.getGoal()) + " signatures";
+        tvGoal.setText("Goal: "+ txt);
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -53,32 +53,13 @@
                 android:imeActionLabel="@string/signup"
                 android:imeOptions="actionUnspecified" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ivProfilePicProfile"
-                android:layout_centerHorizontal="true"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:background="@drawable/user_image_placeholder"
-                android:layout_gravity="center"
-                android:visibility="invisible"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Image"
-                android:id="@+id/photo_button"
-                android:layout_below="@+id/ivProfilePicProfile"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/action_button"
                 android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="25dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/signup"
