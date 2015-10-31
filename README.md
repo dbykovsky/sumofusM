@@ -40,6 +40,9 @@ Milestone 2:
 
 <img src='milestone2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Reading CC info with a physical device:
+- [Reading info from a CC](https://youtu.be/7LwYyCo0nkQ)
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes

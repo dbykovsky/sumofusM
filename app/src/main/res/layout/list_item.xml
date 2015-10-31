@@ -29,9 +29,10 @@
             <ImageView
                 android:id="@+id/ivCampaign"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
+                android:transitionName="campaign_image"
+                android:scaleType="centerCrop"
                 />
 
             <TextView

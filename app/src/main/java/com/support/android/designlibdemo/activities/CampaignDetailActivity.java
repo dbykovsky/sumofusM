@@ -60,6 +60,7 @@ import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
+import com.support.android.designlibdemo.utils.PrettyText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,11 +79,13 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int CROP_PHOTO_CODE = 3;
     private static final String ITENT_TAG= "camp";
 
-
+    int goalInt;
+    int progressInt;
 
     TextView tvCampaignText;
     ImageView ivCampaignImage;
     TextView tvGoal;
+    TextView tvPercentage;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
     Button btTakeanAction;
@@ -100,6 +103,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         imageUrls = new ArrayList<String>();
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
+        tvPercentage= (TextView) findViewById(R.id.tvPercentage);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
@@ -121,18 +125,32 @@ public class CampaignDetailActivity extends AppCompatActivity {
         collapsingToolbar.getCollapsedTitleGravity();
         loadBackdrop(campaign.getImageUrl(), ivCampaignImage);
 
+
+        PrettyText goal = new PrettyText();
+        String txt = "";
+        goalInt = campaign.getGoal();
+        progressInt = campaign.getGoalCount();
+
+        if (progressInt >= goalInt) {
+            txt = "SUCCESS! ";
+        }
+        txt += goal.numberToAmounts(goalInt);
+        txt += " / " + goal.numberToAmounts(progressInt);
+        tvPercentage.setText(txt);
+
         //setting up progress bar
         customProgress.setProgressColor(getResources().getColor(R.color.green_500));
         customProgress.setProgressBackgroundColor(getResources().getColor(R.color.green_200));
         customProgress.setMaximumPercentage(calculatePercentage(campaign.getGoal(), campaign.getGoalCount()));
         customProgress.useRoundedRectangleShape(30.0f);
         customProgress.setShowingPercentage(true);
+        customProgress.setText(customProgress.getText());
         //set text above progress
         tvCampaignText.setText(campaign.getLongDescription());
 
         //set goal text
-        tvGoal.setText("Campaign goal: "+ String.valueOf(campaign.getGoal()));
-
+        txt = goal.addComma(campaign.getGoal()) + " signatures";
+        tvGoal.setText("Goal: "+ txt);
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
             @Override
