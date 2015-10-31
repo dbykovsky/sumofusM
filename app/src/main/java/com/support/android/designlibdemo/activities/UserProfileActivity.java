@@ -394,8 +394,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 currentUser.put("profilePicture", file);
                 currentUser.saveInBackground();
-                // getImagesUploadedByUserForCampaign(campaign.getObjectId());
-                ivUserPic.setImageBitmap(photoBitmap); //Andres
+                //Display image selected
+                ivUserPic.setImageBitmap(photoBitmap);
 
             } else if (requestCode == PICK_PHOTO_CODE) {
 
@@ -426,8 +426,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 currentUser.put("profilePicture", file);
                 currentUser.saveInBackground();
-                //getImagesUploadedByUserForCampaign(campaign.getObjectId());
-                ivUserPic.setImageBitmap(photoBitmap);  //Andres
+                //Display image selected
+                ivUserPic.setImageBitmap(photoBitmap);
 
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
