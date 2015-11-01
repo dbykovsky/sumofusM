@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -49,10 +50,10 @@ import java.io.IOException;
 
 public class NewCampaignFragment extends Fragment {
     private static final int PICK_PHOTO_CODE = 445533;
-    private ImageButton photoButton;
-    private Button saveButton;
-    private Button cancelButton;
-    private ImageButton uploadButton;
+    private FloatingActionButton photoButton;
+    private FloatingActionButton saveButton;
+    private FloatingActionButton cancelButton;
+    private FloatingActionButton uploadButton;
     private FloatLabel campaignTitle;
     private FloatLabel campaignDescription;
     private FloatLabel campaignOverview;
@@ -236,7 +237,7 @@ public class NewCampaignFragment extends Fragment {
 //                        android.R.layout.simple_spinner_dropdown_item);
 //        campaignCategory.setAdapter(spinnerAdapter);
 
-        photoButton = ((ImageButton) v.findViewById(R.id.photo_button));
+        photoButton = ((FloatingActionButton) v.findViewById(R.id.photo_button));
         photoButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -249,7 +250,7 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
-        saveButton = ((Button) v.findViewById(R.id.save_button));
+        saveButton = ((FloatingActionButton) v.findViewById(R.id.save_button));
         saveButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -296,7 +297,7 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
-        cancelButton = ((Button) v.findViewById(R.id.cancel_button));
+        cancelButton = ((FloatingActionButton) v.findViewById(R.id.cancel_button));
         cancelButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -306,7 +307,7 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
-        uploadButton = ((ImageButton) v.findViewById(R.id.upload_button));
+        uploadButton = ((FloatingActionButton) v.findViewById(R.id.upload_button));
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
