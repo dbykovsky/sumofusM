@@ -85,7 +85,7 @@
         </activity>
         <!-- Login Activities -->
         <activity android:name=".activities.Welcome_LoginActivity_or_Signup"
-            android:theme="@style/AppTheme2"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/app_name">
         </activity>
         <activity android:name=".activities.SignUpActivity"

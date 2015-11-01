@@ -46,6 +46,8 @@
     <color name="translucent_scrim_bottom">#2A000000</color>
     <color name="translucent_scrim_bottom_center">#0D000000</color>
 
+  <color name="translucent_button_sign_in">#26000000</color>
+
   //new styles
 
   <color name="colorPrimary">#673AB7</color>
