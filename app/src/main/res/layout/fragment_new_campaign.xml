@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <!--TextView
-        android:layout_width="match_parent"
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_title"
-        android:textSize="10sp" /-->
+        android:text="@string/create_campaign"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:verticalScrollbarPosition="right"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:gravity="center|center_vertical|center_horizontal"
+        android:elegantTextHeight="true"
+        android:layout_gravity="center"
+        android:paddingTop="8dp" />
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +48,7 @@
         android:text="@string/campaign_overview"
         android:textSize="10sp" /-->
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +64,7 @@
         android:text="@string/campaign_description"
         android:textSize="10sp" /-->
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +80,7 @@
         android:text="@string/campaign_sign_message"
         android:textSize="10sp" /-->
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_sign_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,12 +95,12 @@
         android:text="@string/campaign_goal"
         android:textSize="10sp" /-->
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_goal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/campaign_goal"
-        android:numeric="integer" />
+        />
 
     <!--TextView
         android:layout_width="match_parent"
@@ -88,7 +109,7 @@
         android:text="@string/campaign_url"
         android:textSize="10sp" /-->
 
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,13 +174,8 @@
             android:layout_toRightOf="@+id/photo_button"
             android:layout_toEndOf="@+id/photo_button" />
 
-
     </RelativeLayout>
 
-    <!--com.parse.ParseImageView
-        android:id="@+id/campaign_preview_image"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal" /-->
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
