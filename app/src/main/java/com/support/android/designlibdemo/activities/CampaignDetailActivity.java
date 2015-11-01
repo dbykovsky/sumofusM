@@ -17,6 +17,7 @@
 package com.support.android.designlibdemo.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -109,58 +111,62 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
         btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
-
-        //getting intent
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
-        getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+            final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        collapsingToolbar.setTitle(campaign.getTitle());
-        collapsingToolbar.getCollapsedTitleGravity();
-        loadBackdrop(campaign.getImageUrl(), ivCampaignImage);
+            CollapsingToolbarLayout collapsingToolbar =
+                    (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+            collapsingToolbar.setTitle(campaign.getTitle());
+            collapsingToolbar.getCollapsedTitleGravity();
+            loadBackdrop(campaign.getImageUrl(), ivCampaignImage);
 
 
-        PrettyText goal = new PrettyText();
-        String txt = "";
-        goalInt = campaign.getGoal();
-        progressInt = campaign.getGoalCount();
+            PrettyText goal = new PrettyText();
+            String txt = "";
+            goalInt = campaign.getGoal();
+            progressInt = campaign.getGoalCount();
 
-        if (progressInt >= goalInt) {
-            txt = "SUCCESS! ";
-        }
-        txt += goal.numberToAmounts(goalInt);
-        txt += " / " + goal.numberToAmounts(progressInt);
-        tvPercentage.setText(txt);
+            if (progressInt >= goalInt) {
+                txt = "SUCCESS! ";
+            }
+            txt += goal.numberToAmounts(goalInt);
+            txt += " / " + goal.numberToAmounts(progressInt);
+            tvPercentage.setText(txt);
 
-        //setting up progress bar
-        customProgress.setProgressColor(getResources().getColor(R.color.green_500));
-        customProgress.setProgressBackgroundColor(getResources().getColor(R.color.green_200));
-        customProgress.setMaximumPercentage(calculatePercentage(campaign.getGoal(), campaign.getGoalCount()));
-        customProgress.useRoundedRectangleShape(30.0f);
-        customProgress.setShowingPercentage(true);
-        customProgress.setText(customProgress.getText());
-        //set text above progress
-        tvCampaignOverview.setText(campaign.getShortDescription());
-        tvCampaignText.setText(campaign.getLongDescription());
+            //setting up progress bar
+            customProgress.setProgressColor(getResources().getColor(R.color.green_500));
+            customProgress.setProgressBackgroundColor(getResources().getColor(R.color.green_200));
+            customProgress.setMaximumPercentage(calculatePercentage(campaign.getGoal(), campaign.getGoalCount()));
+            customProgress.useRoundedRectangleShape(30.0f);
+            customProgress.setShowingPercentage(true);
+            //set text above progress
+            tvCampaignOverview.setText(campaign.getShortDescription());
+            tvCampaignText.setText(campaign.getLongDescription());
 
-        //set goal text
-        txt = goal.addComma(campaign.getGoal()) + " signatures";
-        tvGoal.setText("Goal: "+ txt);
+            //set goal text
+            txt = goal.addComma(campaign.getGoal()) + " signatures";
+            tvGoal.setText("Goal: "+ txt);
+
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
-                i.putExtra(ITENT_TAG, campaign.getObjectId());
-                i.putStringArrayListExtra(ITENT_TAG, imageUrls);
-                startActivity(i);
+                if(imageUrls.size()>0){
+                    Intent i = new Intent(CampaignDetailActivity.this, PhotoGalleryActivity.class);
+                    i.putExtra(ITENT_TAG, campaign.getObjectId());
+                    i.putStringArrayListExtra(ITENT_TAG, imageUrls);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }else{
+                    buildDialogNoPictures(CampaignDetailActivity.this).show();
 
+                }
             }
         });
 
@@ -245,7 +251,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_actions_detal_campaign, menu);
         return true;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -466,5 +471,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
     }
 
+    public AlertDialog.Builder buildDialogNoPictures(Context c) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("There are no photos yet");
+        builder.setMessage("Be first one and add more supportive pictures for this campaign");
+        builder.setIcon(R.mipmap.ic_launcher_sou);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        return builder;
+    }
 
 }
+

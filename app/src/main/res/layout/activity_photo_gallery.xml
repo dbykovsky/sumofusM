@@ -17,4 +17,13 @@
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
 
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
+        android:padding="20dip"
+        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        />
+
+
 </RelativeLayout>
