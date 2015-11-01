@@ -1,19 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/grey_200"
-    tools:context="com.support.android.designlibdemo.activities.SignPetitionActivity">
+    tools:context="com.support.android.designlibdemo.activities.SignPetitionActivity"-->
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="5dp">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/ll_backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="10dp"
         android:paddingBottom="10dp"
         android:background="@drawable/linear_layout_round"
@@ -22,70 +26,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Petition text goes in here"
+            android:text="Petition message"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/tvPetitionMessage"
             />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your full name "
-        android:id="@+id/tvFullNameSign"
-        android:layout_below="@+id/ll_backgroundImage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        />
-
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
-        android:hint="Enter your ful name"
+        android:hint="Your name"
         android:ems="10"
         android:id="@+id/etFullNameSign"
         android:background="@drawable/edit_text_round_corners"
-        android:layout_below="@+id/tvFullNameSign"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Email Address"
-        android:id="@+id/tvEmailAddress"
-        android:layout_below="@+id/etFullNameSign"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        />
-
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
         android:ems="10"
         android:id="@+id/etEmailAddress"
-        android:layout_below="@+id/tvEmailAddress"
         android:background="@drawable/edit_text_round_corners"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Enter your e-mail address"
+        android:hint="Your e-mail address"
         android:gravity="center_vertical"
-
+        android:paddingBottom="10dp"
         />
 
     <TextView
@@ -94,8 +70,6 @@
         android:text="Country"
         android:id="@+id/tvYourCountry"
         android:layout_below="@+id/etEmailAddress"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -106,35 +80,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/spCountries"
         android:layout_below="@+id/tvYourCountry"
+        android:paddingBottom="10dp"
         android:background="@drawable/apptheme_spinner_default_holo_light"
         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:text="Enter your zip"
-        android:id="@+id/tvZip"
-        android:layout_below="@+id/spCountries"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        />
-
-    <EditText
+    <com.iangclifton.android.floatlabel.FloatLabel
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
         android:id="@+id/etZipCode"
-        android:layout_below="@+id/tvZip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@drawable/edit_text_round_corners"
-        android:hint="Zip"
+        android:hint="Postal or Zip Code"
         android:inputType="number"
         android:gravity="center_vertical"
 
@@ -147,9 +105,7 @@
         android:textColor="@color/white"
         android:id="@+id/btSignPetitoin"
         android:background="@color/orange"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
         />
 
 
-</RelativeLayout>
+</LinearLayout>
