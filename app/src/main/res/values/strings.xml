@@ -50,7 +50,7 @@
   <string name="campaign_overview">What action do you want our users to take?</string>
   <string name="campaign_description">Tell your story! Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
   <string name="campaign_sign_message">Message to the campaign recipient</string>
-  <string name="campaign_goal">Signatures goal</string>
+  <string name="campaign_goal">Number of signatures</string>
   <string name="campaign_url">Your campaign webpage</string>
 
 
