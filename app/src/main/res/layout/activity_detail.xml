@@ -41,7 +41,7 @@
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
 
-            <ImageView
+            <com.flaviofaria.kenburnsview.KenBurnsView
                 android:id="@+id/ivCampaighnImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
