@@ -38,8 +38,9 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp">
+            app:expandedTitleTextAppearance="@color/hint_black"
+            app:expandedTitleMarginStart="18dp"
+            app:expandedTitleMarginEnd="20dp">
 
             <com.flaviofaria.kenburnsview.KenBurnsView
                 android:id="@+id/ivCampaighnImage"
