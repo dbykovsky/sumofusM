@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iangclifton.android.floatlabel.FloatLabel;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -45,12 +46,12 @@ public class NewCampaignFragment extends Fragment {
     private Button saveButton;
     private Button cancelButton;
     private ImageButton uploadButton;
-    private TextView campaignTitle;
-    private TextView campaignDescription;
-    private TextView campaignOverview;
-    private TextView campaignMessage;
-    private TextView campaignGoal;
-    private TextView campaignUrl;
+    private FloatLabel campaignTitle;
+    private FloatLabel campaignDescription;
+    private FloatLabel campaignOverview;
+    private FloatLabel campaignMessage;
+    private FloatLabel campaignGoal;
+    private FloatLabel campaignUrl;
   //  private TextView campaignImage;
     private Spinner campaignCategory;
     private CampaignParse campaign;
@@ -68,15 +69,15 @@ public class NewCampaignFragment extends Fragment {
         View v;
         v = inflater.inflate(R.layout.fragment_new_campaign, container, false);
 
-        campaignTitle = ((EditText) v.findViewById(R.id.campaign_title));
-        campaignOverview = ((EditText) v.findViewById(R.id.campaign_overview));
-        campaignDescription = ((EditText) v.findViewById(R.id.campaign_description));
-        campaignGoal = ((EditText) v.findViewById(R.id.campaign_goal));
-        campaignMessage = ((EditText) v.findViewById(R.id.campaign_sign_message));
-        campaignUrl = ((EditText) v.findViewById(R.id.campaign_url));
-      //  campaignImage = ((EditText) v.findViewById(R.id.image_url));
-
-        // The campaignCategory spinner lets people assign a general category for their campaign
+        campaignTitle = ((FloatLabel) v.findViewById(R.id.campaign_title));
+        campaignOverview = ((FloatLabel) v.findViewById(R.id.campaign_overview));
+        campaignDescription = ((FloatLabel) v.findViewById(R.id.campaign_description));
+        campaignGoal = ((FloatLabel) v.findViewById(R.id.campaign_goal));
+        campaignGoal.getEditText().setMaxLines(1);
+        campaignGoal.getEditText().setInputType(0x00000002);
+        campaignMessage = ((FloatLabel) v.findViewById(R.id.campaign_sign_message));
+        campaignUrl = ((FloatLabel) v.findViewById(R.id.campaign_url));
+        campaignUrl.getEditText().setInputType(0x01);
 
         campaignCategory = ((Spinner) v.findViewById(R.id.categories_spinner));
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
@@ -105,12 +106,13 @@ public class NewCampaignFragment extends Fragment {
 
 
                 // Add data to the campaign object:
-                campaign.setTitle(campaignTitle.getText().toString());
-                campaign.setOverview(campaignOverview.getText().toString());
-                campaign.setDescription(campaignDescription.getText().toString());
-                campaign.setSignMessage(campaignMessage.getText().toString());
-                campaign.setGoal(Integer.parseInt(campaignGoal.getText().toString()));
-                campaign.setCampaignUrl(campaignUrl.getText().toString());
+                campaign.setTitle(campaignTitle.getEditText().getText().toString());
+                campaign.setOverview(campaignOverview.getEditText().getText().toString());
+                campaign.setDescription(campaignDescription.getEditText().getText().toString());
+                campaign.setSignMessage(campaignMessage.getEditText().getText().toString());
+                String a = campaignGoal.getEditText().getText().toString();
+                campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString()));
+                campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString());
              //   campaign.setImageUrl(campaignImage.getText().toString());
                 campaign.setCategory(campaignCategory.getSelectedItem().toString());
 

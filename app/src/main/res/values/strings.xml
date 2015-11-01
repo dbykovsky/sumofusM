@@ -36,7 +36,7 @@
   <string name="seek_to_hint">Seconds</string>
   <string name="title_activity_campaign_detail">CampaignDetailActivity</string>
   <string name="title_activity_add_new_campaign">AddNewCampaignActivity</string>
-  <string name="title_activity_sign_petition">Sign Petition</string>
+  <string name="title_activity_sign_petition">SignPetitionActivity</string>
   <!--string name="parse_app_id">bVRXQPXfFzWYsvtkAzLNmrwX8gqCAySdLhfmbe07</string-->
   <!--string name="parse_client_key">K1SRMMFlA6kwEnur7Ypk0X4Uw9eHBGVQBksyzk1V</string-->
   <string name="parse_app_id">LCPA3eHqb1CyiP2pmZGdDXw6I54pZKNCoxTGAsTt</string>
@@ -44,15 +44,13 @@
   <string name="facebook_app_id">577201735745344</string>
 
   <string name="take_action">Take Action</string>
-  <string name="create_campaign">Create Campaign</string>
+  <string name="create_campaign">Start a new campaign</string>
 
-
-  <string name="campaign_label">Campaign title</string>
-  <string name="campaign_description">Description</string>
-  <string name="campaign_title">Title</string>
-  <string name="campaign_overview">Overview</string>
-  <string name="campaign_sign_message">Suggested support message</string>
-  <string name="campaign_goal">Supporters goal</string>
+  <string name="campaign_title">What is your campaign about?</string>
+  <string name="campaign_overview">What action do you want our users to take?</string>
+  <string name="campaign_description">Tell your story! Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
+  <string name="campaign_sign_message">Message to the campaign recipient</string>
+  <string name="campaign_goal">Signatures goal</string>
   <string name="campaign_url">Sum of Us webpage</string>
 
   <string-array name="category_array">
@@ -64,17 +62,15 @@
 
   <string name="save_button_text">Save</string>
   <string name="cancel_button_text">Cancel</string>
-  <string name="title_activity_user_profile">Profile</string>
-  <string name="title_activity_photogallery">Photogallery</string>
-  <string name="title_register_user">Register</string>
+  <string name="title_activity_user_profile">UserProfile</string>
 
   <!-- Strings related to login -->
+    <string name="title_register_user">Register</string>
   <string name="signup">Sign up</string>
   <string name="title_activity_login">Log in</string>
   <string name="title_activity_signup">Sign up</string>
   <string name="logout">Log Out</string>
   <string name="prompt_username">User name</string>
-  <string name="upload_image">Upload Image</string>
   <string name="prompt_useremail">User e-mail</string>
   <string name="prompt_password">Password</string>
   <string name="prompt_password_again">Password Again</string>
