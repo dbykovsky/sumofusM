@@ -69,7 +69,7 @@
 
   <string name="save_button_text">Save</string>
   <string name="cancel_button_text">Cancel</string>
-  <string name="title_activity_user_profile">UserProfile</string>
+  <string name="title_activity_user_profile">Profile</string>
   <string name="title_activity_photogallery_lable">Gallery</string>
 
   <!-- Strings related to login -->

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -164,7 +165,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         //Camera
-        Button photoButton = (Button) findViewById(R.id.photo_button);
+        FloatingActionButton photoButton = (FloatingActionButton) findViewById(R.id.photo_button);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
