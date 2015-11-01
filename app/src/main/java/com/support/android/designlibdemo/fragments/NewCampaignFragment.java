@@ -67,8 +67,6 @@ public class NewCampaignFragment extends Fragment {
     private static final int MaxTitleCount = 20;
     private static final int MaxOverviewCount = 200;
     private static final int MaxMessageCount = 200;
-    private static final int MaxSignaturesCount = 7;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +100,7 @@ public class NewCampaignFragment extends Fragment {
                     tvTitleHelp.setText("That's a long title. " + charCount + "/" + MaxTitleCount + " ");
                 }
                 else if (charCount > (MaxTitleCount /2) ) {
+                    tvTitleHelp.setVisibility(View.VISIBLE);
                     tvTitleHelp.setText(charCount + "/" + MaxTitleCount + " ");
                     tvTitleHelp.setError(null);
                     tvTitleHelp.setTextColor(Color.GRAY);
@@ -130,12 +129,13 @@ public class NewCampaignFragment extends Fragment {
                 charCount = s.length();
 
 
-                if (charCount > MaxOverviewCount + 15) {
+                if (charCount > MaxOverviewCount) {
                     tvOverviewHelp.setError("Really?!");
                     tvOverviewHelp.setTextColor(Color.RED);
                     tvOverviewHelp.setText("Really?! " + charCount + "/" + MaxOverviewCount + " ");
                 }
                 else if (charCount > (MaxOverviewCount /2) ) {
+                    tvOverviewHelp.setVisibility(View.VISIBLE);
                     tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
                 }
                 else {
@@ -153,7 +153,6 @@ public class NewCampaignFragment extends Fragment {
 
 
         campaignDescription = ((FloatLabel) v.findViewById(R.id.campaign_description));
-
         campaignGoal = ((FloatLabel) v.findViewById(R.id.campaign_goal));
         campaignGoal.getEditText().setMaxLines(1);
         campaignGoal.getEditText().setInputType(0x00000002);
@@ -168,6 +167,7 @@ public class NewCampaignFragment extends Fragment {
 
                 switch (charCount) {
                     case 4:
+                        tvGoalHelp.setVisibility(View.VISIBLE);
                         tvGoalHelp.setError(null);
                         tvGoalHelp.setTextColor(Color.GRAY);
                         tvGoalHelp.setText("Numbers only ");
@@ -212,7 +212,8 @@ public class NewCampaignFragment extends Fragment {
                     tvMessageHelp.setError("Really?! ");
                     tvMessageHelp.setTextColor(Color.RED);
                     tvMessageHelp.setText("Are you writting a book? " + charCount + "/" + MaxMessageCount + " ");
-                } else if (charCount > (MaxMessageCount - 2)) {
+                } else if (charCount > (MaxMessageCount / 2)) {
+                    tvMessageHelp.setVisibility(View.VISIBLE);
                     tvMessageHelp.setText(charCount + "/" + MaxMessageCount + " ");
                 } else {
                     tvMessageHelp.setError(null);
@@ -229,12 +230,11 @@ public class NewCampaignFragment extends Fragment {
 
         campaignUrl = ((FloatLabel) v.findViewById(R.id.campaign_url));
         campaignUrl.getEditText().setInputType(0x01);
-
-        campaignCategory = ((Spinner) v.findViewById(R.id.categories_spinner));
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
-                .createFromResource(getActivity(), R.array.category_array,
-                        android.R.layout.simple_spinner_dropdown_item);
-        campaignCategory.setAdapter(spinnerAdapter);
+//        campaignCategory = ((Spinner) v.findViewById(R.id.categories_spinner));
+//        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter
+//                .createFromResource(getActivity(), R.array.category_array,
+//                        android.R.layout.simple_spinner_dropdown_item);
+//        campaignCategory.setAdapter(spinnerAdapter);
 
         photoButton = ((ImageButton) v.findViewById(R.id.photo_button));
         photoButton.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +264,8 @@ public class NewCampaignFragment extends Fragment {
                 String a = campaignGoal.getEditText().getText().toString();
                 campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString()));
                 campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString());
-                campaign.setCategory(campaignCategory.getSelectedItem().toString());
+               // campaign.setCategory(campaignCategory.getSelectedItem().toString());
+                campaign.setCategory("none");
 
                 // Associate the campaign with the current user
                 campaign.setAuthor();
