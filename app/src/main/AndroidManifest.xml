@@ -158,7 +158,7 @@
 
         <activity android:name=".activities.PhotoGalleryActivity"
             android:theme="@style/AppTheme2"
-            android:label="@string/title_activity_photogallery"
+            android:label="@string/title_activity_photogallery_lable"
             android:parentActivityName=".activities.CampaignDetailActivity"
             >
             <meta-data
