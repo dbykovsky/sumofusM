@@ -29,9 +29,9 @@ public class SignPetitionActivity extends AppCompatActivity {
 
     private Campaign campaign;
     Button btSignPetition;
-    EditText evFulName;
-    EditText evEmailAddress;
-    EditText evZipCode;
+    com.iangclifton.android.floatlabel.FloatLabel evFulName;
+    com.iangclifton.android.floatlabel.FloatLabel evEmailAddress;
+    com.iangclifton.android.floatlabel.FloatLabel evZipCode;
     TextView tvPetitionMessage;
 
 
@@ -50,9 +50,9 @@ public class SignPetitionActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         //setting up the views
-       evFulName = (EditText) findViewById(R.id.etFullNameSign);
-       evEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
-       evZipCode = (EditText)findViewById(R.id.etZipCode);
+       evFulName = (com.iangclifton.android.floatlabel.FloatLabel) findViewById(R.id.etFullNameSign);
+       evEmailAddress = (com.iangclifton.android.floatlabel.FloatLabel)findViewById(R.id.etEmailAddress);
+       evZipCode = (com.iangclifton.android.floatlabel.FloatLabel)findViewById(R.id.etZipCode);
        tvPetitionMessage = (TextView) findViewById(R.id.tvPetitionMessage);
 
         //setting petition message
@@ -74,19 +74,19 @@ public class SignPetitionActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //fields validations
-                if( evFulName.getText().length()==0)
+                if( evFulName.getEditText().getText().length()==0)
                 {
                     Toast.makeText(SignPetitionActivity.this, "Full name is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evEmailAddress.getText().length()==0)
+                if( evEmailAddress.getEditText().getText().length()==0)
                 {
                     Toast.makeText(SignPetitionActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evZipCode.getText().length()==0)
+                if( evZipCode.getEditText().getText().length()==0)
                 {
                     Toast.makeText(SignPetitionActivity.this, "Zip is required", Toast.LENGTH_SHORT).show();
                     return;

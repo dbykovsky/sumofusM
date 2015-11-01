@@ -136,6 +136,7 @@ public class NewCampaignFragment extends Fragment {
                     tvOverviewHelp.setText("Really?! " + charCount + "/" + MaxOverviewCount + " ");
                 }
                 else if (charCount > (MaxOverviewCount /2) ) {
+                    tvGoalHelp.setError(null);
                     tvOverviewHelp.setVisibility(View.VISIBLE);
                     tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
                 }
@@ -168,12 +169,13 @@ public class NewCampaignFragment extends Fragment {
 
                 switch (charCount) {
                     case 4:
-                        tvGoalHelp.setVisibility(View.VISIBLE);
+                        tvGoalHelp.setVisibility(View.INVISIBLE);
                         tvGoalHelp.setError(null);
                         tvGoalHelp.setTextColor(Color.GRAY);
                         tvGoalHelp.setText("Numbers only ");
                         break;
                     case 5:
+                        tvGoalHelp.setVisibility(View.VISIBLE);
                         tvGoalHelp.setText("Tens of thousands...");
                         break;
                     case 6:
@@ -185,7 +187,6 @@ public class NewCampaignFragment extends Fragment {
                         tvGoalHelp.setText("Millions of users?! ");
                         break;
                     case 8:
-                        tvGoalHelp.setError("Really?! ");
                         tvGoalHelp.setTextColor(Color.RED);
                         tvGoalHelp.setText("Really?! We don't have MILLIONS of users?! ");
                         break;
