@@ -35,5 +35,10 @@
   <color name="grey_200">#EEEEEE</color>
   <color name="black">#000000</color>
   <color name="petition_background">#bbe9ed</color>
+  <color name="hint_blue">#147efb</color>
+  <color name="hint_blue_light">#4285f4</color>
+  <color name="hint_black">#333333</color>
+    <color name="hint_grey">#696969</color>
+    <color name="hint_dark_grey">#2F4F4F</color>
 
 </resources>
