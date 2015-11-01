@@ -55,6 +55,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.dialogs.DonationDialog;
 import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ParseUser currentUser;
     private ViewPager viewPager;
+    private ImageView ivUserProfile;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -100,28 +102,17 @@ public class MainActivity extends AppCompatActivity {
         subscribeUserToChannel();
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
-
         //Get Image from parse
+        String imageProfileUrl = null;
         if(image!=null){
-            image.getDataInBackground(new GetDataCallback() {
-                public void done(byte[] data, ParseException e) {
-                    if (e == null) {
-                        final Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                       // ImageView ivUserPic = (ImageView) findViewById(R.id.ivProfilePicProfile);
-                        //ivUserPic.setImageBitmap(bmp);
-
-                    } else {
-                        e.printStackTrace();
-                        Log.i("SumOfUs USER info: ", "error getting user pic.");
-                    }
-                }
-            });
+            imageProfileUrl = image.getUrl();
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
-       // ((ImageView) nav_header.findViewById(R.id.ProfileimageView)).setImageBitmap(bmp);
-        ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
+       ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
+       Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+               ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
         ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
         navigationView.addHeaderView(nav_header);
 

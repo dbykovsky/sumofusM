@@ -9,12 +9,11 @@ tools:context="Welcome_LoginActivity_or_Signup">
     >
 
 
-<ImageView
+<com.flaviofaria.kenburnsview.KenBurnsView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/iv_background"
-    android:src="@android:color/transparent"
-
+    android:src="@drawable/pigins"
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
@@ -28,7 +27,7 @@ tools:context="Welcome_LoginActivity_or_Signup">
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
-    android:background="#A76EFF"
+    android:background="@color/translucent_scrim_bottom"
     android:padding="25dp"
 
     >
@@ -38,6 +37,7 @@ tools:context="Welcome_LoginActivity_or_Signup">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to SumOfUs"
+        android:textColor="@color/white"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
@@ -100,6 +100,8 @@ tools:context="Welcome_LoginActivity_or_Signup">
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             app:layout_widthPercent="30%"
+            android:textColor="@color/white"
+            android:background="@color/translucent_button_sign_in"
             android:text="Login"
 
             />
@@ -111,6 +113,8 @@ tools:context="Welcome_LoginActivity_or_Signup">
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             app:layout_widthPercent="30%"
+            android:textColor="@color/white"
+            android:background="@color/translucent_button_sign_in"
             android:text="Register"
             />
 

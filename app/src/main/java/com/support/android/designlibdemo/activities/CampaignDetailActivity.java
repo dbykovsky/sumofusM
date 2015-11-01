@@ -105,7 +105,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         imageUrls = new ArrayList<String>();
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
-        tvPercentage= (TextView) findViewById(R.id.tvPercentage);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
@@ -128,16 +127,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
 
             PrettyText goal = new PrettyText();
-            String txt = "";
-            goalInt = campaign.getGoal();
-            progressInt = campaign.getGoalCount();
-
-            if (progressInt >= goalInt) {
-                txt = "SUCCESS! ";
-            }
-            txt += goal.numberToAmounts(goalInt);
-            txt += " / " + goal.numberToAmounts(progressInt);
-            tvPercentage.setText(txt);
+            String decimalGoal = "";
+            String decimalCount = "";
 
             //setting up progress bar
             customProgress.setProgressColor(getResources().getColor(R.color.green_500));
@@ -150,8 +141,9 @@ public class CampaignDetailActivity extends AppCompatActivity {
             tvCampaignText.setText(campaign.getLongDescription());
 
             //set goal text
-            txt = goal.addComma(campaign.getGoal()) + " signatures";
-            tvGoal.setText("Goal: "+ txt);
+            decimalGoal = goal.addComma(campaign.getGoal()) + " signatures";
+            decimalCount = goal.addComma(campaign.getGoalCount());
+            tvGoal.setText(decimalCount+" out of "+decimalGoal);
 
 
         ivCampaignImage.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +270,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground();
                 getImagesUploadedByUserForCampaign(campaign.getObjectId());
-
             } else if (requestCode == PICK_PHOTO_CODE) {
 
                 photoUri = data.getData();
