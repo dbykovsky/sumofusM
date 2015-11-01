@@ -6,11 +6,15 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +40,8 @@ import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.activities.NewCampaignActivity;
 import com.support.android.designlibdemo.models.CampaignParse;
 import com.support.android.designlibdemo.utils.BitmapScaler;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,6 +63,12 @@ public class NewCampaignFragment extends Fragment {
     private Spinner campaignCategory;
     private CampaignParse campaign;
 
+    private int charCount = 0;
+    private static final int MaxTitleCount = 20;
+    private static final int MaxOverviewCount = 200;
+    private static final int MaxMessageCount = 200;
+    private static final int MaxSignaturesCount = 7;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,13 +82,151 @@ public class NewCampaignFragment extends Fragment {
         View v;
         v = inflater.inflate(R.layout.fragment_new_campaign, container, false);
 
+        final TextView tvTitleHelp = (TextView) v.findViewById(R.id.tvTitleHelp);
+        final TextView tvOverviewHelp = (TextView) v.findViewById(R.id.tvOverviewHelp);
+        final TextView tvMessageHelp = (TextView) v.findViewById(R.id.tvMessageHelp);
+        final TextView tvGoalHelp = (TextView) v.findViewById(R.id.tvGoalHelp);
+
         campaignTitle = ((FloatLabel) v.findViewById(R.id.campaign_title));
+        campaignTitle.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                charCount = s.length();
+                if (charCount > MaxTitleCount) {
+                    tvTitleHelp.setError("Really?!");
+                    tvTitleHelp.setTextColor(Color.RED);
+                    tvTitleHelp.setText("That's a long title. " + charCount + "/" + MaxTitleCount + " ");
+                }
+                else if (charCount > (MaxTitleCount /2) ) {
+                    tvTitleHelp.setText(charCount + "/" + MaxTitleCount + " ");
+                    tvTitleHelp.setError(null);
+                    tvTitleHelp.setTextColor(Color.GRAY);
+                }
+                else {
+                    tvTitleHelp.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
         campaignOverview = ((FloatLabel) v.findViewById(R.id.campaign_overview));
+        campaignOverview.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                charCount = s.length();
+
+
+                if (charCount > MaxOverviewCount + 15) {
+                    tvOverviewHelp.setError("Really?!");
+                    tvOverviewHelp.setTextColor(Color.RED);
+                    tvOverviewHelp.setText("Really?! " + charCount + "/" + MaxOverviewCount + " ");
+                }
+                else if (charCount > (MaxOverviewCount /2) ) {
+                    tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
+                }
+                else {
+                    tvOverviewHelp.setError(null);
+                    tvOverviewHelp.setTextColor(Color.GRAY);
+                    tvOverviewHelp.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
         campaignDescription = ((FloatLabel) v.findViewById(R.id.campaign_description));
+
         campaignGoal = ((FloatLabel) v.findViewById(R.id.campaign_goal));
         campaignGoal.getEditText().setMaxLines(1);
         campaignGoal.getEditText().setInputType(0x00000002);
+        campaignGoal.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                charCount = s.length();
+
+                switch (charCount) {
+                    case 4:
+                        tvGoalHelp.setError(null);
+                        tvGoalHelp.setTextColor(Color.GRAY);
+                        tvGoalHelp.setText("Numbers only ");
+                        break;
+                    case 5:
+                        tvGoalHelp.setText("Tens of thousands...");
+                        break;
+                    case 6:
+                        tvGoalHelp.setText("Hundreds of thousands ... ");
+                        break;
+                    case 7:
+                        tvGoalHelp.setError("Really?! ");
+                        tvGoalHelp.setTextColor(Color.RED);
+                        tvGoalHelp.setText("Millions of users?! ");
+                        break;
+                    case 8:
+                        tvGoalHelp.setError("Really?! ");
+                        tvGoalHelp.setTextColor(Color.RED);
+                        tvGoalHelp.setText("Really?! We don't have MILLIONS of users?! ");
+                        break;
+                    default:
+                        tvGoalHelp.setText("Numbers only ");
+                        break;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         campaignMessage = ((FloatLabel) v.findViewById(R.id.campaign_sign_message));
+        campaignMessage.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                charCount = s.length();
+                if (charCount > MaxMessageCount) {
+                    tvMessageHelp.setError("Really?! ");
+                    tvMessageHelp.setTextColor(Color.RED);
+                    tvMessageHelp.setText("Are you writting a book? " + charCount + "/" + MaxMessageCount + " ");
+                } else if (charCount > (MaxMessageCount - 2)) {
+                    tvMessageHelp.setText(charCount + "/" + MaxMessageCount + " ");
+                } else {
+                    tvMessageHelp.setError(null);
+                    tvMessageHelp.setTextColor(Color.GRAY);
+                    tvMessageHelp.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         campaignUrl = ((FloatLabel) v.findViewById(R.id.campaign_url));
         campaignUrl.getEditText().setInputType(0x01);
 
@@ -113,7 +264,6 @@ public class NewCampaignFragment extends Fragment {
                 String a = campaignGoal.getEditText().getText().toString();
                 campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString()));
                 campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString());
-             //   campaign.setImageUrl(campaignImage.getText().toString());
                 campaign.setCategory(campaignCategory.getSelectedItem().toString());
 
                 // Associate the campaign with the current user

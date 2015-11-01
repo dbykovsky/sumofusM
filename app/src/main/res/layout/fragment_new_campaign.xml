@@ -41,14 +41,17 @@
         android:hint="@string/campaign_title"
         android:ellipsize="end"
         android:maxLines="1"
-        android:maxLength="20" />
+        android:maxLength="40" />
 
-    <!--TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvTitleHelp"
+        android:visibility="visible"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_overview"
-        android:textSize="10sp" /-->
+        android:text="@string/help_title"
+        android:textSize="10sp"
+        android:gravity="right" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_overview"
@@ -58,13 +61,15 @@
         android:hint="@string/campaign_overview"
         />
 
-
-    <!--TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvOverviewHelp"
+        android:visibility="visible"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_description"
-        android:textSize="10sp" /-->
+        android:text="@string/help_overview"
+        android:textSize="10sp"
+        android:gravity="right" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_description"
@@ -75,12 +80,15 @@
         android:textIsSelectable="true" />
 
 
-    <!--TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvDescriptionHelp"
+        android:visibility="visible"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_sign_message"
-        android:textSize="10sp" /-->
+        android:text="@string/help_description"
+        android:textSize="10sp"
+        android:gravity="right" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_sign_message"
@@ -90,12 +98,15 @@
         android:hint="@string/campaign_sign_message"
         />
 
-    <!--TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvMessageHelp"
+        android:visibility="visible"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_goal"
-        android:textSize="10sp" /-->
+        android:text="@string/help_message"
+        android:textSize="10sp"
+        android:gravity="right" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_goal"
@@ -104,12 +115,15 @@
         android:hint="@string/campaign_goal"
         />
 
-    <!--TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvGoalHelp"
+        android:visibility="visible"
         android:layout_marginLeft="5dp"
-        android:text="@string/campaign_url"
-        android:textSize="10sp" /-->
+        android:text="@string/help_numbers_only"
+        android:textSize="10sp"
+        android:gravity="right" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_url"
@@ -118,15 +132,6 @@
         android:inputType="textMultiLine"
         android:hint="@string/campaign_url"
         />
-
-    <!--EditText
-        android:id="@+id/image_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="@string/image_url"
-        android:textIsSelectable="true"
-        android:editable="true" /-->
 
     <Spinner
         android:id="@+id/categories_spinner"

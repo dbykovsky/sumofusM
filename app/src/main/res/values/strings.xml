@@ -51,10 +51,17 @@
   <string name="campaign_description">Tell your story! Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
   <string name="campaign_sign_message">Message to the campaign recipient</string>
   <string name="campaign_goal">Signatures goal</string>
-  <string name="campaign_url">Sum of Us webpage</string>
+  <string name="campaign_url">Your campaign webpage</string>
+
+
+    <string name="help_title">In one or two words</string>
+    <string name="help_overview">Focus on the solution. i.e. \'Raise the minimum wage in Minneapolis to $15 an hour\'</string>
+    <string name="help_description">Describe the people involved and the problem they are facing. Describe the solution. Respect others.</string>
+    <string name="help_message">Your petition is most likely to win by reaching an agreement with your decision maker.</string>
+    <string name="help_numbers_only">Numbers only</string>
 
   <string-array name="category_array">
-    <item>Support individual</item>
+    <item>Support a good cause</item>
     <item>Corruption awareness</item>
     <item>Share good news</item>
     <item>Promote common good</item>
