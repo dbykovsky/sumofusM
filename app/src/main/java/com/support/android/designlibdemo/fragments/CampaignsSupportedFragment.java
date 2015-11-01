@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -18,6 +19,8 @@ import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.adapters.CampaignRecyclerViewAdapter;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,7 @@ public class CampaignsSupportedFragment extends Fragment{
     private List<Campaign> campaigns;
 
     private CampaignRecyclerViewAdapter adapter;
+    private TextView tv;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,11 +45,12 @@ public class CampaignsSupportedFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView rv = (RecyclerView) inflater.inflate(
-                R.layout.fragment_campaigns_list, container, false);
-
-        setupRecyclerView(rv);
-        return rv;
+        View view = inflater.inflate(R.layout.fragment_campaigns_list, container, false);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerview);
+        tv = (TextView) view.findViewById(R.id.empty_view);
+        //setupRecyclerView(rv);
+        setupRecyclerView2(rv);
+        return view;
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -53,6 +58,42 @@ public class CampaignsSupportedFragment extends Fragment{
         adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
         recyclerView.setAdapter(adapter);
     }
+
+
+    private void checkAdapterIsEmpty () {
+
+        if (adapter.getItemCount() == 0) {
+            tv.setVisibility(View.VISIBLE);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
+    }
+
+    protected void setupRecyclerView2(RecyclerView recyclerView) {
+
+        //recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
+        recyclerView.setAdapter(adapter);
+
+        adapter = new CampaignRecyclerViewAdapter(getActivity(), campaigns);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkAdapterIsEmpty();
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(adapter);
+        checkAdapterIsEmpty();
+    }
+
+
+
 
 
     public List<Campaign> populateCampaignsISignedParse() {
@@ -81,8 +122,6 @@ public class CampaignsSupportedFragment extends Fragment{
                     adapter.notifyDataSetChanged();
                 }
             });
-
-
         }
         return campaigns;
 

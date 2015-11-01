@@ -118,5 +118,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="image_url">Campaign image URL (jpg or png)</string>
 
+  <string name="no_supported_campaigns_list">You haven\'t supported any campaigns yet \n Start now! </string>
+
 
 </resources>
