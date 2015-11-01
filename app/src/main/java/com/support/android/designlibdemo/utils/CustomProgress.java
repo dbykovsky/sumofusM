@@ -29,6 +29,8 @@ import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -45,6 +47,7 @@ public class CustomProgress extends TextView {
 
     private ShapeDrawable progressDrawable;
     private TextView textView;
+    private Button ivImageView;
     private int width = 0;
     private int maxWidth = 0;
     private int maxHeight = 0;
@@ -101,9 +104,9 @@ public class CustomProgress extends TextView {
                 this.setText(getCurrentPercentage() + "%");
             }else {
             //this is to cover the case where maxPercentage is set to 5%. Without this "if" statement below it will be set just to 3%
-                this.setText(maxPer+"%");
-            }
+                this.setText(maxPer + "%");
 
+            }
 
         }
         if(width<maxWidth) {
@@ -134,6 +137,14 @@ public class CustomProgress extends TextView {
                 break;
         }
 
+        //Percentage
+        if(isShowingPercentage()) {
+            this.setTextColor(Color.WHITE);
+            this.setTextSize(20);
+            this.setGravity(Gravity.CENTER);
+            this.bringToFront();
+        }
+
         //Progress
         progressDrawable = new ShapeDrawable(progressShapeDrawable);
         progressDrawable.getPaint().setColor(progressColor);
@@ -153,12 +164,7 @@ public class CustomProgress extends TextView {
 
         this.maxWidth = (int) (this.getWidth() * maximumPercentage);
 
-        //Percentage
-        if(isShowingPercentage()) {
-            this.setTextSize(20);
-            this.setTextColor(Color.WHITE);
-            this.setGravity(Gravity.CENTER);
-        }
+
     }
 
     //Helper

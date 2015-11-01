@@ -341,15 +341,12 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Welcome to SumOfUs:");
         builder.setMessage(Html.fromHtml(getString(R.string.aboutus)));
         builder.setIcon(R.mipmap.ic_launcher_sou);
-        //builder.setIcon(R.drawable.ic_twitter_bird);
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-
-
         return builder;
     }
     @Override
