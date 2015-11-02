@@ -10,6 +10,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp"
     android:fillViewport="false">
@@ -111,6 +112,16 @@
         android:theme="@style/TextLabel"
         />
 
+
+    <com.andexert.library.RippleView
+        android:id="@+id/sign_petition_ripple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rv_zoom="true"
+        app:rv_zoomScale="1.05"
+        app:rv_zoomDuration="200"
+        >
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,6 +131,7 @@
         android:id="@+id/btSignPetitoin"
         android:background="@color/orange"
         />
+    </com.andexert.library.RippleView>
 
 
 </LinearLayout>

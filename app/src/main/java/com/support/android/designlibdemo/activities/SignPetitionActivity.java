@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.iangclifton.android.floatlabel.FloatLabel;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -39,11 +40,11 @@ import java.util.Locale;
 public class SignPetitionActivity extends AppCompatActivity {
 
     private Campaign campaign;
-    Button btSignPetition;
     private FloatLabel evFulName;
     private FloatLabel evEmailAddress;
     private FloatLabel evZipCode;
     TextView tvPetitionMessage;
+    private RippleView btSignPetitionRipple;
 
 
     @Override
@@ -78,6 +79,7 @@ public class SignPetitionActivity extends AppCompatActivity {
        evZipCode = (FloatLabel)findViewById(R.id.etZipCode);
        evZipCode.requestFocus();
        tvPetitionMessage = (TextView) findViewById(R.id.tvPetitionMessage);
+       btSignPetitionRipple = (RippleView) findViewById(R.id.sign_petition_ripple);
 
         //setting petition message
         tvPetitionMessage.setText(campaign.getMessage());
@@ -95,27 +97,22 @@ public class SignPetitionActivity extends AppCompatActivity {
             evEmailAddress.setText(ParseUser.getCurrentUser().getEmail());
         }
 
-        btSignPetition = (Button) findViewById(R.id.btSignPetitoin);
 
-        btSignPetition.setOnClickListener(new View.OnClickListener() {
+        btSignPetitionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onComplete(RippleView rippleView) {
                 //fields validations
-                if( evFulName.getEditText().getText().length()==0)
-                {
+                if (evFulName.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Full name is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evEmailAddress.getEditText().getText().length()==0)
-                {
+                if (evEmailAddress.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evZipCode.getEditText().getText().length()==0)
-                {
+                if (evZipCode.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Zip is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -124,7 +121,7 @@ public class SignPetitionActivity extends AppCompatActivity {
                 // Create a pointer to an object of class Point with id dlkj83d
                 ParseObject campaignParse = ParseObject.createWithoutData("CampaignParse", campaign.getObjectId());
                 // Set a new value on count
-                campaignParse.put("count", campaign.getGoalCount()+1);
+                campaignParse.put("count", campaign.getGoalCount() + 1);
                 campaignParse.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
@@ -136,11 +133,11 @@ public class SignPetitionActivity extends AppCompatActivity {
                             currentUser.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                   if(e==null){
-                                       Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
-                                       i.putExtra("page",2);
-                                       startActivity(i);
-                                   }
+                                    if (e == null) {
+                                        Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
+                                        i.putExtra("page", 2);
+                                        startActivity(i);
+                                    }
 
                                 }
                             });
@@ -151,7 +148,8 @@ public class SignPetitionActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+
+    });
 
     }
 

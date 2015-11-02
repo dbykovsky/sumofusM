@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="0dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
     android:background="@drawable/side_nav_bar"
-    android:paddingBottom="30dp"
+    android:paddingBottom="5dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="vertical"
+    android:paddingTop="40dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical"
     android:gravity="bottom">
 
     <com.github.siyamed.shapeimageview.CircularImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/user_image_placeholder"
-        android:id="@+id/ProfileimageView" />
+        android:id="@+id/ProfileimageView"
+        />
 
     <TextView
         android:id="@+id/tv_userNameDrawer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
+        android:layout_below="@+id/ProfileimageView"
         android:text="Android Studio"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -27,6 +30,7 @@
         android:id="@+id/tv_userEmailDrawer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_userNameDrawer"
         android:text="android.studio@android.com"  />
 
     <TextView
@@ -34,8 +38,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:id="@+id/tv_userNameDrawer1"
+        android:layout_below="@+id/tv_userEmailDrawer1"
         android:textColor="@color/white"/>
 
-</LinearLayout>
+</RelativeLayout>
 
 <!--  android:src="@android:drawable/sym_def_app_icon" -->
