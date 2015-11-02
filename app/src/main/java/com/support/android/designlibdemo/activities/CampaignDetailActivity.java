@@ -94,6 +94,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
     Button btTakeanAction;
+    ImageView ivArrow;
 
     private Uri photoUri;
     private Bitmap photoBitmap;
@@ -107,6 +108,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         imageUrls = new ArrayList<String>();
+        ivArrow = (ImageView) findViewById(R.id.ivArrow);
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
@@ -121,6 +123,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
             btTakeanAction.setSaveEnabled(false);
             btTakeanAction.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
             btTakeanAction.setVisibility(View.VISIBLE);
+
+            ivArrow.setColorFilter(0xffff0000, PorterDuff.Mode.MULTIPLY);
         }
         else {
             //Toast.makeText(this, "Support this campaign" , Toast.LENGTH_SHORT).show();
