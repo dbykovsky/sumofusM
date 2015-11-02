@@ -2,7 +2,12 @@ package com.support.android.designlibdemo.models;
 
 import com.parse.ParseFile;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by dbykovskyy on 10/14/15.
@@ -20,6 +25,7 @@ public class Campaign implements Serializable{
     private String message;
     private String title;
     private String campaignUrl;
+    private Boolean isSupported;
 
     public Campaign(CampaignParse parseObject){
 
@@ -32,6 +38,7 @@ public class Campaign implements Serializable{
         goal = parseObject.getGoal();
         goalCount = parseObject.getCurrentSignatureCount();
         campaignUrl = parseObject.getCampaignUrl();
+        isSupported = parseObject.getIsSupported();
 
     }
 
@@ -39,6 +46,9 @@ public class Campaign implements Serializable{
         setupDefaultValues();
     }
 
+    public Boolean getIsSupported() {
+        return isSupported;
+    }
 
     public String getLongDescription() {
         return longDescription;

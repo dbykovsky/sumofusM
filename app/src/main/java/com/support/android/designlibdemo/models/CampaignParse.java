@@ -1,6 +1,8 @@
 package com.support.android.designlibdemo.models;
 
 
+import android.util.Log;
+
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -10,7 +12,9 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("CampaignParse")
@@ -21,6 +25,46 @@ public class CampaignParse extends ParseObject {
     }
 
     private final String defaultUrl = "http://sumofus.org";
+
+    private ArrayList<String> getMySupported() {
+        ArrayList<String> list = new ArrayList<String>();
+        JSONArray jsonArray = (JSONArray)getSupportedCampaigns();
+        if (jsonArray != null) {
+            int len = jsonArray.length();
+            for (int i=0;i<len;i++){
+                try {
+                    list.add(jsonArray.get(i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
+    public Boolean getIsSupported() {
+        int i = (getMySupported().size())-1;
+        String oId = getObjectId();
+        String sup;
+
+        while (i >= 0) {
+            sup = getMySupported().get(i);
+            if (sup.equalsIgnoreCase(oId)) {
+                Log.d("DEBUG:  SUPPORTED: " , getMySupported().get(i) + " EXPECTING: " + oId);
+                return true;
+            }
+            else
+            {
+                i--;
+            }
+        }
+        return false;
+    }
+
+    private JSONArray getSupportedCampaigns() {
+        JSONArray ar = ParseUser.getCurrentUser().getJSONArray("myCampaigns");
+        return ar;
+    }
 
     public String getTitle() {
         String text = getString("title");

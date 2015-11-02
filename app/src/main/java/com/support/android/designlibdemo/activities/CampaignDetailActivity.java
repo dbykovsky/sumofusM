@@ -22,6 +22,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
@@ -63,6 +65,7 @@ import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 import com.support.android.designlibdemo.utils.PrettyText;
 
+import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
@@ -115,6 +118,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
         btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
         btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
+
+        if (campaign.getIsSupported()) {
+            //Toast.makeText(this, "Thanks for supporting this campaign" , Toast.LENGTH_SHORT).show();
+            btTakeanAction.setText("I Supported");
+            btTakeanAction.setSaveEnabled(false);
+            btTakeanAction.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+            btTakeanAction.setVisibility(View.VISIBLE);
+        }
+        else {
+            //Toast.makeText(this, "Support this campaign" , Toast.LENGTH_SHORT).show();
+            btTakeanAction.setVisibility(View.VISIBLE);
+            btTakeanAction.getBackground().setColorFilter(null);
+        }
 
             getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
@@ -335,7 +351,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void setupShareIntent() {
         // Fetch Bitmap Uri locally

@@ -196,7 +196,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TAKE AN ACTION"
+            android:text="@string/take_action"
             android:textColor="@color/white"
             android:id="@+id/btTakeActionDetailsActivity"
             android:transitionName="take_action"
