@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.iangclifton.android.floatlabel.FloatLabel;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -39,40 +40,12 @@ import java.util.Locale;
 public class SignPetitionActivity extends AppCompatActivity {
 
     private Campaign campaign;
-    Button btSignPetition;
-    com.iangclifton.android.floatlabel.FloatLabel evFulName;
-    com.iangclifton.android.floatlabel.FloatLabel evEmailAddress;
-    com.iangclifton.android.floatlabel.FloatLabel evZipCode;
+    private FloatLabel evFulName;
+    private FloatLabel evEmailAddress;
+    private FloatLabel evZipCode;
     TextView tvPetitionMessage;
+    private RippleView btSignPetitionRipple;
 
-
-    public String[] getGeolocation() {
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        String[] s = new String[2];
-
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses = null;
-
-        if ((latitude < 0.0) || (longitude < 0.0) ) {
-            s[0] = "";
-            s[1] = "";
-        }
-        else {
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                s[0] = addresses.get(0).getCountryName();
-                s[1] = addresses.get(0).getPostalCode();
-            } catch (IOException e) {
-                e.printStackTrace();
-                s[0] = "";
-                s[1] = "";
-            }
-        }
-        return s;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +56,7 @@ public class SignPetitionActivity extends AppCompatActivity {
         String country = geo[0];
         String zip = geo[1];
 
-        if (zip == "null") {
+        if (zip == null) {
             zip = "";
         }
 
@@ -106,12 +79,15 @@ public class SignPetitionActivity extends AppCompatActivity {
        evZipCode = (FloatLabel)findViewById(R.id.etZipCode);
        evZipCode.requestFocus();
        tvPetitionMessage = (TextView) findViewById(R.id.tvPetitionMessage);
+       btSignPetitionRipple = (RippleView) findViewById(R.id.sign_petition_ripple);
 
         //setting petition message
         tvPetitionMessage.setText(campaign.getMessage());
 
         //prepopulating fields
         evZipCode.setText(zip);
+
+       // evZipCode.backgr
 
        if(ParseUser.getCurrentUser().getUsername()!=null){
            evFulName.setText(ParseUser.getCurrentUser().getUsername());
@@ -121,27 +97,22 @@ public class SignPetitionActivity extends AppCompatActivity {
             evEmailAddress.setText(ParseUser.getCurrentUser().getEmail());
         }
 
-        btSignPetition = (Button) findViewById(R.id.btSignPetitoin);
 
-        btSignPetition.setOnClickListener(new View.OnClickListener() {
+        btSignPetitionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onComplete(RippleView rippleView) {
                 //fields validations
-                if( evFulName.getEditText().getText().length()==0)
-                {
+                if (evFulName.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Full name is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evEmailAddress.getEditText().getText().length()==0)
-                {
+                if (evEmailAddress.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if( evZipCode.getEditText().getText().length()==0)
-                {
+                if (evZipCode.getEditText().getText().length() == 0) {
                     Toast.makeText(SignPetitionActivity.this, "Zip is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -150,7 +121,7 @@ public class SignPetitionActivity extends AppCompatActivity {
                 // Create a pointer to an object of class Point with id dlkj83d
                 ParseObject campaignParse = ParseObject.createWithoutData("CampaignParse", campaign.getObjectId());
                 // Set a new value on count
-                campaignParse.put("count", campaign.getGoalCount()+1);
+                campaignParse.put("count", campaign.getGoalCount() + 1);
                 campaignParse.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
@@ -162,11 +133,11 @@ public class SignPetitionActivity extends AppCompatActivity {
                             currentUser.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                   if(e==null){
-                                       Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
-                                       i.putExtra("page",2);
-                                       startActivity(i);
-                                   }
+                                    if (e == null) {
+                                        Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
+                                        i.putExtra("page", 2);
+                                        startActivity(i);
+                                    }
 
                                 }
                             });
@@ -177,7 +148,8 @@ public class SignPetitionActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+
+    });
 
     }
 
@@ -197,6 +169,45 @@ public class SignPetitionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public String[] getGeolocation() {
+        Location location = null;
+        //some default location iwth dummy values to avoid crash on emulator
+        double longitude = -122.419;
+        double latitude = 37.7749;
+        //permission check to avoid warnings
+        int status = this.getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,
+                this.getPackageName());
+        //permission check
+        if (status == PackageManager.PERMISSION_GRANTED) {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+
+
+        if(location!=null){
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        String[] s = new String[2];
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            s[0] = addresses.get(0).getCountryName();
+            s[1] = addresses.get(0).getPostalCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+            s[0] = "";
+            s[1] = "";
+
+        }
+        return s;
+    }
+
 
 
 }

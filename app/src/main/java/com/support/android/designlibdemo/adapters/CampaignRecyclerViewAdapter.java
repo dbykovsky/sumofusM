@@ -3,6 +3,7 @@ package com.support.android.designlibdemo.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
@@ -94,17 +96,30 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             }
         });
 
-        holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //check if Campaign is signed
+        if(camp.getIsSupported()){
+            //make button green, change text, remove listener
+            holder.btTakeAction.setText("Signed");
+            holder.btTakeAction.setBackgroundColor(holder.btTakeAction.getResources().getColor(R.color.green_500));
+            holder.btTakeAction.setOnClickListener(null);
+        }else{
+            //make button orange, change text, add listener
+            holder.btTakeAction.setText("Take an action");
+            holder.btTakeAction.setBackgroundColor(holder.btTakeAction.getResources().getColor(R.color.orange));
+            holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
-                i.putExtra("camp", camp);
-                ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
+                    i.putExtra("camp", camp);
+                    ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                holder.ivCampaign.getContext().startActivity(i);
-            }
-        });
+                    holder.ivCampaign.getContext().startActivity(i);
+                }
+            });
+
+        }
+
     }
 
 

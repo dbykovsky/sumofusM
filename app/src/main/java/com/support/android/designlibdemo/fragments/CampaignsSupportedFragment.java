@@ -20,6 +20,8 @@ import com.support.android.designlibdemo.adapters.CampaignRecyclerViewAdapter;
 import com.support.android.designlibdemo.models.Campaign;
 import com.support.android.designlibdemo.models.CampaignParse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -95,14 +97,34 @@ public class CampaignsSupportedFragment extends Fragment{
 
 
 
+    private ArrayList<String> convertArray(JSONArray campaignIds) {
+        ArrayList<String> list = new ArrayList<String>();
+        JSONArray jsonArray = (JSONArray)campaignIds;
+        if (jsonArray != null) {
+            int len = jsonArray.length();
+            for (int i=0;i<len;i++){
+                try {
+                    list.add(jsonArray.get(i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
+
 
     public List<Campaign> populateCampaignsISignedParse() {
         campaigns = new ArrayList<>();
         //get all campaigns by a certain user
         ParseUser currentUser = ParseUser.getCurrentUser();
-        ArrayList<String> campaignIds = (ArrayList<String>) currentUser.get("myCampaigns");
+        ArrayList<String> campaignIds; // = (ArrayList<String>) currentUser.get("myCampaigns");
+
+        campaignIds = convertArray(currentUser.getJSONArray("myCampaigns"));
+
         //don't even continue
-        if(campaignIds==null){
+        if(campaignIds.size() < 1){
             return campaigns;
         }
 

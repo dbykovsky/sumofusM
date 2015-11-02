@@ -22,8 +22,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +45,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -61,6 +65,7 @@ import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
 import com.support.android.designlibdemo.utils.PrettyText;
 
+import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
@@ -87,16 +92,16 @@ public class CampaignDetailActivity extends AppCompatActivity {
     ImageView ivCampaignImage;
     TextView tvCampaignOverview;
     TextView tvGoal;
-    TextView tvPercentage;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
-    Button btTakeanAction;
+    RippleView btTakeActionRipple;
 
     private Uri photoUri;
     private Bitmap photoBitmap;
     private Campaign campaign;
     private String photoId;
     private ArrayList<String> imageUrls;
+
 
 
     @Override
@@ -109,8 +114,22 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
-        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
+        btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
+
+        if (campaign.getIsSupported()) {
+            btTakeActionRipple.setVisibility(View.GONE);
+        }
+        else {
+            btTakeActionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                @Override
+                public void onComplete(RippleView rippleView) {
+                    Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                    i.putExtra(ITENT_TAG, campaign);
+                    startActivity(i);
+                }
+            });
+        }
 
             getImagesUploadedByUserForCampaign(campaign.getObjectId());
 
@@ -179,7 +198,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         selection[0] = which;
+                        selection[0] = which;
                     }
                 });
 
@@ -214,22 +233,12 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
                 });
 
-            dialog.show(fm,"TAG_DIALOG");
+                dialog.show(fm, "TAG_DIALOG");
 
             }
 
         });
 
-        //set OnClickListener for signing the petiotion
-        btTakeanAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
-                i.putExtra(ITENT_TAG, campaign);
-                startActivity(i);
-
-            }
-        });
     }
 
 
@@ -333,7 +342,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void setupShareIntent() {
         // Fetch Bitmap Uri locally
