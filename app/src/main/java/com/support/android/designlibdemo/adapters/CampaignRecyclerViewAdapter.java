@@ -3,6 +3,7 @@ package com.support.android.designlibdemo.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -73,6 +74,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         Picasso.with(holder.ivCampaign.getContext()).load(camp.getImageUrl()).
                 resize(DeviceDimensionsHelper.getDisplayWidth(holder.ivCampaign.getContext()), 0).into(holder.ivCampaign);
 
+
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,17 +96,25 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             }
         });
 
-        holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(camp.getIsSupported()){
+            holder.btTakeAction.setText("Signed");
+            holder.btTakeAction.setBackgroundColor(Color.GREEN);
+        }else{
 
-                Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
-                i.putExtra("camp", camp);
-                ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                holder.ivCampaign.getContext().startActivity(i);
-            }
-        });
+                    Intent i = new Intent(holder.btTakeAction.getContext(), SignPetitionActivity.class);
+                    i.putExtra("camp", camp);
+                    ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                    holder.ivCampaign.getContext().startActivity(i);
+                }
+            });
+
+        }
+
     }
 
 
