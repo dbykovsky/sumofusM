@@ -51,22 +51,26 @@ public class SignPetitionActivity extends AppCompatActivity {
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
+        String[] s = new String[2];
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addresses = null;
 
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if ((latitude < 0.0) || (longitude < 0.0) ) {
+            s[0] = "";
+            s[1] = "";
         }
-
-
-        String[] s = new String[2];
-
-        s[0] = addresses.get(0).getCountryName();
-        s[1] = addresses.get(0).getPostalCode();
-
+        else {
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                s[0] = addresses.get(0).getCountryName();
+                s[1] = addresses.get(0).getPostalCode();
+            } catch (IOException e) {
+                e.printStackTrace();
+                s[0] = "";
+                s[1] = "";
+            }
+        }
         return s;
     }
 
