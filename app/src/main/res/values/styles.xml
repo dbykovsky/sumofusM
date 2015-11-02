@@ -72,4 +72,9 @@
     </style>
 
 
+    <style name="EditTextCustomHolo" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/edit_text_round_corners</item>
+        <item name="android:textColor">@color/text_hint_float_label_blue</item>
+    </style>
+
 </resources>
