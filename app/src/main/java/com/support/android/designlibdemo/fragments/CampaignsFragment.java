@@ -58,13 +58,11 @@ public class CampaignsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RecyclerView rv = (RecyclerView) inflater.inflate(
-                R.layout.fragment_campaigns_list, container, false);
-
-
-
+        View view = inflater.inflate(R.layout.fragment_campaigns_list, container, false);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerview);
         setupRecyclerView(rv);
-        return rv;
+
+        return view;
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {

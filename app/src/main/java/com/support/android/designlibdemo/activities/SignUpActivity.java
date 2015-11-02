@@ -125,6 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
                 R.drawable.user_image_placeholder);
         // Convert it to byte
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
         // Compress image to lower quality scale 1 - 100
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] image = stream.toByteArray();

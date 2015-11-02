@@ -29,6 +29,17 @@
         <item name="android:shadowRadius">3</item>
     </style>
 
+    <style name="TextLabel">
+    <item name="android:textColorHint">@color/hint_dark_grey</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/hint_blue</item>
+    </style>
+
+    <style name="TextHint">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/hint_grey</item>
+    </style>
+
     <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
@@ -53,11 +64,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
 
-         <item name="colorPrimary">#673AB7</item>
-        <item name="colorPrimaryDark">#512DA8</item>
-        <item name="colorAccent">#FF4081</item>
+         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/window_background</item>
 
     </style>
+
 
 </resources>

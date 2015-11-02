@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +20,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,18 +32,14 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
-import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.utils.BitmapScaler;
 
 import org.json.JSONArray;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,7 +52,6 @@ import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
 public class UserProfileActivity extends AppCompatActivity {
-    final String userProfilePhotoUrl = "https://scontent.fsnc1-1.fna.fbcdn.net/hprofile-xfp1/v/t1.0-1/c0.0.480.480/p480x480/1470006_10202041396829567_1353019578_n.jpg?oh=2b848931575064640d24719cfd9a0eeb&oe=568F11E8";
     private static final int MY_SCAN_REQUEST_CODE = 765;
 
     private String creditCardNumber=null;
@@ -72,6 +68,8 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView tvCreditCardNumber;
     TextView tvCreditCardExperation;
     Button btAddCrefirCard;
+    TextView tv_update_picture;
+
     private Uri photoUri;
     private Bitmap photoBitmap;
 
@@ -91,6 +89,7 @@ public class UserProfileActivity extends AppCompatActivity {
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
+        tv_update_picture = (TextView)findViewById(R.id.tv_update_picture);
 
         final ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -145,10 +144,31 @@ public class UserProfileActivity extends AppCompatActivity {
         userPhoneNumber.setText(currentUser.getString("phoneNumber"));
         userSite.setText(currentUser.getString("webSite"));
 
+
+        userSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setFocusable(true);
+                v.setActivated(true);
+
+            }
+        });
+
+        userPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setFocusable(true);
+                v.setActivated(true);
+
+            }
+        });
+
+
+
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
-//call the function
+        //prevent form crash if omage is null
         if(image!=null){
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
@@ -163,9 +183,8 @@ public class UserProfileActivity extends AppCompatActivity {
             });
         }
 
-        //Camera
-        Button photoButton = (Button) findViewById(R.id.photo_button);
-        photoButton.setOnClickListener(new View.OnClickListener() {
+        //Update user profile picture
+        tv_update_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -229,10 +248,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
-                //myOutputBox.setText(s);
-                //Save changes to Parse one the user stop editing
-                //Save on backPress()
+
                 String newEmail = s.toString();
                 Log.i("SumOfUs USER info", newEmail);
                 currentUser.setEmail(newEmail);
@@ -252,12 +268,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
-                //myOutputBox.setText(s);
-                //Save changes to Parse one the user stop editing
-                //Save on backPress()
+
                 String newPhone = s.toString();
-              //  currentUser.put("profilePicture", file);
                 Log.i("SumOfUs USER info", newPhone);
                 currentUser.put("phoneNumber",newPhone);
 
@@ -276,14 +288,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                //TextView myOutputBox = (TextView) findViewById(R.id.myOutputBox);
-                //myOutputBox.setText(s);
-                //Save changes to Parse one the user stop editing
-                //Save on backPress()
                 String webSite = s.toString();
                 //  currentUser.put("profilePicture", file);
                 Log.i("SumOfUs USER info", webSite);
-                currentUser.put("webSite",webSite);
+                currentUser.put("webSite", webSite);
 
             }
         });
@@ -373,7 +381,6 @@ public class UserProfileActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == TAKE_PHOTO_CODE) {
-
                 photoBitmap = BitmapFactory.decodeFile(photoUri.getPath());
                 Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
                 ivUserPic.getAdjustViewBounds();
@@ -386,13 +393,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
-                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
-
+                final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                currentUser.put("profilePicture", file);
+                currentUser.add("profilePicture", file);
                 currentUser.saveInBackground();
                 //Display image selected
                 ivUserPic.setImageBitmap(photoBitmap);
@@ -416,18 +421,27 @@ public class UserProfileActivity extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
-
-                Date targetTime = new Date();
                 // Create the ParseFile with an image
-                final ParseFile file = new ParseFile(targetTime+"_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
-
+                final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");
                 ParseUser currentUser = ParseUser.getCurrentUser();
+
                 currentUser.put("profilePicture", file);
-                currentUser.saveInBackground();
-                //Display image selected
-                ivUserPic.setImageBitmap(photoBitmap);
+                currentUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            //Display image selected
+                            ivUserPic.setImageBitmap(photoBitmap);
+
+                        } else {
+                            //log error
+                        }
+                    }
+                });
+
+
 
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
@@ -493,8 +507,6 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onResume();
 
     }
-
-
 
 
     //Show alert dialog if network is not awailable

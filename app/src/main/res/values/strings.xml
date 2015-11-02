@@ -16,7 +16,7 @@
 -->
 
 <resources>
-    <string name="app_name">SumOfUs</string>
+    <string name="app_name">Sum Of Us</string>
 
   <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
     cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
@@ -36,7 +36,7 @@
   <string name="seek_to_hint">Seconds</string>
   <string name="title_activity_campaign_detail">CampaignDetailActivity</string>
   <string name="title_activity_add_new_campaign">AddNewCampaignActivity</string>
-  <string name="title_activity_sign_petition">Sign Petition</string>
+  <string name="title_activity_sign_petition">Sign the Petition</string>
   <!--string name="parse_app_id">bVRXQPXfFzWYsvtkAzLNmrwX8gqCAySdLhfmbe07</string-->
   <!--string name="parse_client_key">K1SRMMFlA6kwEnur7Ypk0X4Uw9eHBGVQBksyzk1V</string-->
   <string name="parse_app_id">LCPA3eHqb1CyiP2pmZGdDXw6I54pZKNCoxTGAsTt</string>
@@ -44,19 +44,24 @@
   <string name="facebook_app_id">577201735745344</string>
 
   <string name="take_action">Take Action</string>
-  <string name="create_campaign">Create Campaign</string>
+  <string name="create_campaign">Start a new campaign</string>
+
+  <string name="campaign_title">What is your campaign about?</string>
+  <string name="campaign_overview">What action do you want our users to take?</string>
+  <string name="campaign_description">Tell your story! Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
+  <string name="campaign_sign_message">Message to the campaign recipient</string>
+  <string name="campaign_goal">Number of signatures</string>
+  <string name="campaign_url">Your campaign webpage</string>
 
 
-  <string name="campaign_label">Campaign title</string>
-  <string name="campaign_description">Description</string>
-  <string name="campaign_title">Title</string>
-  <string name="campaign_overview">Overview</string>
-  <string name="campaign_sign_message">Suggested support message</string>
-  <string name="campaign_goal">Supporters goal</string>
-  <string name="campaign_url">Sum of Us webpage</string>
+    <string name="help_title">In one or two words</string>
+    <string name="help_overview">Focus on the solution. i.e. \'Raise the minimum wage in Minneapolis to $15 an hour\'</string>
+    <string name="help_description">Describe the people involved and the problem they are facing. Describe the solution. Respect others.</string>
+    <string name="help_message">Your petition is most likely to win by reaching an agreement with your decision maker.</string>
+    <string name="help_numbers_only">Numbers only</string>
 
   <string-array name="category_array">
-    <item>Support individual</item>
+    <item>Support a good cause</item>
     <item>Corruption awareness</item>
     <item>Share good news</item>
     <item>Promote common good</item>
@@ -65,15 +70,15 @@
   <string name="save_button_text">Save</string>
   <string name="cancel_button_text">Cancel</string>
   <string name="title_activity_user_profile">Profile</string>
-  <string name="title_register_user">Register</string>
+  <string name="title_activity_photogallery_lable">Gallery</string>
 
   <!-- Strings related to login -->
+    <string name="title_register_user">Register</string>
   <string name="signup">Sign up</string>
   <string name="title_activity_login">Log in</string>
   <string name="title_activity_signup">Sign up</string>
   <string name="logout">Log Out</string>
   <string name="prompt_username">User name</string>
-  <string name="upload_image">Upload Image</string>
   <string name="prompt_useremail">User e-mail</string>
   <string name="prompt_password">Password</string>
   <string name="prompt_password_again">Password Again</string>
@@ -112,6 +117,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="image_url">Campaign image URL (jpg or png)</string>
+
+  <string name="no_supported_campaigns_list">You haven\'t supported any campaigns yet \n Start now! </string>
 
 
 </resources>
