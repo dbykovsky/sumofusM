@@ -94,7 +94,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
     TextView tvGoal;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
-    Button btTakeanAction;
     RippleView btTakeActionRipple;
 
     private Uri photoUri;
@@ -115,21 +114,21 @@ public class CampaignDetailActivity extends AppCompatActivity {
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
         tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
-        btTakeanAction = (Button) findViewById(R.id.btTakeActionDetailsActivity);
         btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
 
         if (campaign.getIsSupported()) {
-            //Toast.makeText(this, "Thanks for supporting this campaign" , Toast.LENGTH_SHORT).show();
-            btTakeanAction.setText("I Supported");
-            btTakeanAction.setSaveEnabled(false);
-            btTakeanAction.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            btTakeanAction.setVisibility(View.VISIBLE);
+            btTakeActionRipple.setVisibility(View.GONE);
         }
         else {
-            //Toast.makeText(this, "Support this campaign" , Toast.LENGTH_SHORT).show();
-            btTakeanAction.setVisibility(View.VISIBLE);
-            btTakeanAction.getBackground().setColorFilter(null);
+            btTakeActionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                @Override
+                public void onComplete(RippleView rippleView) {
+                    Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
+                    i.putExtra(ITENT_TAG, campaign);
+                    startActivity(i);
+                }
+            });
         }
 
             getImagesUploadedByUserForCampaign(campaign.getObjectId());
@@ -199,7 +198,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         selection[0] = which;
+                        selection[0] = which;
                     }
                 });
 
@@ -234,20 +233,12 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
                 });
 
-            dialog.show(fm,"TAG_DIALOG");
+                dialog.show(fm, "TAG_DIALOG");
 
             }
 
         });
 
-        btTakeActionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-            @Override
-            public void onComplete(RippleView rippleView) {
-                Intent i = new Intent(CampaignDetailActivity.this, SignPetitionActivity.class);
-                i.putExtra(ITENT_TAG, campaign);
-                startActivity(i);
-            }
-        });
     }
 
 
