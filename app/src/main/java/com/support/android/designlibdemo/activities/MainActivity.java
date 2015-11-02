@@ -239,13 +239,14 @@ public class MainActivity extends AppCompatActivity {
                 //if there is NO payment info attached
                 {
                     buildDialog(this).show();
-
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
 
                 break;
             case R.id.nav_about_us:
                 //This is to show modal about us org
                 buildDialogAboutUs(this).show();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
 
@@ -288,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNewCampaign() {
         Intent i = new Intent(this, NewCampaignActivity.class);
         startActivityForResult(i, 0);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void subscribeUserToChannel() {
@@ -307,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Intent profileActivity = new Intent(getApplicationContext(), UserProfileActivity.class);
                 startActivity(profileActivity);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -314,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
