@@ -7,11 +7,17 @@
     android:background="@color/grey_200"
     tools:context="com.support.android.designlibdemo.activities.SignPetitionActivity"-->
 
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     android:padding="5dp">
 
     <LinearLayout
@@ -48,7 +54,10 @@
         android:id="@+id/etFullNameSign"
         android:background="@drawable/edit_text_round_corners"
         android:gravity="center_vertical"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout="@layout/custom_float_label"
+        android:theme="@style/TextLabel"
         />
 
     <com.iangclifton.android.floatlabel.FloatLabel
@@ -60,8 +69,10 @@
         android:id="@+id/etEmailAddress"
         android:background="@drawable/edit_text_round_corners"
         android:hint="Your e-mail address"
-        android:gravity="center_vertical"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout="@layout/custom_float_label"
+        android:theme="@style/TextLabel"
         />
 
     <TextView
@@ -71,7 +82,7 @@
         android:id="@+id/tvYourCountry"
         android:layout_below="@+id/etEmailAddress"
         android:layout_marginTop="15dp"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_500"
         android:textSize="20sp"
         />
 
@@ -80,7 +91,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/spCountries"
         android:layout_below="@+id/tvYourCountry"
-        android:paddingBottom="10dp"
+        android:paddingBottom="20dp"
         android:background="@drawable/apptheme_spinner_default_holo_light"
         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
         />
@@ -89,18 +100,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/etZipCode"
         android:background="@drawable/edit_text_round_corners"
         android:hint="Postal or Zip Code"
+        android:layout="@layout/custom_float_label"
         android:inputType="number"
         android:gravity="center_vertical"
-
+        android:theme="@style/TextLabel"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Sign the petition"
         android:textColor="@color/white"
         android:id="@+id/btSignPetitoin"
@@ -109,3 +123,5 @@
 
 
 </LinearLayout>
+
+    </ScrollView>

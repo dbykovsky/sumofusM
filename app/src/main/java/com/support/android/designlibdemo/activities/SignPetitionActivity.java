@@ -40,39 +40,11 @@ public class SignPetitionActivity extends AppCompatActivity {
 
     private Campaign campaign;
     Button btSignPetition;
-    com.iangclifton.android.floatlabel.FloatLabel evFulName;
-    com.iangclifton.android.floatlabel.FloatLabel evEmailAddress;
-    com.iangclifton.android.floatlabel.FloatLabel evZipCode;
+    private FloatLabel evFulName;
+    private FloatLabel evEmailAddress;
+    private FloatLabel evZipCode;
     TextView tvPetitionMessage;
 
-
-    public String[] getGeolocation() {
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        String[] s = new String[2];
-
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses = null;
-
-        if ((latitude < 0.0) || (longitude < 0.0) ) {
-            s[0] = "";
-            s[1] = "";
-        }
-        else {
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                s[0] = addresses.get(0).getCountryName();
-                s[1] = addresses.get(0).getPostalCode();
-            } catch (IOException e) {
-                e.printStackTrace();
-                s[0] = "";
-                s[1] = "";
-            }
-        }
-        return s;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +55,7 @@ public class SignPetitionActivity extends AppCompatActivity {
         String country = geo[0];
         String zip = geo[1];
 
-        if (zip == "null") {
+        if (zip == null) {
             zip = "";
         }
 
@@ -112,6 +84,8 @@ public class SignPetitionActivity extends AppCompatActivity {
 
         //prepopulating fields
         evZipCode.setText(zip);
+
+       // evZipCode.backgr
 
        if(ParseUser.getCurrentUser().getUsername()!=null){
            evFulName.setText(ParseUser.getCurrentUser().getUsername());
@@ -197,6 +171,45 @@ public class SignPetitionActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public String[] getGeolocation() {
+        Location location = null;
+        //some default location iwth dummy values to avoid crash on emulator
+        double longitude = -122.419;
+        double latitude = 37.7749;
+        //permission check to avoid warnings
+        int status = this.getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION,
+                this.getPackageName());
+        //permission check
+        if (status == PackageManager.PERMISSION_GRANTED) {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+
+
+        if(location!=null){
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        String[] s = new String[2];
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            s[0] = addresses.get(0).getCountryName();
+            s[1] = addresses.get(0).getPostalCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+            s[0] = "";
+            s[1] = "";
+
+        }
+        return s;
+    }
+
 
 
 }
