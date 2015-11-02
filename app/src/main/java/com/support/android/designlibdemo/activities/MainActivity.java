@@ -32,6 +32,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -221,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(MainActivity.this, "Thank you for your donation of " + FragmentDialogOptionsPicker.donationOptionsPicker[selection[0]], Toast.LENGTH_SHORT).show();
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
 
@@ -229,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(MainActivity.this, "Well, may be next time", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
 
                     });

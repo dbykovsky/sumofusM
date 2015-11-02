@@ -176,7 +176,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }else{
                     buildDialogNoPictures(CampaignDetailActivity.this).show();
-
                 }
             }
         });
