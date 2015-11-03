@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -80,6 +82,8 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Check Internet connection
+        if (isNetworkAvailable()) {
         setContentView(R.layout.activity_user_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -92,16 +96,15 @@ public class UserProfileActivity extends AppCompatActivity {
         tvCreditCardNumber = (TextView) findViewById(R.id.tv_cc_number);
         tvCreditCardExperation = (TextView) findViewById(R.id.tv_cc_experation);
         btAddCrefirCard = (Button) findViewById(R.id.bt_addCreditCard);
-        tv_update_picture = (TextView)findViewById(R.id.tv_update_picture);
+        tv_update_picture = (TextView) findViewById(R.id.tv_update_picture);
 
         final ParseUser currentUser = ParseUser.getCurrentUser();
 
         //if user has CC attached, then show it and hide ADD CC BUTTON
-        if(currentUser.getString("creditNumber")!=null){
+        if (currentUser.getString("creditNumber") != null) {
             tvCreditCardNumber.setText(currentUser.getString("creditNumber"));
             tvCreditCardExperation.setText(currentUser.getString("creditExpr"));
-        }else
-        {
+        } else {
             btAddCrefirCard.setVisibility(View.VISIBLE);
             btAddCrefirCard.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,16 +130,14 @@ public class UserProfileActivity extends AppCompatActivity {
 */
         JSONArray ar = currentUser.getJSONArray("myCampaigns");
         int i = 0;
-        String contributions = ", welcome!"+"\n";
-        if (ar != null ) {
+        String contributions = ", welcome!" + "\n";
+        if (ar != null) {
             i = ar.length();
         }
-        if (i>1) {
-           // ivUserProfile.setImageResource(R.drawable.profileactivist);
-            contributions = ", you have supported"+"\n" + i + " campaigns. Thank you!";
-        }
-        else
-        {
+        if (i > 1) {
+            // ivUserProfile.setImageResource(R.drawable.profileactivist);
+            contributions = ", you have supported" + "\n" + i + " campaigns. Thank you!";
+        } else {
             // ivUserProfile.setImageResource(R.drawable.iconbaby);
         }
 
@@ -167,12 +168,11 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
 
-
         //Load image from Parse
         ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
 
         //prevent form crash if omage is null
-        if(image!=null){
+        if (image != null) {
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
@@ -274,7 +274,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 String newPhone = s.toString();
                 Log.i("SumOfUs USER info", newPhone);
-                currentUser.put("phoneNumber",newPhone);
+                currentUser.put("phoneNumber", newPhone);
 
             }
         });
@@ -310,6 +310,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+        else {
+            Toast.makeText(this, "Internet NOT Connected, please turn on your Internet" , Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -540,5 +545,11 @@ public class UserProfileActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+
+    }
 
 }
