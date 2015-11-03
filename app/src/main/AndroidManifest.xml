@@ -76,7 +76,6 @@
         <activity
             android:name=".activities.CampaignDetailActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:launchMode="singleTop"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
