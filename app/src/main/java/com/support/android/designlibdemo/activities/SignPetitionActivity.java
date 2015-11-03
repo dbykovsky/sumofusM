@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -51,6 +52,7 @@ public class SignPetitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_petition);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String[] geo = getGeolocation();
         String country = geo[0];
@@ -166,6 +168,11 @@ public class SignPetitionActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -18,11 +18,6 @@
 <resources>
     <string name="app_name">Sum Of Us</string>
 
-  <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
-    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
-    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
-    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
-    the big cheese.</string>
   <string name="checkin">Checkin</string>
   <string name="menu_settings">Settings</string>
 
@@ -83,11 +78,11 @@
   <string name="prompt_password">Password</string>
   <string name="prompt_password_again">Password Again</string>
   <string name="error_intro">"Please "</string>
-  <string name="error_blank_username">enter a name</string>
-  <string name="error_blank_useremail">enter an email</string>
+  <string name="error_blank_username">"enter a name, "</string>
+  <string name="error_blank_useremail">"enter an email"</string>
   <string name="error_blank_password">enter a password</string>
   <string name="error_mismatched_passwords">enter the same password twice</string>
-  <string name="error_join">", and "</string>
+  <string name="error_join">" and "</string>
   <string name="error_end">.</string>
   <string name="progress_login">Logging you in&#8230;</string>
   <string name="progress_signup">Signing you up&#8230;</string>
