@@ -30,6 +30,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -102,7 +103,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private String photoId;
     private ArrayList<String> imageUrls;
 
+    //this is a fix for shared elements
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        new Handler().postDelayed(new Runnable(){
+
+            @Override
+            public void run() {
+                ivCampaignImage.requestLayout();
+            }
+        }, 800);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

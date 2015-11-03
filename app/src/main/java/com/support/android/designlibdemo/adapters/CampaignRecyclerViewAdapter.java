@@ -43,7 +43,6 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             super(view);
             tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
-            btTakeAction = (Button) view.findViewById(R.id.bt_take_action_list_item);
         }
     }
 
@@ -78,17 +77,13 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
         holder.ivCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //locate FAB that belongs to the other layout
-                /*View view = (View) LayoutInflater.from(mContext).inflate(R.layout.activity_main, null);
-                FloatingActionButton fb = (FloatingActionButton) view.findViewById(R.id.fab);*/
                 //create a new intent
                 Intent i = new Intent(holder.ivCampaign.getContext(), CampaignDetailActivity.class);
                 i.putExtra("camp", camp);
                 ((Activity)mContext).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                Pair<View, String> p1 = Pair.create((View)holder.ivCampaign, "profile");
+                Pair<View, String> p1 = Pair.create((View)holder.ivCampaign, "campaign_image");
                 //Pair<View, String> p2 = Pair.create((View)fb, "fab");
                 Pair<View, String> p3 = Pair.create((View)holder.btTakeAction, "take_action");
-
                 //initiate transition
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) holder.ivCampaign.getContext(),p1, p3);

@@ -51,11 +51,24 @@
 
   <color name="translucent_color">#00000000</color>
 
-  //new styles
 
-  <color name="colorPrimary">#673AB7</color>
+ <!--
+
+ old colors, keeping them for mow
+ <color name="colorPrimary">#673AB7</color>
   <color name="colorPrimaryDark">#512DA8</color>
-  <color name="colorAccent">#FF4081</color>
+  <color name="colorAccent">#FF4081</color>-->
+
+
+
+  <color name="colorPrimary">#00adbd</color>
+  <color name="colorPrimaryDark">#00818f</color>
+  <color name="colorAccent">#abd921</color>
+
+
+  <color name="colorPrimary_test">#00adbd</color>
+  <color name="colorPrimaryDark_test">#00818f</color>
+  <color name="colorAccent_test">#abd921</color>
 
 
 
