@@ -1,8 +1,12 @@
 package com.support.android.designlibdemo.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,12 +27,12 @@ public class Welcome_LoginActivity_or_Signup extends AppCompatActivity {
     private EditText usernameEditText;
     private EditText passwordEditText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_signup_or_login);
-
+        //Check Internet connection
+        if (isNetworkAvailable()) {
         // Log in button click handler
         Button loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +76,12 @@ public class Welcome_LoginActivity_or_Signup extends AppCompatActivity {
                 login();
             }
         });
+        }
+        else {
+            Toast.makeText(this, "Internet NOT Connected, please turn on your Internet", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+//            startActivity(intent);
+        }
     }
 
     private void login() {
@@ -121,6 +131,11 @@ public class Welcome_LoginActivity_or_Signup extends AppCompatActivity {
                 }
             }
         });
+    }
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
 
     }
 }

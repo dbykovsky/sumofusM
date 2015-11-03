@@ -100,7 +100,7 @@
                 android:paddingRight="32dp"
                 android:text="@string/signup"
                 android:layout_gravity="center"
-                android:background="@color/orange"
+                android:background="@drawable/my_orange_buttons"
                 android:textColor="@color/white"
                 />
             </com.andexert.library.RippleView>

@@ -17,9 +17,11 @@
 package com.support.android.designlibdemo.activities;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -38,6 +40,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,11 +77,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+            setContentView(R.layout.activity_main);
         //Check Internet connection
         if (isNetworkAvailable()) {
-            setContentView(R.layout.activity_main);
-
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
@@ -345,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-
         overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
@@ -355,5 +355,4 @@ public class MainActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
 
     }
-
 }
