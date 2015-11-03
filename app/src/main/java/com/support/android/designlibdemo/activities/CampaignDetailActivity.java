@@ -383,8 +383,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
                 .setContentTitle(campaign.getTitle())
-                .setContentDescription(
-                        "\"Title Of Test Post\"")
+                .setContentDescription(campaign.getShortDescription())
                 .setContentUrl(Uri.parse(campaign.getCampaignUrl()))
                 .build();
 
