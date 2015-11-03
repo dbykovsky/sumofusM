@@ -88,6 +88,7 @@
         </activity>
         <activity android:name=".activities.SignUpActivity"
             android:label="@string/title_register_user"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
         </activity>
 
@@ -116,6 +117,7 @@
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme2"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

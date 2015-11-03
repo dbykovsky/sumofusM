@@ -41,4 +41,9 @@ public class NewCampaignActivity extends AppCompatActivity {
     public CampaignParse getCurrentCampaign() {
         return campaign;
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.out_slide_out_top, R.anim.out_slide_in_bottom);
+    }
 }

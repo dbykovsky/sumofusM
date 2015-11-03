@@ -139,6 +139,7 @@ public class SignPetitionActivity extends AppCompatActivity {
                                         Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
                                         i.putExtra("page", 2);
                                         startActivity(i);
+                                        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
                                     }
 
                                 }
