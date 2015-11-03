@@ -65,7 +65,6 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:background="@color/orange"
                 android:text="@string/take_action"
                 android:textColor="@color/white"
                 android:transitionName="take_action"
@@ -75,6 +74,7 @@
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:layout_above="@+id/tvShortDescription"
+                android:background="@drawable/my_orange_buttons"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 

@@ -254,15 +254,32 @@
 
         </LinearLayout>
 
+        <com.andexert.library.RippleView
+            android:id="@+id/add_credit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_credit_card_row"
+            android:paddingTop="10dp"
+            app:rv_zoom="true"
+            app:rv_zoomScale="1.05"
+            app:rv_zoomDuration="200"
+            >
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Credit card"
-            android:visibility="gone"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+
+            android:visibility="visible"
             android:id="@+id/bt_addCreditCard"
-            android:layout_below="@+id/ll_credit_card_row"
+            android:textColor="@color/white"
+            android:background="@drawable/my_orange_buttons"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+        </com.andexert.library.RippleView>
+
 
 
     </RelativeLayout>
