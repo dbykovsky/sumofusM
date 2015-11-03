@@ -20,8 +20,10 @@ public class NewCampaignActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         campaign = new CampaignParse();
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
+     //   getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+     //   requestWindowFeature(Window.FEATURE_ACTION_BAR);
+     //   getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         super.onCreate(savedInstanceState);
 
         // Begin with main data entry view

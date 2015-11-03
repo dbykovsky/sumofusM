@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
+    android:id="@+id/scrollViewNewCampaign"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillViewport="true">
-
-
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@android:color/transparent"
     android:padding="5dp">
 
 
@@ -34,6 +31,12 @@
         android:layout_gravity="center"
         android:paddingTop="8dp" />
 
+    <RelativeLayout
+        android:background="@color/vpi__background_holo_light"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/rlTitle">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,11 +51,21 @@
         android:id="@+id/campaign_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/campaign_title"
+        android:hint="@string/hint_title"
         android:theme="@style/TextLabel"
         android:ellipsize="end"
         android:maxLines="1"
         android:maxLength="40" />
+
+
+    </RelativeLayout>
+
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:background="@color/vpi__background_holo_light"
+       android:id="@+id/rlOverview"
+       android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="match_parent"
@@ -70,8 +83,10 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
-        android:hint="@string/campaign_overview"
+        android:hint="@string/hint_overview"
         />
+
+   </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -88,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:hint="@string/campaign_description"
+        android:hint="@string/hint_description"
         android:theme="@style/TextLabel"
         android:textIsSelectable="true" />
 
@@ -109,7 +124,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
-        android:hint="@string/campaign_sign_message"
+        android:hint="@string/hint_sign_message"
         />
 
     <TextView
@@ -127,7 +142,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/TextLabel"
-        android:hint="@string/campaign_goal"
+        android:hint="@string/hint_goal"
         />
 
     <com.iangclifton.android.floatlabel.FloatLabel
@@ -136,7 +151,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
-        android:hint="@string/campaign_url"
+        android:hint="@string/hint_url"
         />
 
     <!--Spinner
