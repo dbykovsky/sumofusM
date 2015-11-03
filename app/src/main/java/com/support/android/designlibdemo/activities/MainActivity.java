@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+
         overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
