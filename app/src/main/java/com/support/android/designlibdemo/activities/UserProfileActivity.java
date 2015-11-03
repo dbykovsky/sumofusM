@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,6 +81,8 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         ivUserPic = (ImageView) findViewById(R.id.ivProfilePicProfile);
         userName = (TextView) findViewById(R.id.tv_userNameDrawer);
@@ -339,6 +342,11 @@ public class UserProfileActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+            return true;
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {

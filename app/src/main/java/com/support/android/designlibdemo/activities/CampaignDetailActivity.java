@@ -30,6 +30,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -102,7 +103,19 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private String photoId;
     private ArrayList<String> imageUrls;
 
+    //this is a fix for shared elements
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        new Handler().postDelayed(new Runnable(){
+
+            @Override
+            public void run() {
+                ivCampaignImage.requestLayout();
+            }
+        }, 600);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -176,7 +189,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }else{
                     buildDialogNoPictures(CampaignDetailActivity.this).show();
-
                 }
             }
         });
@@ -371,8 +383,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
                 .setContentTitle(campaign.getTitle())
-                .setContentDescription(
-                        "\"Title Of Test Post\"")
+                .setContentDescription(campaign.getShortDescription())
                 .setContentUrl(Uri.parse(campaign.getCampaignUrl()))
                 .build();
 

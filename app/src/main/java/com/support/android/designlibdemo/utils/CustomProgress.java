@@ -92,7 +92,7 @@ public class CustomProgress extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+
         progressDrawable.setBounds(0, 0, width, this.getHeight());
         progressDrawable.draw(canvas);
         //let's cast our max percentage into int to compare with getCurrentPercentage
@@ -115,7 +115,7 @@ public class CustomProgress extends TextView {
         }else if(width==maxWidth){
                 return;
         }
-
+        super.onDraw(canvas);
     }
 
     /**

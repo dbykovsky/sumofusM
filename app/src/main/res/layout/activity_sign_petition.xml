@@ -7,12 +7,21 @@
     android:background="@color/grey_200"
     tools:context="com.support.android.designlibdemo.activities.SignPetitionActivity"-->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundSignUltraLight"
+ >
+
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp"
+
     android:fillViewport="false">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -137,3 +146,5 @@
 </LinearLayout>
 
     </ScrollView>
+
+</RelativeLayout>

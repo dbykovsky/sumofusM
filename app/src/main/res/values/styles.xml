@@ -41,9 +41,14 @@
     </style>
 
     <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+<!--    old styles. just keep them for now
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
         <item name="colorAccent">#FF4081</item>
+        <item name="android:windowBackground">@color/window_background</item>-->
+        <item name="colorPrimary">@color/colorPrimary_test</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_test</item>
+        <item name="colorAccent">@color/orange</item>
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
@@ -64,9 +69,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
 
-         <item name="colorPrimary">@color/colorPrimary</item>
+<!--
+
+        old styles. just keep them for now
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>-->
+
+
+        <item name="colorPrimary">@color/colorPrimary_test</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_test</item>
+        <item name="colorAccent">@color/colorAccent_test</item>
         <item name="android:windowBackground">@color/window_background</item>
 
     </style>
