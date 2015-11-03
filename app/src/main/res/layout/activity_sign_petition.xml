@@ -138,7 +138,7 @@
         android:text="Sign the petition"
         android:textColor="@color/white"
         android:id="@+id/btSignPetitoin"
-        android:background="@color/orange"
+        android:background="@drawable/my_orange_buttons"
         />
     </com.andexert.library.RippleView>
 

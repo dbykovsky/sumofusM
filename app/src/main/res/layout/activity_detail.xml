@@ -200,7 +200,7 @@
             android:textColor="@color/white"
             android:id="@+id/btTakeActionDetailsActivity"
             android:transitionName="take_action"
-            android:background="@color/orange"
+            android:background="@color/orange_500"
             android:layout_alignParentBottom="true"
             />
         </com.andexert.library.RippleView>
