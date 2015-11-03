@@ -43,6 +43,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             super(view);
             tvShortCampaignDescription = (TextView)view.findViewById(R.id.tvShortDescription);
             ivCampaign = (ImageView)view.findViewById(R.id.ivCampaign);
+            btTakeAction = (Button) view.findViewById(R.id.bt_take_action_list_item);
         }
     }
 

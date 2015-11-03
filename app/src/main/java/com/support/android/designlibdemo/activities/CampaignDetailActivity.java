@@ -114,7 +114,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
             public void run() {
                 ivCampaignImage.requestLayout();
             }
-        }, 800);
+        }, 600);
     }
 
     @Override
