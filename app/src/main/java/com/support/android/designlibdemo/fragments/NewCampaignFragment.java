@@ -1,13 +1,17 @@
 package com.support.android.designlibdemo.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.graphics.MaskFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
@@ -26,6 +30,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,11 +69,13 @@ public class NewCampaignFragment extends Fragment {
   //  private TextView campaignImage;
     private Spinner campaignCategory;
     private CampaignParse campaign;
+    private static ScrollView sv;
 
     private int charCount = 0;
-    private static final int MaxTitleCount = 20;
-    private static final int MaxOverviewCount = 200;
-    private static final int MaxMessageCount = 200;
+    private static final int MaxTitleCount = 15;
+    private static final int MaxOverviewCount = 100;
+    private static final int MaxMessageCount = 100;
+    private static final int MARGIN = 20;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,28 +93,50 @@ public class NewCampaignFragment extends Fragment {
         final TextView tvOverviewHelp = (TextView) v.findViewById(R.id.tvOverviewHelp);
         final TextView tvMessageHelp = (TextView) v.findViewById(R.id.tvMessageHelp);
         final TextView tvGoalHelp = (TextView) v.findViewById(R.id.tvGoalHelp);
+        sv = (ScrollView) v.findViewById(R.id.scrollViewNewCampaign);
+        final RelativeLayout rlTitle = (RelativeLayout) v.findViewById(R.id.rlTitle);
+        final RelativeLayout rlOverview = (RelativeLayout) v.findViewById(R.id.rlOverview);
 
         campaignTitle = ((FloatLabel) v.findViewById(R.id.campaign_title));
+
+
+        campaignTitle.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, 0);
+                    if (campaignTitle.getEditText().getText().length() == 0) {
+                        campaignTitle.getEditText().setText(" ");
+                    }
+                }
+                else {
+                  //  rlTitle.getBackground().setAlpha(40);
+                   // campaignTitle.getEditText().setTextColor(Color.BLUE);
+                    //campaignTitle.getBackground().setAlpha(40);
+                }
+            }
+        });
+
         campaignTitle.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 charCount = s.length();
                 if (charCount > MaxTitleCount) {
                     tvTitleHelp.setError("Really?!");
                     tvTitleHelp.setTextColor(Color.RED);
                     tvTitleHelp.setText("That's a long title. " + charCount + "/" + MaxTitleCount + " ");
-                }
-                else if (charCount > (MaxTitleCount /2) ) {
+                } else if (charCount > (MaxTitleCount / 2)) {
                     tvTitleHelp.setVisibility(View.VISIBLE);
                     tvTitleHelp.setText(charCount + "/" + MaxTitleCount + " ");
                     tvTitleHelp.setError(null);
                     tvTitleHelp.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tvTitleHelp.setText("");
                 }
 
@@ -117,8 +147,26 @@ public class NewCampaignFragment extends Fragment {
             }
         });
 
-
         campaignOverview = ((FloatLabel) v.findViewById(R.id.campaign_overview));
+
+        campaignOverview.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, (int) campaignTitle.getY()+MARGIN);
+                    if (campaignOverview.getEditText().getText().length() == 0) {
+                        campaignOverview.getEditText().setText(" ");
+                    }
+
+                }
+                else {
+                  //  rlOverview.getBackground().setAlpha(40);
+                  //  campaignOverview.getEditText().setTextColor(Color.BLUE);
+                  //  campaignOverview.getEditText().getBackground().setAlpha(40);
+                }
+            }
+        });
+
         campaignOverview.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -134,13 +182,11 @@ public class NewCampaignFragment extends Fragment {
                     tvOverviewHelp.setError("Really?!");
                     tvOverviewHelp.setTextColor(Color.RED);
                     tvOverviewHelp.setText("Really?! " + charCount + "/" + MaxOverviewCount + " ");
-                }
-                else if (charCount > (MaxOverviewCount /2) ) {
+                } else if (charCount > (MaxOverviewCount / 2)) {
                     tvGoalHelp.setError(null);
                     tvOverviewHelp.setVisibility(View.VISIBLE);
                     tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
-                }
-                else {
+                } else {
                     tvOverviewHelp.setError(null);
                     tvOverviewHelp.setTextColor(Color.GRAY);
                     tvOverviewHelp.setText("");
@@ -155,7 +201,33 @@ public class NewCampaignFragment extends Fragment {
 
 
         campaignDescription = ((FloatLabel) v.findViewById(R.id.campaign_description));
+        campaignDescription.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, (int) campaignDescription.getY()-MARGIN);
+                    if (campaignDescription.getEditText().getText().length() == 0) {
+                        campaignDescription.getEditText().setText(" ");
+                    }
+                }
+            }
+        });
+
+
         campaignGoal = ((FloatLabel) v.findViewById(R.id.campaign_goal));
+
+        campaignGoal.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, (int) campaignGoal.getY()-MARGIN);
+                    if (campaignGoal.getEditText().getText().length() == 0) {
+                        campaignGoal.getEditText().setText(" ");
+                    }
+                }
+            }
+        });
+
         campaignGoal.getEditText().setMaxLines(1);
         campaignGoal.getEditText().setInputType(0x00000002);
         campaignGoal.getEditText().addTextChangedListener(new TextWatcher() {
@@ -202,6 +274,18 @@ public class NewCampaignFragment extends Fragment {
         });
 
         campaignMessage = ((FloatLabel) v.findViewById(R.id.campaign_sign_message));
+        campaignMessage.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, (int) campaignMessage.getY()-MARGIN);
+                    if (campaignMessage.getEditText().getText().length() == 0) {
+                        campaignMessage.getEditText().setText(" ");
+                    }
+                }
+            }
+        });
+
         campaignMessage.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -231,6 +315,18 @@ public class NewCampaignFragment extends Fragment {
         });
 
         campaignUrl = ((FloatLabel) v.findViewById(R.id.campaign_url));
+        campaignUrl.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    sv.scrollTo(0, (int) campaignUrl.getY()-MARGIN);
+                    if (campaignUrl.getEditText().getText().length() == 0) {
+                        campaignUrl.getEditText().setText(" ");
+                    }
+                }
+            }
+        });
+
         campaignUrl.getEditText().setInputType(0x01);
 //        campaignCategory = ((Spinner) v.findViewById(R.id.categories_spinner));
 //        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter

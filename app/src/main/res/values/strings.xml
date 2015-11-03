@@ -41,13 +41,21 @@
   <string name="take_action">Take Action</string>
   <string name="create_campaign">Start a new campaign</string>
 
+
+
+  <string name="hint_title">Campaign title</string>
+  <string name="hint_overview">Brief overview</string>
+  <string name="hint_description">Tell your story!</string>
+  <string name="hint_sign_message">Message to the campaign recipient</string>
+  <string name="hint_goal">Number of signatures</string>
+  <string name="hint_url">Your campaign webpage</string>
+
   <string name="campaign_title">What is your campaign about?</string>
   <string name="campaign_overview">What action do you want our users to take?</string>
-  <string name="campaign_description">Tell your story! Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
+  <string name="campaign_description">Explain the problem you want to solve and how this change will impact you, your family, or your community.</string>
   <string name="campaign_sign_message">Message to the campaign recipient</string>
   <string name="campaign_goal">Number of signatures</string>
   <string name="campaign_url">Your campaign webpage</string>
-
 
     <string name="help_title">In one or two words</string>
     <string name="help_overview">Focus on the solution. i.e. \'Raise the minimum wage in Minneapolis to $15 an hour\'</string>
