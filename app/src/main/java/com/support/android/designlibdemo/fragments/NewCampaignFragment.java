@@ -72,10 +72,10 @@ public class NewCampaignFragment extends Fragment {
     private static ScrollView sv;
 
     private int charCount = 0;
-    private static final int MaxTitleCount = 15;
+    private static final int MaxTitleCount = 20;
     private static final int MaxOverviewCount = 100;
     private static final int MaxMessageCount = 100;
-    private static final int MARGIN = 20;
+    private static final int MARGIN = 100;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,7 +153,11 @@ public class NewCampaignFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    sv.scrollTo(0, (int) campaignTitle.getY()+MARGIN);
+                    sv.post(new Runnable() {
+                        public void run() {
+                            sv.scrollTo(0, campaignOverview.getBottom());
+                        }
+                    });
                     if (campaignOverview.getEditText().getText().length() == 0) {
                         campaignOverview.getEditText().setText(" ");
                     }
@@ -205,7 +209,11 @@ public class NewCampaignFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    sv.scrollTo(0, (int) campaignDescription.getY()-MARGIN);
+                    sv.post(new Runnable() {
+                        public void run() {
+                            sv.scrollTo(0, campaignDescription.getBottom());
+                        }
+                    });
                     if (campaignDescription.getEditText().getText().length() == 0) {
                         campaignDescription.getEditText().setText(" ");
                     }
@@ -220,7 +228,11 @@ public class NewCampaignFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    sv.scrollTo(0, (int) campaignGoal.getY()-MARGIN);
+                    sv.post(new Runnable() {
+                        public void run() {
+                            sv.scrollTo(0, sv.getBottom());
+                        }
+                    });
                     if (campaignGoal.getEditText().getText().length() == 0) {
                         campaignGoal.getEditText().setText(" ");
                     }
@@ -278,7 +290,11 @@ public class NewCampaignFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    sv.scrollTo(0, (int) campaignMessage.getY()-MARGIN);
+                    sv.post(new Runnable() {
+                        public void run() {
+                            sv.scrollTo(0, sv.getBottom());
+                        }
+                    });
                     if (campaignMessage.getEditText().getText().length() == 0) {
                         campaignMessage.getEditText().setText(" ");
                     }
@@ -319,7 +335,11 @@ public class NewCampaignFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    sv.scrollTo(0, (int) campaignUrl.getY()-MARGIN);
+                    sv.post(new Runnable() {
+                        public void run() {
+                            sv.scrollTo(0, sv.getBottom());
+                        }
+                    });
                     if (campaignUrl.getEditText().getText().length() == 0) {
                         campaignUrl.getEditText().setText(" ");
                     }

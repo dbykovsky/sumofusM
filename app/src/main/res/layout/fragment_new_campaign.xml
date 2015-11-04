@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scrollViewNewCampaign"
+    android:background="@color/colorBackgroundSignUltraLight"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillViewport="true">
 
@@ -12,7 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/transparent"
     android:padding="5dp">
 
 
@@ -29,43 +29,47 @@
         android:gravity="center|center_vertical|center_horizontal"
         android:elegantTextHeight="true"
         android:layout_gravity="center"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
 
     <RelativeLayout
-        android:background="@color/vpi__background_holo_light"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:id="@+id/rlTitle">
+        android:background="@drawable/edit_text_round_corners"
+        android:id="@+id/rlTitle"
+        android:theme="@style/LayoutPadding"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTitleHelp"
-        android:visibility="invisible"
-        android:layout_marginLeft="5dp"
-        android:text="@string/help_title"
-        android:theme="@style/TextHint"
-        android:gravity="right" />
-
-    <com.iangclifton.android.floatlabel.FloatLabel
-        android:id="@+id/campaign_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_title"
-        android:theme="@style/TextLabel"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:maxLength="40" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitleHelp"
+            android:visibility="invisible"
+            android:layout_marginLeft="5dp"
+            android:text="@string/help_title"
+            android:theme="@style/TextHint" />
 
 
+        <com.iangclifton.android.floatlabel.FloatLabel
+            android:id="@+id/campaign_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_title"
+            android:theme="@style/TextLabel"
+            android:maxLines="1"
+            android:maxLength="40"/>
     </RelativeLayout>
 
 
    <RelativeLayout
        android:layout_width="match_parent"
-       android:background="@color/vpi__background_holo_light"
+       android:background="@drawable/edit_text_round_corners"
        android:id="@+id/rlOverview"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="10dp"
+       android:layout_marginTop="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -74,8 +78,7 @@
         android:visibility="invisible"
         android:layout_marginLeft="5dp"
         android:text="@string/help_overview"
-        android:theme="@style/TextHint"
-        android:gravity="right" />
+        android:theme="@style/TextHint" />
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_overview"
@@ -87,6 +90,14 @@
         />
 
    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_round_corners"
+        android:id="@+id/rlDescription"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -106,7 +117,15 @@
         android:hint="@string/hint_description"
         android:theme="@style/TextLabel"
         android:textIsSelectable="true" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_round_corners"
+        android:id="@+id/rlMessage"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -124,8 +143,16 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
-        android:hint="@string/hint_sign_message"
-        />
+        android:hint="@string/hint_sign_message" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_round_corners"
+        android:id="@+id/rlGoal"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -143,7 +170,16 @@
         android:layout_height="wrap_content"
         android:theme="@style/TextLabel"
         android:hint="@string/hint_goal"
-        />
+        android:paddingTop="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/edit_text_round_corners"
+        android:id="@+id/rlUrl"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
     <com.iangclifton.android.floatlabel.FloatLabel
         android:id="@+id/campaign_url"
@@ -152,12 +188,8 @@
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
         android:hint="@string/hint_url"
-        />
-
-    <!--Spinner
-        android:id="@+id/categories_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" /-->
+        android:paddingTop="10dp" />
+</RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

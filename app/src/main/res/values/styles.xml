@@ -29,14 +29,27 @@
         <item name="android:shadowRadius">3</item>
     </style>
 
+    <style name="LayoutPadding">
+        <item name="android:textColorHint">@color/hint_dark_grey</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">10sp</item>
+        <item name="android:paddingTop">5sp</item>
+        <item name="android:textColor">@color/hint_blue</item>
+    </style>
+
     <style name="TextLabel">
-    <item name="android:textColorHint">@color/hint_dark_grey</item>
-    <item name="android:textSize">20sp</item>
-    <item name="android:textColor">@color/hint_blue</item>
+        <item name="android:textColorHint">@color/hint_dark_grey</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">5sp</item>
+        <item name="android:paddingTop">10sp</item>
+        <item name="android:textColor">@color/hint_blue</item>
     </style>
 
     <style name="TextHint">
-        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">3sp</item>
+        <item name="android:paddingTop">1sp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">right</item>
         <item name="android:textColor">@color/hint_grey</item>
     </style>
 
@@ -58,6 +71,15 @@
         <item name="android:paddingTop">24dp</item>
         <item name="android:paddingBottom">24dp</item>
         <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="TexViewRounded">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">right</item>
     </style>
 
     <style name="LoginFormContainer">
