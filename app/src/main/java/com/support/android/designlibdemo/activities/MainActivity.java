@@ -17,11 +17,9 @@
 package com.support.android.designlibdemo.activities;
 
 import android.annotation.TargetApi;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -40,7 +38,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,7 +55,7 @@ import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.fragments.CampaignsSupportedFragment;
-import com.support.android.designlibdemo.fragments.VideosFragment;
+import com.support.android.designlibdemo.fragments.NewVideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new CampaignsFragment(), "Campaigns");
-        adapter.addFragment(new VideosFragment(), "Watch");
+        adapter.addFragment(new NewVideoFragment(), "Watch");
         adapter.addFragment(new CampaignsSupportedFragment(), "I supported");
         viewPager.setAdapter(adapter);
     }
