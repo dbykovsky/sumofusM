@@ -51,6 +51,7 @@ public class NewCampaignActivity extends AppCompatActivity {
     public CampaignParse getCurrentCampaign() {
         return campaign;
     }
+
     @Override
     public void onBackPressed() {
         finish();
