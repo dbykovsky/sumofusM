@@ -1,18 +1,20 @@
-package com.support.android.designlibdemo.dialogs;
+package com.support.android.designlibdemo.fragments;
 
 import android.app.Dialog;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.widget.EditText;
 
-import com.support.android.designlibdemo.R;
+import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
 
 /**
- * Created by dbykovskyy on 10/27/15.
+ * Created by dbykovskyy on 11/3/15.
  */
-public class DonationDialog extends DialogFragment {
+public class ChoiceVideoDialog extends DialogFragment {
+
 
     public DialogInterface.OnClickListener positiveClickListener;
     public DialogInterface.OnClickListener cancelClickListener;
@@ -30,8 +32,8 @@ public class DonationDialog extends DialogFragment {
         this.onChoiceClickListener=onChoiceListener;
     }
 
-    public static DonationDialog newInstance(String title) {
-        DonationDialog frag = new DonationDialog();
+    public static ChoiceVideoDialog newInstance(String title) {
+        ChoiceVideoDialog frag = new ChoiceVideoDialog();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
@@ -43,7 +45,7 @@ public class DonationDialog extends DialogFragment {
         String title = getArguments().getString("title");
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),android.R.style.Theme_Material_Light_Dialog_NoActionBar);
         alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setSingleChoiceItems(FragmentDialogOptionsPicker.donationOptionsPicker, -1, onChoiceClickListener);
+        alertDialogBuilder.setSingleChoiceItems(FragmentDialogOptionsPicker.videoPlayerPicker, -1, onChoiceClickListener);
         alertDialogBuilder.setPositiveButton("OK", positiveClickListener);
         alertDialogBuilder.setNegativeButton("Cancel", cancelClickListener);
         return alertDialogBuilder.create();

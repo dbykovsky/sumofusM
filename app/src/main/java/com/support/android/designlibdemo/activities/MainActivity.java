@@ -17,11 +17,9 @@
 package com.support.android.designlibdemo.activities;
 
 import android.annotation.TargetApi;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -40,7 +38,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,7 +55,7 @@ import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.fragments.CampaignsSupportedFragment;
-import com.support.android.designlibdemo.fragments.VideosFragment;
+import com.support.android.designlibdemo.fragments.NewVideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private ParseUser currentUser;
     private ViewPager viewPager;
     private ImageView ivUserProfile;
+    String imageProfileUrl = null;
+    View nav_header;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -93,18 +92,15 @@ public class MainActivity extends AppCompatActivity {
             currentUser = ParseUser.getCurrentUser();
             // Skip if already subscribed
             subscribeUserToChannel();
-            //Load image from Parse
-            ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
-            //Get Image from parse
-            String imageProfileUrl = null;
-            if (image != null) {
-                imageProfileUrl = image.getUrl();
-            }
 
+            //setting nav bar
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            //setting user profile image
             ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
             Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+
+            //setting user infor into drawer
             ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
             ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
             navigationView.addHeaderView(nav_header);
@@ -141,6 +137,15 @@ public class MainActivity extends AppCompatActivity {
         if(viewPagerFragmentToStart!=0){
             viewPager.setCurrentItem(viewPagerFragmentToStart);
         }
+        //Load image from Parse
+        ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
+        //Get Image from parse
+        if (image != null) {
+            imageProfileUrl = image.getUrl();
+        }
+        ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
+        Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+
 
     }
 
@@ -173,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new CampaignsFragment(), "Campaigns");
-        adapter.addFragment(new VideosFragment(), "Watch");
+        adapter.addFragment(new NewVideoFragment(), "Watch");
         adapter.addFragment(new CampaignsSupportedFragment(), "I supported");
         viewPager.setAdapter(adapter);
     }
