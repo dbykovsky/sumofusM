@@ -403,7 +403,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 // Convert bitmap to a byte array
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 30, stream);
                 byte[] image = stream.toByteArray();
 
                 // Create the ParseFile with an image
@@ -432,7 +432,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 // Convert bitmap to a byte array
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 30, stream);
                 byte[] image = stream.toByteArray();
                 // Create the ParseFile with an image
                 final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);

@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private ParseUser currentUser;
     private ViewPager viewPager;
     private ImageView ivUserProfile;
+    String imageProfileUrl = null;
+    View nav_header;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -90,18 +92,15 @@ public class MainActivity extends AppCompatActivity {
             currentUser = ParseUser.getCurrentUser();
             // Skip if already subscribed
             subscribeUserToChannel();
-            //Load image from Parse
-            ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
-            //Get Image from parse
-            String imageProfileUrl = null;
-            if (image != null) {
-                imageProfileUrl = image.getUrl();
-            }
 
+            //setting nav bar
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            //setting user profile image
             ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
             Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+
+            //setting user infor into drawer
             ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
             ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
             navigationView.addHeaderView(nav_header);
@@ -138,6 +137,15 @@ public class MainActivity extends AppCompatActivity {
         if(viewPagerFragmentToStart!=0){
             viewPager.setCurrentItem(viewPagerFragmentToStart);
         }
+        //Load image from Parse
+        ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
+        //Get Image from parse
+        if (image != null) {
+            imageProfileUrl = image.getUrl();
+        }
+        ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
+        Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+
 
     }
 
