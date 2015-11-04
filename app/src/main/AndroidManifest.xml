@@ -127,7 +127,11 @@
         </activity>
         <activity android:name=".activities.NewCampaignActivity"
             android:label="@string/title_activity_startnewcampaign_label"
-            android:theme="@style/AppTheme2">
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
 
         <service android:name="com.parse.PushService" />
