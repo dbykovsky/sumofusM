@@ -229,9 +229,9 @@ public class NewCampaignFragment extends Fragment {
                             sv.scrollTo(0, sv.getBottom());
                         }
                     });
-                    if (campaignGoal.getEditText().getText().length() == 0) {
-                        campaignGoal.getEditText().setText(" ");
-                    }
+//                    if (campaignGoal.getEditText().getText().length() == 0) {
+//                        campaignGoal.getEditText().setText("0");
+//                    }
                 }
             }
         });
@@ -390,7 +390,9 @@ public class NewCampaignFragment extends Fragment {
                     public void done(ParseException e) {
                         if (e == null) {
                             sendPushNotification();
-
+                            Toast.makeText(getActivity(),
+                                    "Thank you for your campaign.",
+                                    Toast.LENGTH_LONG).show();
                             getActivity().setResult(Activity.RESULT_OK);
                             getActivity().finish();
                         } else {
