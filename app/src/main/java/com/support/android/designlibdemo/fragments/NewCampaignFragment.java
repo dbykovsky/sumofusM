@@ -355,14 +355,12 @@ public class NewCampaignFragment extends Fragment {
 
 
                 // Add data to the campaign object:
-                campaign.setTitle(campaignTitle.getEditText().getText().toString());
-                campaign.setOverview(campaignOverview.getEditText().getText().toString());
-                campaign.setDescription(campaignDescription.getEditText().getText().toString());
-                campaign.setSignMessage(campaignMessage.getEditText().getText().toString());
-                String a = campaignGoal.getEditText().getText().toString();
-                campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString()));
-                campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString());
-               // campaign.setCategory(campaignCategory.getSelectedItem().toString());
+                campaign.setTitle(campaignTitle.getEditText().getText().toString().trim());
+                campaign.setOverview(campaignOverview.getEditText().getText().toString().trim());
+                campaign.setDescription(campaignDescription.getEditText().getText().toString().trim());
+                campaign.setSignMessage(campaignMessage.getEditText().getText().toString().trim());
+                campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString().trim()));
+                campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString().trim());
                 campaign.setCategory("none");
 
                 // Associate the campaign with the current user
