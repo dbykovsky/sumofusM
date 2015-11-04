@@ -8,6 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +53,8 @@ public class SignPetitionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Check Internet connection
+        if (isNetworkAvailable()) {
         setContentView(R.layout.activity_sign_petition);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -139,6 +143,7 @@ public class SignPetitionActivity extends AppCompatActivity {
                                         Intent i = new Intent(SignPetitionActivity.this, MainActivity.class);
                                         i.putExtra("page", 2);
                                         startActivity(i);
+                                        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
                                     }
 
                                 }
@@ -153,6 +158,10 @@ public class SignPetitionActivity extends AppCompatActivity {
 
     });
 
+    }
+    else {
+        Toast.makeText(this, "Internet NOT Connected, please turn on your Internet", Toast.LENGTH_SHORT).show();
+    }
     }
 
     @Override
@@ -213,6 +222,13 @@ public class SignPetitionActivity extends AppCompatActivity {
 
         }
         return s;
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+
     }
 
 
