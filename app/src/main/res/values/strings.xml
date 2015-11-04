@@ -81,10 +81,10 @@
   <string name="title_activity_login">Log in</string>
   <string name="title_activity_signup">Sign up</string>
   <string name="logout">Log Out</string>
-  <string name="prompt_username">User name</string>
-  <string name="prompt_useremail">User e-mail</string>
+  <string name="prompt_username">Display name</string>
+  <string name="prompt_useremail">Email</string>
   <string name="prompt_password">Password</string>
-  <string name="prompt_password_again">Password Again</string>
+  <string name="prompt_password_again">Confirm password</string>
   <string name="error_intro">"Please "</string>
   <string name="error_blank_username">"enter a name, "</string>
   <string name="error_blank_useremail">"enter an email"</string>
