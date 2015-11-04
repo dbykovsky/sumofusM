@@ -125,7 +125,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.NewCampaignActivity" >
+        <activity android:name=".activities.NewCampaignActivity"
+            android:label="@string/title_activity_startnewcampaign_label"
+            android:theme="@style/AppTheme2">
         </activity>
 
         <service android:name="com.parse.PushService" />
@@ -162,7 +164,7 @@
 
         <activity android:name=".activities.PhotoGalleryActivity"
             android:theme="@style/AppTheme2"
-            android:label="@string/title_activity_photogallery_lable"
+            android:label="@string/title_activity_photogallery_label"
             android:parentActivityName=".activities.CampaignDetailActivity"
             >
             <meta-data
