@@ -96,6 +96,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
    // TextView tvCampaignText;
     ImageView ivCampaignImage;
+    ImageView ivArrowDown;
     TextView tvCampaignOverview;
     TextView tvGoal;
     ExpandableTextView expandableTextView;
@@ -131,6 +132,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
+        ivArrowDown = (ImageView) findViewById(R.id.ivArrowDown);
      //   tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
         btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
@@ -138,6 +140,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
 
         if (campaign.getIsSupported()) {
             btTakeActionRipple.setVisibility(View.GONE);
+            ivArrowDown.setImageResource(R.drawable.ic_checked);
         }
         else {
             btTakeActionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -300,11 +303,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground(new SaveCallback() {
-                                               @Override
-                                               public void done(ParseException e) {
-                                                   getImagesUploadedByUserForCampaign(campaign.getObjectId());
-                                               }
-                                           });
+                    @Override
+                    public void done(ParseException e) {
+                        getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                    }
+                });
 
             } else if (requestCode == PICK_PHOTO_CODE) {
 

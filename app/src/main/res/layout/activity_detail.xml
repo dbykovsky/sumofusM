@@ -168,7 +168,7 @@
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:paddingBottom="40dp"
+                    android:paddingBottom="10dp"
                     >
 
                     <com.support.android.designlibdemo.utils.ExpandableTextView
@@ -186,6 +186,14 @@
                         android:paddingBottom="40dp"
                         android:autoLink="web"
                         /-->
+
+                    <ImageView
+                        android:id="@+id/ivArrowDown"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_arrow_down"
+                        android:paddingBottom="30dp" />
+
 
                 </LinearLayout>
 
