@@ -1,9 +1,12 @@
 package com.support.android.designlibdemo.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,24 +46,27 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Check Internet connection
+        if (isNetworkAvailable()) {
+            setContentView(R.layout.activity_sign_up);
 
-        setContentView(R.layout.activity_sign_up);
-
-        // Set up the signup form.
-        usernameEditText = (FloatLabel) findViewById(R.id.username_edit_text);
-        useremail = (FloatLabel) findViewById(R.id.useremail_edit_text);
-        passwordEditText = (FloatLabel) findViewById(R.id.password_edit_text);
-        passwordAgainEditText = (FloatLabel) findViewById(R.id.password_again_edit_text);
+            // Set up the signup form.
+            usernameEditText = (FloatLabel) findViewById(R.id.username_edit_text);
+            useremail = (FloatLabel) findViewById(R.id.useremail_edit_text);
+            passwordEditText = (FloatLabel) findViewById(R.id.password_edit_text);
+            passwordAgainEditText = (FloatLabel) findViewById(R.id.password_again_edit_text);
 
 
-        // Set up the submit button click handler
-        Button mActionButton = (Button) findViewById(R.id.action_button);
-        mActionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                signup();
-            }
-        });
-
+            // Set up the submit button click handler
+            Button mActionButton = (Button) findViewById(R.id.action_button);
+            mActionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    signup();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Internet NOT Connected, please turn on your Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signup() {
@@ -69,10 +75,10 @@ public class SignUpActivity extends AppCompatActivity {
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
 
-        final String username =   usernameEditText.getEditText().getText().toString();
-        final String uemail =   useremail.getEditText().getText().toString();
-        final String password =   passwordEditText.getEditText().getText().toString();
-        final String passwordAgain =   passwordAgainEditText.getEditText().getText().toString();
+        final String username = usernameEditText.getEditText().getText().toString();
+        final String uemail = useremail.getEditText().getText().toString();
+        final String password = passwordEditText.getEditText().getText().toString();
+        final String passwordAgain = passwordAgainEditText.getEditText().getText().toString();
 
         if (username.length() == 0) {
             validationError = true;
@@ -169,10 +175,17 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition( R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 
