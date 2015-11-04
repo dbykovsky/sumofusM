@@ -17,4 +17,9 @@ public class FragmentDialogOptionsPicker {
             "$25",
             "$50"
     };
+
+    public static String[] videoPlayerPicker = new String[]{
+            "YouTube",
+            "StandAlonePlayer",
+    };
 }
