@@ -113,4 +113,9 @@
         <item name="android:textColor">@color/text_hint_float_label_blue</item>
     </style>
 
+    <style name="HeaderTitleStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#F0FFFF</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
 </resources>

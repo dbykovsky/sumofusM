@@ -38,7 +38,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@color/hint_black"
+            app:expandedTitleTextAppearance="@style/HeaderTitleStyle"
             app:expandedTitleMarginStart="18dp"
             app:expandedTitleMarginEnd="20dp">
 
