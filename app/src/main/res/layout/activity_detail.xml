@@ -139,7 +139,8 @@
                 <LinearLayout
                     style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -163,14 +164,28 @@
                         android:text="Details"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingBottom="40dp"
+                    >
+
+                    <com.support.android.designlibdemo.utils.ExpandableTextView
+                        android:id="@+id/viewmore"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+                    <!--TextView
                         android:id="@+id/tvCampaignDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Details"
                         android:paddingBottom="40dp"
                         android:autoLink="web"
-                        />
+                        /-->
 
                 </LinearLayout>
 

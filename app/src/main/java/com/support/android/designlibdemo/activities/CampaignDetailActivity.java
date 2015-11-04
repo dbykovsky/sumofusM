@@ -64,6 +64,7 @@ import com.support.android.designlibdemo.models.Campaign;
 
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
+import com.support.android.designlibdemo.utils.ExpandableTextView;
 import com.support.android.designlibdemo.utils.PrettyText;
 
 import org.json.JSONException;
@@ -89,10 +90,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
     int goalInt;
     int progressInt;
 
-    TextView tvCampaignText;
+   // TextView tvCampaignText;
     ImageView ivCampaignImage;
     TextView tvCampaignOverview;
     TextView tvGoal;
+    ExpandableTextView expandableTextView;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
     RippleView btTakeActionRipple;
@@ -125,7 +127,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
-        tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
+     //   tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
         btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
@@ -170,7 +172,11 @@ public class CampaignDetailActivity extends AppCompatActivity {
             customProgress.setShowingPercentage(true);
             //set text above progress
             tvCampaignOverview.setText(campaign.getShortDescription());
-            tvCampaignText.setText(campaign.getLongDescription());
+
+        expandableTextView = (ExpandableTextView) findViewById(R.id.viewmore);
+        expandableTextView.setText(campaign.getLongDescription());
+
+      //  tvCampaignText.setText(campaign.getLongDescription());
 
             //set goal text
             decimalGoal = goal.addComma(campaign.getGoal()) + " signatures";
