@@ -181,6 +181,7 @@ public class CampaignDetailActivity extends AppCompatActivity {
             tvCampaignOverview.setText(campaign.getShortDescription());
 
         expandableTextView = (ExpandableTextView) findViewById(R.id.viewmore);
+
         expandableTextView.setText(campaign.getLongDescription());
 
       //  tvCampaignText.setText(campaign.getLongDescription());
