@@ -38,6 +38,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +58,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
@@ -85,6 +87,8 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int PICK_PHOTO_CODE = 2;
     private static final int CROP_PHOTO_CODE = 3;
     private static final String ITENT_TAG= "camp";
+
+    private final String CAMPAIGN_ACTIVITY_TAG = "CAMPAIGN_ACTIVITY";
 
     int goalInt;
     int progressInt;
@@ -289,8 +293,13 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 ParseObject photoPost = new ParseObject("Images");
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
-                photoPost.saveInBackground();
-                getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                photoPost.saveInBackground(new SaveCallback() {
+                                               @Override
+                                               public void done(ParseException e) {
+                                                   getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                                               }
+                                           });
+
             } else if (requestCode == PICK_PHOTO_CODE) {
 
                 photoUri = data.getData();
@@ -319,8 +328,13 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground();
-                photoPost.saveInBackground();
-                getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                photoPost.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                    }
+                });
+
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
 
@@ -332,7 +346,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
