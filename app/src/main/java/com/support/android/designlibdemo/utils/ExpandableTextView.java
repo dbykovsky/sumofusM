@@ -3,7 +3,11 @@ package com.support.android.designlibdemo.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -11,8 +15,8 @@ import android.widget.TextView;
 import com.support.android.designlibdemo.R;
 
 public class ExpandableTextView extends TextView {
-    private static final int DEFAULT_TRIM_LENGTH = 200;
-    private static final String ELLIPSIS = "..." + System.getProperty("line.separator") + " <<< Read more >>>";
+    private static final int DEFAULT_TRIM_LENGTH = 150;
+    private static final String ELLIPSIS = "..." + System.getProperty("line.separator") + "Read more >>>";
 
     private CharSequence originalText;
     private CharSequence trimmedText;
@@ -42,7 +46,14 @@ public class ExpandableTextView extends TextView {
     }
 
     private void setText() {
-        super.setText(getDisplayableText(), bufferType);
+        CharSequence currentText = getDisplayableText();
+        Spannable blueText = makeTextBlue(currentText);
+
+        if(trim){
+
+        }
+
+        super.setText(blueText, bufferType);
     }
 
     private CharSequence getDisplayableText() {
@@ -57,8 +68,18 @@ public class ExpandableTextView extends TextView {
         setText();
     }
 
+    //make text blue and noticable
+    private Spannable makeTextBlue(CharSequence sText){
+        Spannable userNameCommentBlue = new SpannableString(sText);
+        if(sText.length()>13 && trim){
+            userNameCommentBlue.setSpan(new ForegroundColorSpan(Color.BLUE), (sText.length()-13), sText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return userNameCommentBlue;
+    }
+
     private CharSequence getTrimmedText(CharSequence text) {
         if (originalText != null && originalText.length() > trimLength) {
+
             return new SpannableStringBuilder(originalText, 0, trimLength + 1).append(ELLIPSIS);
         } else {
             return originalText;
