@@ -17,22 +17,21 @@
 package com.support.android.designlibdemo.activities;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -46,26 +45,20 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
-import com.support.android.designlibdemo.dialogs.CameraDialog;
 import com.support.android.designlibdemo.dialogs.DonationDialog;
 import com.support.android.designlibdemo.dialogs.FragmentDialogOptionsPicker;
 import com.support.android.designlibdemo.fragments.CampaignsFragment;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.fragments.CampaignsSupportedFragment;
 import com.support.android.designlibdemo.fragments.VideosFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,58 +77,61 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+        //Check Internet connection
+        if (isNetworkAvailable()) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
+            final ActionBar ab = getSupportActionBar();
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.activity_main);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        //Populate current UserName
-        currentUser = ParseUser.getCurrentUser();
-        // Skip if already subscribed
-        subscribeUserToChannel();
-        //Load image from Parse
-        ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
-        //Get Image from parse
-        String imageProfileUrl = null;
-        if(image!=null){
-            imageProfileUrl = image.getUrl();
-        }
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
-       ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
-       Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
-               ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
-        ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
-        navigationView.addHeaderView(nav_header);
-
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-
-         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        if (viewPager != null) {
-            setupViewPager(viewPager);
-        }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createNewCampaign();
+            //Populate current UserName
+            currentUser = ParseUser.getCurrentUser();
+            // Skip if already subscribed
+            subscribeUserToChannel();
+            //Load image from Parse
+            ParseFile image = (ParseFile) currentUser.getParseFile("profilePicture");
+            //Get Image from parse
+            String imageProfileUrl = null;
+            if (image != null) {
+                imageProfileUrl = image.getUrl();
             }
-        });
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View nav_header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+            ivUserProfile = (ImageView) nav_header.findViewById(R.id.ProfileimageView);
+            Picasso.with(this).load(imageProfileUrl).into(ivUserProfile);
+            ((TextView) nav_header.findViewById(R.id.tv_userNameDrawer)).setText(currentUser.getUsername() + "'s dashboard");
+            ((TextView) nav_header.findViewById(R.id.tv_userEmailDrawer1)).setText(currentUser.getEmail());
+            navigationView.addHeaderView(nav_header);
+
+            if (navigationView != null) {
+                setupDrawerContent(navigationView);
+            }
+
+            viewPager = (ViewPager) findViewById(R.id.viewpager);
+            if (viewPager != null) {
+                setupViewPager(viewPager);
+            }
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createNewCampaign();
+                }
+            });
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+            else {
+                Toast.makeText(this, "Internet NOT Connected, please turn on your Internet" , Toast.LENGTH_SHORT).show();
+            }
     }
 
     @Override
@@ -292,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNewCampaign() {
         Intent i = new Intent(this, NewCampaignActivity.class);
         startActivityForResult(i, 0);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
     }
 
     private void subscribeUserToChannel() {
@@ -353,4 +349,10 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
     }
 
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+
+    }
 }

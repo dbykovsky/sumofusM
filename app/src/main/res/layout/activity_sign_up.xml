@@ -1,6 +1,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SignUpActivity" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SignUpActivity">
 
     <!-- Login form -->
 
@@ -18,10 +19,17 @@
                 android:id="@+id/username_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_round_corners"
                 android:hint="@string/prompt_username"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:layout="@layout/custom_float_label"
+                android:theme="@style/TextLabel"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
 
             <EditText
                 android:id="@+id/useremail_edit_text"
@@ -30,7 +38,14 @@
                 android:hint="@string/prompt_useremail"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:layout="@layout/custom_float_label"
+                android:theme="@style/TextLabel"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_round_corners"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
 
             <EditText
                 android:id="@+id/password_edit_text"
@@ -39,7 +54,14 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:layout="@layout/custom_float_label"
+                android:theme="@style/TextLabel"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_round_corners"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
 
             <EditText
                 android:id="@+id/password_again_edit_text"
@@ -51,20 +73,37 @@
                 android:singleLine="true"
                 android:imeActionId="@+id/edittext_action_signup"
                 android:imeActionLabel="@string/signup"
-                android:imeOptions="actionUnspecified" />
+                android:imeOptions="actionUnspecified"
+                android:layout="@layout/custom_float_label"
+                android:theme="@style/TextLabel"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/edit_text_round_corners"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
 
-
+            <com.andexert.library.RippleView
+                android:id="@+id/signup_ripple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_zoom="true"
+                app:rv_zoomScale="1.05"
+                app:rv_zoomDuration="200"
+                >
 
             <Button
                 android:id="@+id/action_button"
                 android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/signup"
                 android:layout_gravity="center"
+                android:background="@drawable/my_orange_buttons"
+                android:textColor="@color/white"
                 />
+            </com.andexert.library.RippleView>
 
         </LinearLayout>
     </ScrollView>
