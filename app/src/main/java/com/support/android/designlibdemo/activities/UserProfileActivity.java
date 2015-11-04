@@ -410,7 +410,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                currentUser.add("profilePicture", file);
+                currentUser.put("profilePicture", file);
                 currentUser.saveInBackground();
                 //Display image selected
                 ivUserPic.setImageBitmap(photoBitmap);
@@ -439,7 +439,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 currentUser.put("profilePicture", file);
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
