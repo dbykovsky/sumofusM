@@ -391,8 +391,8 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
 
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == TAKE_PHOTO_CODE) {
                 photoBitmap = BitmapFactory.decodeFile(photoUri.getPath());
                 Bitmap resizedImage = BitmapScaler.scaleToFitWidth(photoBitmap, 300);
@@ -467,7 +467,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         }
 
-        if (resultCode == MY_SCAN_REQUEST_CODE) {
+        else  {
             String resultDisplayStr;
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
