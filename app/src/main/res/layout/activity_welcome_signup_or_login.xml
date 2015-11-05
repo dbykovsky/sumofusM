@@ -6,7 +6,6 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="Welcome_LoginActivity_or_Signup">
-    >
 
 
 <com.flaviofaria.kenburnsview.KenBurnsView
@@ -101,6 +100,7 @@ tools:context="Welcome_LoginActivity_or_Signup">
             android:layout_alignParentLeft="true"
             app:layout_widthPercent="30%"
             android:textColor="@color/white"
+            android:textAllCaps="false"
             android:background="@color/translucent_button_sign_in"
             android:text="Login"
 
@@ -114,6 +114,7 @@ tools:context="Welcome_LoginActivity_or_Signup">
             android:layout_alignParentRight="true"
             app:layout_widthPercent="30%"
             android:textColor="@color/white"
+            android:textAllCaps="false"
             android:background="@color/translucent_button_sign_in"
             android:text="Register"
             />

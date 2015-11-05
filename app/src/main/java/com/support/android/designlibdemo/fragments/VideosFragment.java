@@ -43,6 +43,7 @@ public class VideosFragment extends Fragment {
         lManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lManager);
         recyclerView.setAdapter(new VideoAdapterRecyclerView(getActivity(), getVideoIds()));
+
     }
 
 

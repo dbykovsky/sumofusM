@@ -44,10 +44,6 @@ public class DonationDialog extends DialogFragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity(),android.R.style.Theme_Material_Light_Dialog_NoActionBar);
         alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setSingleChoiceItems(FragmentDialogOptionsPicker.donationOptionsPicker, -1, onChoiceClickListener);
-/*        EditText userInput = new EditText(getContext());
-        userInput.setHint("your value");
-        userInput.setId(R.id.enter_your_value_donate);
-        alertDialogBuilder.setView(userInput);*/
         alertDialogBuilder.setPositiveButton("OK", positiveClickListener);
         alertDialogBuilder.setNegativeButton("Cancel", cancelClickListener);
         return alertDialogBuilder.create();

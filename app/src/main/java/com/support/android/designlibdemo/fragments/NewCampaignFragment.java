@@ -129,13 +129,11 @@ public class NewCampaignFragment extends Fragment {
                 charCount = s.length();
                 if (charCount > MaxTitleCount) {
                     tvTitleHelp.setError("Really?!");
-                    tvTitleHelp.setTextColor(Color.RED);
                     tvTitleHelp.setText("That's a long title. " + charCount + "/" + MaxTitleCount + " ");
                 } else if (charCount > (MaxTitleCount / 2)) {
                     tvTitleHelp.setVisibility(View.VISIBLE);
                     tvTitleHelp.setText(charCount + "/" + MaxTitleCount + " ");
                     tvTitleHelp.setError(null);
-                    tvTitleHelp.setTextColor(Color.GRAY);
                 } else {
                     tvTitleHelp.setText("");
                 }
@@ -184,15 +182,13 @@ public class NewCampaignFragment extends Fragment {
 
                 if (charCount > MaxOverviewCount) {
                     tvOverviewHelp.setError("Really?!");
-                    tvOverviewHelp.setTextColor(Color.RED);
-                    tvOverviewHelp.setText("Really?! " + charCount + "/" + MaxOverviewCount + " ");
+                    tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
                 } else if (charCount > (MaxOverviewCount / 2)) {
                     tvGoalHelp.setError(null);
                     tvOverviewHelp.setVisibility(View.VISIBLE);
                     tvOverviewHelp.setText(charCount + "/" + MaxOverviewCount + " ");
                 } else {
                     tvOverviewHelp.setError(null);
-                    tvOverviewHelp.setTextColor(Color.GRAY);
                     tvOverviewHelp.setText("");
                 }
 
@@ -233,9 +229,9 @@ public class NewCampaignFragment extends Fragment {
                             sv.scrollTo(0, sv.getBottom());
                         }
                     });
-                    if (campaignGoal.getEditText().getText().length() == 0) {
-                        campaignGoal.getEditText().setText(" ");
-                    }
+//                    if (campaignGoal.getEditText().getText().length() == 0) {
+//                        campaignGoal.getEditText().setText("0");
+//                    }
                 }
             }
         });
@@ -255,24 +251,21 @@ public class NewCampaignFragment extends Fragment {
                     case 4:
                         tvGoalHelp.setVisibility(View.INVISIBLE);
                         tvGoalHelp.setError(null);
-                        tvGoalHelp.setTextColor(Color.GRAY);
                         tvGoalHelp.setText("Numbers only ");
                         break;
                     case 5:
                         tvGoalHelp.setVisibility(View.VISIBLE);
-                        tvGoalHelp.setText("Tens of thousands...");
+                        tvGoalHelp.setText("Tens of thousands");
                         break;
                     case 6:
-                        tvGoalHelp.setText("Hundreds of thousands ... ");
+                        tvGoalHelp.setText("Hundreds of thousands ");
                         break;
                     case 7:
-                        tvGoalHelp.setError("Really?! ");
-                        tvGoalHelp.setTextColor(Color.RED);
-                        tvGoalHelp.setText("Millions of users?! ");
+                        tvGoalHelp.setText("Millions of users");
                         break;
                     case 8:
-                        tvGoalHelp.setTextColor(Color.RED);
-                        tvGoalHelp.setText("Really?! We don't have MILLIONS of users?! ");
+                        tvGoalHelp.setError("Really?! ");;
+                        tvGoalHelp.setText("MILLIONS of users ");
                         break;
                     default:
                         tvGoalHelp.setText("Numbers only ");
@@ -313,7 +306,7 @@ public class NewCampaignFragment extends Fragment {
                 if (charCount > MaxMessageCount) {
                     tvMessageHelp.setError("Really?! ");
                     tvMessageHelp.setTextColor(Color.RED);
-                    tvMessageHelp.setText("Are you writting a book? " + charCount + "/" + MaxMessageCount + " ");
+                    tvMessageHelp.setText("That's a long message. " + charCount + "/" + MaxMessageCount + " ");
                 } else if (charCount > (MaxMessageCount / 2)) {
                     tvMessageHelp.setVisibility(View.VISIBLE);
                     tvMessageHelp.setText(charCount + "/" + MaxMessageCount + " ");
@@ -375,14 +368,12 @@ public class NewCampaignFragment extends Fragment {
 
 
                 // Add data to the campaign object:
-                campaign.setTitle(campaignTitle.getEditText().getText().toString());
-                campaign.setOverview(campaignOverview.getEditText().getText().toString());
-                campaign.setDescription(campaignDescription.getEditText().getText().toString());
-                campaign.setSignMessage(campaignMessage.getEditText().getText().toString());
-                String a = campaignGoal.getEditText().getText().toString();
-                campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString()));
-                campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString());
-               // campaign.setCategory(campaignCategory.getSelectedItem().toString());
+                campaign.setTitle(campaignTitle.getEditText().getText().toString().trim());
+                campaign.setOverview(campaignOverview.getEditText().getText().toString().trim());
+                campaign.setDescription(campaignDescription.getEditText().getText().toString().trim());
+                campaign.setSignMessage(campaignMessage.getEditText().getText().toString().trim());
+                campaign.setGoal(Integer.parseInt(campaignGoal.getEditText().getText().toString().trim()));
+                campaign.setCampaignUrl(campaignUrl.getEditText().getText().toString().trim());
                 campaign.setCategory("none");
 
                 // Associate the campaign with the current user
@@ -399,7 +390,9 @@ public class NewCampaignFragment extends Fragment {
                     public void done(ParseException e) {
                         if (e == null) {
                             sendPushNotification();
-
+                            Toast.makeText(getActivity(),
+                                    "Thank you for your campaign.",
+                                    Toast.LENGTH_LONG).show();
                             getActivity().setResult(Activity.RESULT_OK);
                             getActivity().finish();
                         } else {

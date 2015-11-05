@@ -16,23 +16,6 @@
     android:padding="5dp">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="@string/create_campaign"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:verticalScrollbarPosition="right"
-        android:textStyle="bold"
-        android:typeface="sans"
-        android:gravity="center|center_vertical|center_horizontal"
-        android:elegantTextHeight="true"
-        android:layout_gravity="center"
-        android:paddingTop="8dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -59,7 +42,9 @@
             android:hint="@string/hint_title"
             android:theme="@style/TextLabel"
             android:maxLines="1"
-            android:maxLength="40"/>
+            android:maxLength="40"
+            android:layout="@layout/custom_float_label"
+            />
     </RelativeLayout>
 
 
@@ -87,6 +72,7 @@
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
         android:hint="@string/hint_overview"
+        android:layout="@layout/custom_float_label"
         />
 
    </RelativeLayout>
@@ -116,7 +102,10 @@
         android:inputType="textMultiLine"
         android:hint="@string/hint_description"
         android:theme="@style/TextLabel"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:layout="@layout/custom_float_label"
+
+        />
     </RelativeLayout>
 
     <RelativeLayout
@@ -143,7 +132,9 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
-        android:hint="@string/hint_sign_message" />
+        android:hint="@string/hint_sign_message"
+        android:layout="@layout/custom_float_label"
+        />
     </RelativeLayout>
 
     <RelativeLayout
@@ -170,7 +161,9 @@
         android:layout_height="wrap_content"
         android:theme="@style/TextLabel"
         android:hint="@string/hint_goal"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout="@layout/custom_float_label"
+        />
     </RelativeLayout>
 
     <RelativeLayout
@@ -188,7 +181,9 @@
         android:inputType="textMultiLine"
         android:theme="@style/TextLabel"
         android:hint="@string/hint_url"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:layout="@layout/custom_float_label"
+        />
 </RelativeLayout>
 
     <RelativeLayout
@@ -199,7 +194,7 @@
             android:id="@+id/photo_button"
             android:layout_width="80sp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_camera_white"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -208,7 +203,7 @@
             android:id="@+id/upload_button"
             android:layout_width="80sp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_upload"
+            android:src="@drawable/ic_upload_white"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/photo_button"
             android:layout_toEndOf="@+id/photo_button"

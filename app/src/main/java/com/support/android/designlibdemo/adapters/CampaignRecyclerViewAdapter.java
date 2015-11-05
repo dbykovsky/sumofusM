@@ -100,7 +100,7 @@ public class CampaignRecyclerViewAdapter extends RecyclerView.Adapter<CampaignRe
             holder.btTakeAction.setOnClickListener(null);
         }else{
             //make button orange, change text, add listener
-            holder.btTakeAction.setText("Take an action");
+            holder.btTakeAction.setText(R.string.take_action);
             holder.btTakeAction.setBackgroundColor(holder.btTakeAction.getResources().getColor(R.color.orange));
             holder.btTakeAction.setOnClickListener(new View.OnClickListener() {
                 @Override

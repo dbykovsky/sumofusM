@@ -125,7 +125,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.NewCampaignActivity" >
+        <activity android:name=".activities.NewCampaignActivity"
+            android:label="@string/title_activity_startnewcampaign_label"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
 
         <service android:name="com.parse.PushService" />
@@ -158,11 +164,11 @@
 
         <meta-data
             android:name="com.parse.push.notification_icon"
-            android:resource="@mipmap/new_icon" />
+            android:resource="@drawable/ic_new_campaign" />
 
         <activity android:name=".activities.PhotoGalleryActivity"
             android:theme="@style/AppTheme2"
-            android:label="@string/title_activity_photogallery_lable"
+            android:label="@string/title_activity_photogallery_label"
             android:parentActivityName=".activities.CampaignDetailActivity"
             >
             <meta-data

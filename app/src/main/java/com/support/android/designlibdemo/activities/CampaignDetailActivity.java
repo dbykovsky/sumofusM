@@ -38,6 +38,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +58,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.support.android.designlibdemo.R;
 import com.support.android.designlibdemo.dialogs.CameraDialog;
@@ -64,6 +66,7 @@ import com.support.android.designlibdemo.models.Campaign;
 
 import com.support.android.designlibdemo.utils.BitmapScaler;
 import com.support.android.designlibdemo.utils.CustomProgress;
+import com.support.android.designlibdemo.utils.ExpandableTextView;
 import com.support.android.designlibdemo.utils.PrettyText;
 
 import org.json.JSONException;
@@ -86,13 +89,17 @@ public class CampaignDetailActivity extends AppCompatActivity {
     private static final int CROP_PHOTO_CODE = 3;
     private static final String ITENT_TAG= "camp";
 
+    private final String CAMPAIGN_ACTIVITY_TAG = "CAMPAIGN_ACTIVITY";
+
     int goalInt;
     int progressInt;
 
-    TextView tvCampaignText;
+   // TextView tvCampaignText;
     ImageView ivCampaignImage;
+    ImageView ivArrowDown;
     TextView tvCampaignOverview;
     TextView tvGoal;
+    ExpandableTextView expandableTextView;
     CustomProgress customProgress;
     FloatingActionButton floatingCamera;
     RippleView btTakeActionRipple;
@@ -125,13 +132,15 @@ public class CampaignDetailActivity extends AppCompatActivity {
         customProgress = (CustomProgress)findViewById(R.id.pbGoal);
         ivCampaignImage = (ImageView) findViewById(R.id.ivCampaighnImage);
         tvCampaignOverview = (TextView) findViewById(R.id.tvCampaignOverview);
-        tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
+        ivArrowDown = (ImageView) findViewById(R.id.ivArrowDown);
+     //   tvCampaignText = (TextView) findViewById(R.id.tvCampaignDetails);
         tvGoal = (TextView)findViewById(R.id.tvCampaignGoal);
         btTakeActionRipple = (RippleView) findViewById(R.id.bt_take_an_action_ripple);
         campaign = (Campaign) getIntent().getSerializableExtra(ITENT_TAG);
 
         if (campaign.getIsSupported()) {
             btTakeActionRipple.setVisibility(View.GONE);
+            ivArrowDown.setImageResource(R.drawable.ic_checked);
         }
         else {
             btTakeActionRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -170,7 +179,12 @@ public class CampaignDetailActivity extends AppCompatActivity {
             customProgress.setShowingPercentage(true);
             //set text above progress
             tvCampaignOverview.setText(campaign.getShortDescription());
-            tvCampaignText.setText(campaign.getLongDescription());
+
+        expandableTextView = (ExpandableTextView) findViewById(R.id.viewmore);
+
+        expandableTextView.setText(campaign.getLongDescription());
+
+      //  tvCampaignText.setText(campaign.getLongDescription());
 
             //set goal text
             decimalGoal = goal.addComma(campaign.getGoal()) + " signatures";
@@ -289,8 +303,13 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 ParseObject photoPost = new ParseObject("Images");
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
-                photoPost.saveInBackground();
-                getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                photoPost.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                    }
+                });
+
             } else if (requestCode == PICK_PHOTO_CODE) {
 
                 photoUri = data.getData();
@@ -319,8 +338,13 @@ public class CampaignDetailActivity extends AppCompatActivity {
                 photoPost.put("imagePost", file);
                 photoPost.put("campaignId", campaign.getObjectId());
                 photoPost.saveInBackground();
-                photoPost.saveInBackground();
-                getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                photoPost.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        getImagesUploadedByUserForCampaign(campaign.getObjectId());
+                    }
+                });
+
             } else if (requestCode == CROP_PHOTO_CODE) {
                 photoBitmap = data.getParcelableExtra("data");
 
@@ -332,7 +356,6 @@ public class CampaignDetailActivity extends AppCompatActivity {
             }
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,9 +1,12 @@
 package com.support.android.designlibdemo.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iangclifton.android.floatlabel.FloatLabel;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -34,53 +38,47 @@ import java.util.Locale;
 public class SignUpActivity extends AppCompatActivity {
 
     // UI references.
-    private EditText usernameEditText;
-    private EditText useremail;
-    private EditText passwordEditText;
-    private EditText passwordAgainEditText;
+    private FloatLabel usernameEditText;
+    private FloatLabel useremail;
+    private FloatLabel passwordEditText;
+    private FloatLabel passwordAgainEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Check Internet connection
+        if (isNetworkAvailable()) {
+            setContentView(R.layout.activity_sign_up);
 
-        setContentView(R.layout.activity_sign_up);
+            // Set up the signup form.
+            usernameEditText = (FloatLabel) findViewById(R.id.username_edit_text);
+            useremail = (FloatLabel) findViewById(R.id.useremail_edit_text);
+            passwordEditText = (FloatLabel) findViewById(R.id.password_edit_text);
+            passwordAgainEditText = (FloatLabel) findViewById(R.id.password_again_edit_text);
 
-        // Set up the signup form.
-        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
-        useremail = (EditText) findViewById(R.id.useremail_edit_text);
-        passwordEditText = (EditText) findViewById(R.id.password_edit_text);
-        passwordAgainEditText = (EditText) findViewById(R.id.password_again_edit_text);
-        passwordAgainEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == R.id.edittext_action_signup ||
-                        actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+
+            // Set up the submit button click handler
+            Button mActionButton = (Button) findViewById(R.id.action_button);
+            mActionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
                     signup();
-                    return true;
                 }
-                return false;
-            }
-        });
-
-        // Set up the submit button click handler
-        Button mActionButton = (Button) findViewById(R.id.action_button);
-        mActionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                signup();
-            }
-        });
-
+            });
+        } else {
+            Toast.makeText(this, "Internet NOT Connected, please turn on your Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signup() {
-        final String username = usernameEditText.getText().toString().trim();
-        final String password = passwordEditText.getText().toString().trim();
-        final String uemail = useremail.getText().toString().trim();
-        final String passwordAgain = passwordAgainEditText.getText().toString().trim();
-
+        // Validate the sign up data
         // Validate the sign up data
         boolean validationError = false;
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+
+        final String username = usernameEditText.getEditText().getText().toString();
+        final String uemail = useremail.getEditText().getText().toString();
+        final String password = passwordEditText.getEditText().getText().toString();
+        final String passwordAgain = passwordAgainEditText.getEditText().getText().toString();
 
         if (username.length() == 0) {
             validationError = true;
@@ -177,10 +175,17 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition( R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+        overridePendingTransition(R.anim.out_slide_in_left, R.anim.out_slide_out_right);
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 

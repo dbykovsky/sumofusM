@@ -403,14 +403,14 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 // Convert bitmap to a byte array
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 30, stream);
                 byte[] image = stream.toByteArray();
 
                 // Create the ParseFile with an image
                 final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
                 //posting an image file with campaign id to Parse to Images object
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                currentUser.add("profilePicture", file);
+                currentUser.put("profilePicture", file);
                 currentUser.saveInBackground();
                 //Display image selected
                 ivUserPic.setImageBitmap(photoBitmap);
@@ -432,14 +432,13 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 // Convert bitmap to a byte array
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                resizedImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                resizedImage.compress(Bitmap.CompressFormat.PNG, 30, stream);
                 byte[] image = stream.toByteArray();
                 // Create the ParseFile with an image
                 final ParseFile file = new ParseFile("profile_image_"+ParseUser.getCurrentUser().getUsername() + ".jpg", image);
                 //posting an image file with campaign id to Parse to Images object
                 // ParseObject photoPost = new ParseObject("Images");
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 currentUser.put("profilePicture", file);
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
